@@ -18,12 +18,13 @@ module Bookmaker
   
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
   
-  autoload :Version,    "bookmaker/version"
   autoload :Cli,        "bookmaker/cli"
+  autoload :Exporter,   "bookmaker/exporter"
   autoload :Markdown,   "bookmaker/adapters/markdown"
   autoload :Parser,     "bookmaker/parser"
-  autoload :Exporter,   "bookmaker/exporter"
-  
+  autoload :Stats,      "bookmaker/stats"
+  autoload :Version,    "bookmaker/version"
+    
   Encoding.default_internal = "utf-8"
   Encoding.default_external = "utf-8"
 
@@ -34,7 +35,8 @@ module Bookmaker
     raise "Invalid Bookmaker directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)
     erb = ERB.new(content).result
-    YAML.load(erb).with_indifferent_access
+
+    YAML.load(erb)#.with_indifferent_access
   end
   def self.logger
      @logger ||= Logger.new(File.open("/tmp/bookmaker.log", "a"))

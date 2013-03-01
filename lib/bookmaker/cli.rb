@@ -24,6 +24,7 @@ module Bookmaker
         raise Error, "The --only option need to be one of: #{FORMATS.join(", ")}"
       end
       # inside_ebook!
+      puts "Here"
 
       Bookmaker::Exporter.run(root_dir, options)
     end

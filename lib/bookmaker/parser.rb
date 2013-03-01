@@ -3,7 +3,7 @@ require 'open3'
 module Bookmaker
   module Parser
     autoload :HTML  , "bookmaker/parser/html"
-#    autoload :PDF   , "bookmaker/parser/pdf"
+    autoload :PDF   , "bookmaker/parser/pdf"
 #    autoload :Epub  , "bookmaker/parser/epub"
 #    autoload :Mobi  , "bookmaker/parser/mobi"
 #    autoload :Txt   , "bookmaker/parser/txt"
@@ -18,7 +18,9 @@ module Bookmaker
       attr_accessor :source
 
       def self.parse(root_dir)
+        puts "Base.parse"
         new(root_dir).parse
+        puts "exit"
       end
 
       def initialize(root_dir)
@@ -37,7 +39,18 @@ module Bookmaker
       def config
         Bookmaker.config(root_dir)
       end
-
+      def entries
+        puts "Entries"
+        chapters = []
+        config['chapters'].each do |sections|
+          files = []
+          sections.each do |s|
+            files << Dir["**/#{s}"]
+          end
+          chapters << files
+        end
+        chapters
+      end
       # Render a eRb template using +locals+ as data seed.
       #
       def render_template(file, locals = {})

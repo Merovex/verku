@@ -18,17 +18,19 @@ module Bookmaker
     end
 
     def export!
+      puts root_dir.inspect
       helper = root_dir.join("config/helper.rb")
       load(helper) if helper.exist?
 
-      export_pdf = [nil, "pdf"].include?(options[:only])
+      export_pdf  = [nil, "pdf"].include?(options[:only])
       export_epub = [nil, "mobi", "epub"].include?(options[:only])
       export_mobi = [nil, "mobi"].include?(options[:only])
-      export_txt = [nil, "txt"].include?(options[:only])
+      export_txt  = [nil, "txt"].include?(options[:only])
 
       exported = []
       exported << Parser::HTML.parse(root_dir)
-      # exported << Parser::PDF.parse(root_dir) if export_pdf && Dependency.prince?
+      # raise exported.inspect
+      exported << Parser::PDF.parse(root_dir) if export_pdf# && Dependency.prince?
       # exported << Parser::Epub.parse(root_dir) if export_epub
       # exported << Parser::Mobi.parse(root_dir) if export_mobi && Dependency.kindlegen?
       # exported << Parser::Txt.parse(root_dir) if export_txt && Dependency.html2text?

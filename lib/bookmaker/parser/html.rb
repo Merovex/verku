@@ -24,6 +24,7 @@ module Bookmaker
       # to <tt>output/book_name.html</tt>.
       #
       def parse
+        puts "HTML Parse"
         reset_footnote_index!
 
         File.open(root_dir.join("output/#{name}.html"), "w") do |file|
@@ -41,26 +42,31 @@ module Bookmaker
       # Return all chapters wrapped in a <tt>div.chapter</tt> tag.
       #
       def content
-        String.new.tap do |chapters|
-          entries.each do |entry|
-            files = chapter_files(entry)
-
-            # no markup files, so skip to the next one!
-            next if files.empty?
-
-            chapters << %[<div class="chapter">#{render_chapter(files)}</div>]
-          end
-        end
+        puts "Content"
+        puts entries.inspect
+        
+        # String.new.tap do |chapters|
+        #   entries.each do |entry|
+        #     files = chapter_files(entry)
+        # 
+        #     # no markup files, so skip to the next one!
+        #     next if files.empty?
+        # 
+        #     chapters << %[<div class="chapter">#{render_chapter(files)}</div>]
+        #   end
+        # end
       end
 
-      # Return a list of all recognized files.
-      #
-      def entries
-        Dir.entries(source).sort.inject([]) do |buffer, entry|
-          buffer << source.join(entry) if valid_entry?(entry)
-          buffer
-        end
-      end
+      # Return a list of all recognized files.      
+      # def entries
+      #   puts "Entries"
+      #   puts Bookmaker.config(root_dir).inspect
+      #   # puts "Entryes"
+      #   Dir.entries(source).sort.inject([]) do |buffer, entry|
+      #     buffer << source.join(entry) if valid_entry?(entry)
+      #     buffer
+      #   end
+      # end
 
       private
       def chapter_files(entry)
@@ -157,6 +163,7 @@ module Bookmaker
       # Parse layout file, making available all configuration entries.
       #
       def parse_layout(html)
+        puts "parse layout."
         toc = TOC::HTML.generate(html)
         locals = config.merge({
           :content   => toc.content,
