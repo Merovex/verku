@@ -5,4 +5,4 @@ Feature: Food
 
   Scenario: Do I work
     When I run "bookmaker --version"
-    Then the output should contain "bookmaker version"
+    Then the output should contain "Bookmaker version"

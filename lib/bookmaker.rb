@@ -20,6 +20,9 @@ module Bookmaker
   
   autoload :Version,    "bookmaker/version"
   autoload :Cli,        "bookmaker/cli"
+  autoload :Markdown,   "bookmaker/adapters/markdown"
+  autoload :Parser,     "bookmaker/parser"
+  autoload :Exporter,   "bookmaker/exporter"
   
   Encoding.default_internal = "utf-8"
   Encoding.default_external = "utf-8"
@@ -28,7 +31,7 @@ module Bookmaker
     root_dir ||= Pathname.new(Dir.pwd)
     path = root_dir.join("_config.yml")
 
-    raise "Invalid Kitabu directory; couldn't found #{path} file." unless File.file?(path)
+    raise "Invalid Bookmaker directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)
     erb = ERB.new(content).result
     YAML.load(erb).with_indifferent_access

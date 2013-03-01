@@ -2,7 +2,7 @@
 require 'thor'
 module Bookmaker
   class Cli < Thor
-    FORMATS = %w[pdf html epub mobi txt]
+    FORMATS = %w[pdf draft proof html epub mobi txt]
     check_unknown_options!
     
     def self.exit_on_failure?
@@ -15,13 +15,24 @@ module Bookmaker
       super
     end
     
+    desc "export [OPTIONS]", "Export e-book"
+    method_option :only, :type => :string, :desc => "Can be one of: #{FORMATS.join(", ")}"
+    method_option :open, :type => :boolean, :desc => "Automatically open PDF (Preview.app for Mac OS X and xdg-open for Linux)"
+
+    def export
+      if options[:only] && !FORMATS.include?(options[:only])
+        raise Error, "The --only option need to be one of: #{FORMATS.join(", ")}"
+      end
+      # inside_ebook!
+
+      Bookmaker::Exporter.run(root_dir, options)
+    end
+    
     desc "version", "Prints the Bookmaker's version information"
     map %w(-v --version) => :version
-
-    desc "version", "Display version of bookmaker."
     def version
-      # say "Bookmaker version #{Bookmaker::Version::STRING}"
-      say "Bookmaker version #{Version::String}"
+      # say "Bookmaker version #{Bookmaker::Version::VERSION}"
+      say "Bookmaker version #{Bookmaker::VERSION}"
     end
     
     desc "stats", "Display some stats about your e-book"
@@ -38,15 +49,16 @@ module Bookmaker
         "Code blocks: #{stats.code_blocks}"
       ].join("\n")
     end
+    
     private
-    def config
-      YAML.load_file(config_path).with_indifferent_access
-    end
-    # def config_path
-    #   root_dir.join("_config.yml")
-    # end
-    # def root_dir
-    #   @root ||= Pathname.new(Dir.pwd)
-    # end
+      def config
+        YAML.load_file(config_path).with_indifferent_access
+      end
+      def config_path
+        root_dir.join("_config.yml")
+      end
+      def root_dir
+        @root ||= Pathname.new(Dir.pwd)
+      end
   end
 end
