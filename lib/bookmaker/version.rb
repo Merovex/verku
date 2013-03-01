@@ -1,0 +1,3 @@
+module Bookmaker
+  VERSION = "0.0.1"
+end
