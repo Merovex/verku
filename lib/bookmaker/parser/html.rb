@@ -2,6 +2,16 @@ require 'kramdown'
 module Bookmaker
   module Parser
     class HTML < Base
+      def content
+        raw = []
+        entries.keys.each do |chapter|
+          raw << "{::nomarkdown}<h2>#{chapter.split(/_/)[1].gsub('-',' ')}</h2>{:/}"
+          entries[chapter].each do |section|
+            raw << read_content(section)[0] + "\n\n* * *"
+          end
+        end
+        raw
+      end
       def parse
         locals = config.merge({
                   :contents => parse_layout(content)

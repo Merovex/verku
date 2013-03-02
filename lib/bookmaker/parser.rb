@@ -38,17 +38,18 @@ module Bookmaker
         Bookmaker.config(root_dir)
       end
       def entries
-        config['sections'].map{|s| Dir["**/#{s}"][0] }.compact
-      end
-      def content
-        raw = []
-        entries.each do |s|
-          raw << read_content(s)[0]
+        return @entries unless @entries.nil?
+        files = Dir["text/**/*.md"]
+        @entries = {}
+        files.each do |f|
+          # puts "Entries #{f}"
+          k = File.dirname(f)
+          k.gsub!('text/','')
+          @entries[k] = [] if @entries[k].nil?
+          @entries[k] << f
         end
-        raw
+        return @entries
       end
-      # Render a eRb template using +locals+ as data seed.
-      #
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }
       end
