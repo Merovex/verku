@@ -19,12 +19,12 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_development_dependency "cucumber"
+  s.add_dependency "activesupport"
   s.add_development_dependency "aruba"
-  # s.add_dependency "active_support/all"
-  s.add_dependency "thor"  
-  s.add_dependency "kramdown"
+  s.add_development_dependency "cucumber"
   s.add_dependency "eeepub"
+  s.add_dependency "kramdown"
+  s.add_dependency "thor"  
   # s.add_dependency "erb"
   # s.add_dependency "logger"
   s.add_dependency "nokogiri"

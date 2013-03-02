@@ -16,8 +16,12 @@ module Bookmaker
     end
     
     desc "create", "Start new work"
-    def create
-      puts "Hello #{title}"
+    def create(path)
+      puts "A Million Monkeys Writing Your Masterpiece."
+      # puts path.squish.gsub(' ','-')
+      generator = Generator.new
+      generator.destination_root = path.squish.gsub(' ','-')
+      generator.invoke_all
     end
     
     desc "export [OPTIONS]", "Export e-book"

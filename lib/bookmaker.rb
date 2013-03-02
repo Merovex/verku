@@ -1,4 +1,6 @@
 # require "bookmaker/version"
+require "active_support/all"
+require "awesome_print"
 require "eeepub"
 require "erb"
 require "logger"
@@ -20,6 +22,7 @@ module Bookmaker
   
   autoload :Cli,        "bookmaker/cli"
   autoload :Exporter,   "bookmaker/exporter"
+  autoload :Generator,  "bookmaker/generator"
   autoload :Markdown,   "bookmaker/adapters/markdown"
   autoload :Parser,     "bookmaker/parser"
   autoload :Stats,      "bookmaker/stats"

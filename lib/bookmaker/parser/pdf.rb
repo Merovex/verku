@@ -1,4 +1,5 @@
 require 'kramdown'
+require 'awesome_print'
 
 module Bookmaker
   module Parser
@@ -6,15 +7,15 @@ module Bookmaker
       def parse
         filename = root_dir.join("output/#{name}.tex")
         
-        support_dir = "#{File.dirname(__FILE__)}/../support"
-        output = File.read("#{support_dir}/template.tex")
-        output.gsub!(%r{<!--CONTENTS-->}, parse_layout(content))
-        output.gsub!(%r{<!--AUTHOR-->}, config['author']['name'])
-        output.gsub!(%r{<!--TITLE-->}, config['title'])
-        output.gsub!(%r{<!--IBSN-->}, config['title'])
-        output.gsub!(%r{<!--COVERDESIGN-->}, config['design']['cover'] || '')
-        output.gsub!(%r{<!--BOOKDESIGN-->}, config['design']['book'] || '')
-        output.gsub!(%r{<!--ISBN-->}, config["isbn"].to_s)
+        # support_dir = "#{File.dirname(__FILE__)}/../support"
+        locals = config.merge({
+                  "contents"   => parse_layout(content)
+                  # :toc       => toc.to_html,
+                  # :changelog => render_changelog
+                 })
+                 ap locals
+                 ap root_dir.join("templates/pdf/layout.erb")
+        output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)
         
         File.open(filename, 'w').write(output)
         true

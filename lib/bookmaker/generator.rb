@@ -6,18 +6,23 @@ module Bookmaker
     end
     def build_config_file      
       puts "Building Configuration File"
+      @title = File.basename(destination_root).gsub('-', ' ')
       @name = full_name
       @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
       @year = Date.today.year
-      template "config.erb", "config/kitabu.yml"
+      template "config.erb", "_config.yml"
+    end
+    def copy_pdf_templates
+      copy_file "latex.erb"  , "templates/pdf/layout.erb"
     end
     def copy_sample_text
       puts "Copying Sample Text"
-      copy_file "sample.md"   , "text/01_Welcome.md"
+      copy_file "sample.md"   , "text/01-Welcome.md"
     end
     def create_directories
       puts "Creating Directories"
       empty_directory "output"
+      empty_directory "templates"
       empty_directory "images"
     end
     private
@@ -26,7 +31,7 @@ module Bookmaker
     #
     def full_name
       name = `finger $USER 2> /dev/null | grep Login | colrm 1 46`.chomp
-      name.present? ? name.squish : "John Doe"
+      name.empty? ? "John Doe" : name.squish# : "John Doe"
     end
   end
 end

@@ -100,7 +100,6 @@
 \newcommand{\Dash}{\thinspace---\thinspace}
 \newcommand{\dash}{\tk{--Wrong Dash--}}
 
-
 %========================
 % Dates
 \usepackage{datetime}
@@ -121,10 +120,10 @@
 % Book-Specific Metadata
 \def\NextBook{Luctation}
 \def\ReturningCharacters{Bophendze and Smee}
-\title{<!--TITLE-->}
-\author{<!--AUTHOR-->}
-\date{\today}
-\newdate{firstprint}{1}{10}{2013} % Setting January, 2011; Sam's Birthday.
+\title{<%= title %>}
+\author{<%= authors.join(', ') %>}
+\date{<%= published_at %>}
+\newdate{firstprint}{<%= published_at.split('-')[2]%>}{<%= published_at.split('-')[1]%>}{<%= published_at.split('-')[0]%>}
 % \newcommand{\isbn}{<}
 \renewcommand{\thesection}{\arabic{section}.}
 
@@ -162,18 +161,18 @@
   book are fictional, and any resemblance to real people or incidents is
   purely coincidental.\newline
 
-  \par\noindent\emph{Copyright \copyright{} \yearonly\displaydate{firstprint} by \theauthor.}\newline
+  \par\noindent\emph{<%= copyright %>}\newline
   
-  \par\noindent Cover Design by <!--COVERDESIGN-->\newline
+  \par\noindent Cover Design by <%= name %>\newline
 
-  \par\noindent Book Design by <!--BOOKDESIGN-->\newline
+  \par\noindent Book Design by <%= name %>\newline
 
   \par\noindent All rights reserved.\newline
 
   \par\noindent No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.\newline
 
   \par\noindent \theauthor
-  \par\noindent Visit my website at \url{http://dausha.net}\newline
+  \par\noindent Visit my website at \url{<%= base_url %>}\newline
 
   \par\noindent Printed in the United States of America
   \newline
@@ -181,7 +180,7 @@
   \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
   \newline
   
-  \par\noindent ISBN-13 <!--ISBN-->
+  \par\noindent <%= identifier['type'] %> <%= identifier['id'] %>
   \vspace*{\fill}
   \newpage
 % \fi
@@ -192,8 +191,11 @@
 \tableofcontents
 
 \mainmatter
-\pagestyle{ebook}
-\sloppy
-<!--CONTENTS-->
+  \pagestyle{ebook}
+  \sloppy
+
+<%= contents %>
+
+\backmatter
 
 \end{document}
