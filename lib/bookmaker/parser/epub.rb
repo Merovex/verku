@@ -2,7 +2,8 @@ module Bookmaker
   module Parser
     class Epub < Base
       def sections
-        @sections ||= html.css("div.chapter").each_with_index.map do |chapter, index|
+        @sections ||= html.css("div.section").each_with_index.map do |chapter, index|
+          puts "Processing Section"
           OpenStruct.new({
             :index    => index,
             :filename => "section_#{index}.html",
@@ -12,33 +13,26 @@ module Bookmaker
         end
       end
 
-      def epub
-        @epub ||= EeePub::Maker.new
-      end
-
-      def html
-        @html ||= Nokogiri::HTML(html_path.read)
-      end
+      def epub; @epub ||= EeePub.make ;end
+      def html; @html ||= Nokogiri::HTML(html_path.read); end
 
       def parse
-        epub.title        config[:title]
-        epub.language     config[:language]
-        epub.creator      config[:authors].to_sentence
-        epub.publisher    config[:publisher]
-        epub.date         config[:published_at]
-        epub.uid          config[:uid]
-        epub.identifier   config[:identifier][:id], :scheme => config[:identifier][:type]
+        epub.title        config["title"]
+        epub.language     config["language"]
+        epub.creator      config["authors"].to_sentence
+        epub.publisher    config["publisher"]
+        epub.date         config["published_at"]
+        epub.uid          config["uid"]
+        epub.identifier   config["identifier"]["id"], :scheme => config["identifier"]["type"]
         epub.cover_page   cover_image if cover_image && File.exist?(cover_image)
-
+        
         write_sections!
         write_toc!
-
+        
         epub.files    sections.map(&:filepath) + assets
         epub.nav      navigation
-        epub.toc_page toc_path
-
+        
         epub.save(epub_path)
-
         true
       rescue Exception
         p $!, $@
@@ -47,7 +41,6 @@ module Bookmaker
 
       def write_toc!
         toc = TOC::Epub.new(navigation)
-
         File.open(toc_path, "w") do |file|
           file << toc.to_html
         end
@@ -56,7 +49,6 @@ module Bookmaker
       def write_sections!
         # First we need to get all ids, which are used as
         # the anchor target.
-        #
         links = sections.inject({}) do |buffer, section|
           section.html.css("[id]").each do |element|
             anchor = "##{element["id"]}"

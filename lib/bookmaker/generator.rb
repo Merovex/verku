@@ -14,6 +14,7 @@ module Bookmaker
     def copy_templates
       copy_file "latex.erb",  "templates/pdf/layout.erb"
       copy_file "html.erb",   "templates/html/layout.erb"
+      copy_file "epub.erb",   "templates/epub/page.erb"
     end
     def copy_sample_text
       copy_file "sample.md"   , "text/01-Welcome.md"

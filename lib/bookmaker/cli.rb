@@ -18,7 +18,6 @@ module Bookmaker
     desc "create", "Start new work"
     def create(path)
       puts "A Million Monkeys Writing Your Masterpiece."
-      # puts path.squish.gsub(' ','-')
       generator = Generator.new
       generator.destination_root = path.squish.gsub(' ','-')
       generator.invoke_all
@@ -32,8 +31,6 @@ module Bookmaker
         raise Error, "The --only option need to be one of: #{FORMATS.join(", ")}"
       end
       # inside_ebook!
-      puts "Here"
-
       Bookmaker::Exporter.run(root_dir, options)
     end
     

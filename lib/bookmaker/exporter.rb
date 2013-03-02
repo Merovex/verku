@@ -30,7 +30,7 @@ module Bookmaker
       exported = []
       exported << Parser::PDF.parse(root_dir) if export_pdf# && Dependency.prince?
       exported << Parser::HTML.parse(root_dir) if export_html
-      # exported << Parser::Epub.parse(root_dir) if export_epub
+      exported << Parser::Epub.parse(root_dir) if export_epub
       # exported << Parser::Mobi.parse(root_dir) if export_mobi && Dependency.kindlegen?
       # exported << Parser::Txt.parse(root_dir) if export_txt && Dependency.html2text?
 

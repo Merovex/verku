@@ -26,6 +26,7 @@ module Bookmaker
   autoload :Markdown,   "bookmaker/adapters/markdown"
   autoload :Parser,     "bookmaker/parser"
   autoload :Stats,      "bookmaker/stats"
+  autoload :TOC,        "bookmaker/toc"
   autoload :Version,    "bookmaker/version"
     
   Encoding.default_internal = "utf-8"

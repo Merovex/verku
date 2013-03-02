@@ -14,6 +14,7 @@ module Bookmaker
         false
       end
       def parse_layout(text)
+        text = text.join("\n\n")
         text.gsub!('* * *', "\n\n{::nomarkdown}\\pbreak{:/}\n\n")
         Kramdown::Document.new(text, :latex_headers => %w(chapter section subsection paragraph subparagraph subsubparagraph)).to_latex
       end

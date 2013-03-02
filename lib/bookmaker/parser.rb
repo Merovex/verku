@@ -41,7 +41,7 @@ module Bookmaker
         config['sections'].map{|s| Dir["**/#{s}"][0] }.compact
       end
       def content
-        raw = ""
+        raw = []
         entries.each do |s|
           raw << read_content(s)[0]
         end
