@@ -4,18 +4,25 @@ module Bookmaker
   module Parser
     class PDF < Base
       def parse
-        # puts "PDF Parse"
         filename = root_dir.join("output/#{name}.tex")
-        File.open(filename, "w") do |file|
-          file << "\\documentclass{book}\\begin{document}"
-          file << File.read("../support/frontmatter.tex")
-          file << parse_layout(content)
-          file << "\\end{document}"
-        end
+        
+        support_dir = "#{File.dirname(__FILE__)}/../support"
+        out =  File.read("#{support_dir}/preamble.tex")
+        out << File.read("#{support_dir}/frontmatter.tex")
+        out << parse_layout(content)
+        out << "\\end{document}"
+        
+        file.open(filename, 'w').write(out)
+        # File.open(filename, "w") do |file|
+        #   file << "\\documentclass{book}\\begin{document}"
+        #   file << File.read("#{File.dirname(__FILE__)}/../support/frontmatter.tex")
+        #   file << parse_layout(content)
+        #   file << "\\end{document}"
+        # end
         # puts `xelatex #{filename}`
         true
-      rescue Exception
-        false
+      # rescue Exception
+      #   false
       end
       def content
         raw = ""
@@ -29,7 +36,7 @@ module Bookmaker
         raw
       end
       def parse_layout(text)
-        Kramdown::Document.new(text).to_latex
+        Kramdown::Document.new(text, :latex_headers => %w(chapter section subsection paragraph subparagraph subsubparagraph)).to_latex
       end
     end
   end
