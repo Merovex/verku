@@ -1,0 +1,80 @@
+\frontmatter
+% \ifdefined\isdraft
+%   \maketitle
+% \else
+  % r.2 - Epigraphs
+  % r.3 - Title Page
+  \begin{titlingpage}
+  \pagestyle{empty}
+  \begin{center}
+  \vspace*{\fill}
+
+  \HUGE\textbf{\textsf\thetitle}
+
+  \vspace*{0.25in}
+  \line(1,0){150}
+  \vspace*{0.25in}
+
+  \Large\textsf\theauthor
+
+  \vspace*{\fill}
+
+  \vspace*{\fill}
+  % \hspace*{\fill}\includegraphics[scale=0.70,bb=0 0 200 200]{latex/dp-logo.png}\newline\hspace*{\fill}
+  \includegraphics[width=0.25\textwidth]{dp-logo.png}\\[0cm]
+  % \newline
+  \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
+  \textsf{Communications}
+  \end{center}
+  \end{titlingpage}
+
+  % r.3 Copyright Page
+  \vspace*{\fill}
+  \pagestyle{empty}
+
+  \par\noindent\emph{\thetitle}
+  \newline
+  
+  \par\noindent This is a work of fiction. All characters and events portrayed in this
+  book are fictional, and any resemblance to real people or incidents is
+  purely coincidental.\newline
+
+  \par\noindent\emph{Copyright \copyright{} \yearonly\displaydate{firstprint} by \theauthor.}\newline
+  
+  \par\noindent Cover Design by Ben Wilson\newline
+
+  \par\noindent Book Design by Ben Wilson\newline
+
+  \par\noindent All rights reserved.\newline
+
+  \par\noindent No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.\newline
+
+  \par\noindent \theauthor
+  \par\noindent Visit my website at \url{http://dausha.net}\newline
+
+  \par\noindent Printed in the United States of America
+  \newline
+
+  \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
+  \newline
+  
+  \par\noindent ISBN-13 \isbn
+  \vspace*{\fill}
+  \newpage
+% \fi
+
+% Todolist
+%
+\ifdefined\isfinal
+\else
+  
+% This is a non-final release of the novel \emph{\thetitle} by \emph{\theauthor}, provided to \emph{PERSON} for preview or editing purposes. Each section will have a slugline suggesting the location, and a ``what's going on here?'' summary of the section. \underline{Underlined} words are prepared for an index, which occurs at the end of the book (naturally). The draft version also indicates all the ``todos'' \theauthor flagged for further work.
+  
+  This page omitted in final version.
+  
+  \listoftodos
+  \newpage
+  This page omitted in final version.
+  \tableofcontents
+  \newpage
+\fi

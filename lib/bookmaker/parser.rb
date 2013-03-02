@@ -40,12 +40,11 @@ module Bookmaker
         Bookmaker.config(root_dir)
       end
       def entries
-        puts "Entries"
         chapters = []
         config['chapters'].each do |sections|
           files = []
           sections.each do |s|
-            files << Dir["**/#{s}"]
+            files << Dir["**/#{s}"][0]
           end
           chapters << files
         end
