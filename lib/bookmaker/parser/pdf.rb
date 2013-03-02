@@ -15,16 +15,17 @@ module Bookmaker
         raw
       end
       def parse
-        locals = config.merge({
-                  :contents => parse_layout(content)
-                 })
+        locals = config.merge({ :contents => parse_layout(content) })
         locals['copyright'].gsub!("(C)", "\\copyright{}")
         output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)
         File.open(root_dir.join(tex_file), 'w').write(output)
         spawn_command ["xelatex", tex_file.to_s,]
         spawn_command ["xelatex", tex_file.to_s,]
+        spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux"]
+        spawn_command ["mv #{name}.pdf output/#{name}.pdf"]
         true
       rescue Exception
+        p $!, $@
         false
       end
       def parse_layout(text)
