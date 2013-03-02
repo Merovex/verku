@@ -5,7 +5,7 @@ module Bookmaker
     autoload :HTML  , "bookmaker/parser/html"
     autoload :PDF   , "bookmaker/parser/pdf"
     autoload :Epub  , "bookmaker/parser/epub"
-#    autoload :Mobi  , "bookmaker/parser/mobi"
+    autoload :Mobi  , "bookmaker/parser/mobi"
 #    autoload :Txt   , "bookmaker/parser/txt"
 
     class Base

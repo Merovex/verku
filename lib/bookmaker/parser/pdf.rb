@@ -18,8 +18,11 @@ module Bookmaker
         locals = config.merge({
                   :contents => parse_layout(content)
                  })
+        locals['copyright'].gsub!("(C)", "\\copyright{}")
         output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)
-        File.open(root_dir.join("output/#{name}.tex"), 'w').write(output)
+        File.open(root_dir.join(tex_file), 'w').write(output)
+        spawn_command ["xelatex", tex_file.to_s,]
+        spawn_command ["xelatex", tex_file.to_s,]
         true
       rescue Exception
         false
@@ -28,6 +31,9 @@ module Bookmaker
         text = text.join("\n\n")
         text.gsub!('* * *', "\n\n{::nomarkdown}\\pbreak{:/}\n\n")
         Kramdown::Document.new(text).to_latex
+      end
+      def tex_file
+        root_dir.join("output/#{name}.tex")
       end
     end
   end

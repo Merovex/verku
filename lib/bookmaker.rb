@@ -18,14 +18,17 @@ require "cgi"
 
 module Bookmaker
   
+  require "bookmaker/extensions/string"
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
   
   autoload :Cli,        "bookmaker/cli"
+  autoload :Dependency, "bookmaker/dependency"
   autoload :Exporter,   "bookmaker/exporter"
   autoload :Generator,  "bookmaker/generator"
   autoload :Markdown,   "bookmaker/adapters/markdown"
   autoload :Parser,     "bookmaker/parser"
   autoload :Stats,      "bookmaker/stats"
+  autoload :Stream,     "bookmaker/stream"
   autoload :TOC,        "bookmaker/toc"
   autoload :Version,    "bookmaker/version"
     

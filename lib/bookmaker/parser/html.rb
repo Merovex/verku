@@ -13,13 +13,18 @@ module Bookmaker
         raw
       end
       def parse
+        html = parse_layout(content)
+        toc = TOC::HTML.generate(html)
         locals = config.merge({
-                  :contents => parse_layout(content)
+                  # :contents => html
+                  :contents  => toc.content,
+                  :toc       => toc.to_html,
                  })
         output = render_template(root_dir.join("templates/html/layout.erb"), locals)        
         File.open(root_dir.join("output/#{name}.html"), 'w').write(output)
         true
       rescue Exception
+        p $!, $@
         false
       end
       def parse_layout(text)
