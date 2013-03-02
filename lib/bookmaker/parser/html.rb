@@ -12,7 +12,6 @@ module Bookmaker
         File.open(filename, 'w').write(output)
       end
       def parse_layout(text)
-        text.gsub!('* * *', "\n\n{::nomarkdown}<mbp:pagebreak/>{:/}\n\n")
         Kramdown::Document.new(text).to_html
       end
     end
