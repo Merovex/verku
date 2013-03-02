@@ -13,7 +13,7 @@ module Bookmaker
     end
     def copy_sample_text
       puts "Copying Sample Text"
-      copy_file ""
+      copy_file "sample.md"   , "text/01_Welcome.md"
     end
     def create_directories
       puts "Creating Directories"
