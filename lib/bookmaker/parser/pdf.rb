@@ -21,14 +21,6 @@ module Bookmaker
       # rescue Exception
       #   false
       end
-      def content
-        raw = ""
-        entries.each do |s|
-          # raw << "\n#{File.read(s)}"
-          raw << read_content(s)[0]
-        end
-        raw
-      end
       def parse_layout(text)
         text.gsub!('* * *', "\n\n{::nomarkdown}\\pbreak{:/}\n\n")
         Kramdown::Document.new(text, :latex_headers => %w(chapter section subsection paragraph subparagraph subsubparagraph)).to_latex

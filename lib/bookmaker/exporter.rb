@@ -18,19 +18,18 @@ module Bookmaker
     end
 
     def export!
-      puts root_dir.inspect
       helper = root_dir.join("config/helper.rb")
       load(helper) if helper.exist?
 
       export_pdf  = [nil, "pdf"].include?(options[:only])
+      export_html = [nil, "html", "mobi", "epub"].include?(options[:only])
       export_epub = [nil, "mobi", "epub"].include?(options[:only])
       export_mobi = [nil, "mobi"].include?(options[:only])
       export_txt  = [nil, "txt"].include?(options[:only])
 
       exported = []
-      exported << Parser::HTML.parse(root_dir)
-      # raise exported.inspect
       exported << Parser::PDF.parse(root_dir) if export_pdf# && Dependency.prince?
+      exported << Parser::HTML.parse(root_dir) if export_html
       # exported << Parser::Epub.parse(root_dir) if export_epub
       # exported << Parser::Mobi.parse(root_dir) if export_mobi && Dependency.kindlegen?
       # exported << Parser::Txt.parse(root_dir) if export_txt && Dependency.html2text?
@@ -50,8 +49,8 @@ module Bookmaker
         end
 
         Notifier.notify(
-          :image   => Kitabu::ROOT.join("templates/ebook.png"),
-          :title   => "Kitabu",
+          :image   => Bookmaker::ROOT.join("templates/ebook.png"),
+          :title   => "Bookmaker",
           :message => "Your \"#{config[:title]}\" e-book has been exported!"
         )
       else
@@ -63,7 +62,7 @@ module Bookmaker
     end
 
     def config
-      Kitabu.config(root_dir)
+      Bookmaker.config(root_dir)
     end
   end
 end

@@ -18,9 +18,7 @@ module Bookmaker
       attr_accessor :source
 
       def self.parse(root_dir)
-        puts "Base.parse"
         new(root_dir).parse
-        puts "exit"
       end
 
       def initialize(root_dir)
@@ -41,6 +39,13 @@ module Bookmaker
       end
       def entries
         config['sections'].map{|s| Dir["**/#{s}"][0] }.compact
+      end
+      def content
+        raw = ""
+        entries.each do |s|
+          raw << read_content(s)[0]
+        end
+        raw
       end
       # Render a eRb template using +locals+ as data seed.
       #
