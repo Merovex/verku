@@ -9,7 +9,7 @@ module Bookmaker
       @name = full_name
       @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
       @year = Date.today.year
-      template "config.erb", "_bookmaker  .yml"
+      template "config.erb", "_bookmaker.yml"
     end
     def copy_templates
       copy_file "latex.erb",  "templates/pdf/layout.erb"
