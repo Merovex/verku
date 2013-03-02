@@ -1,0 +1,207 @@
+\NeedsTeXFormat{LaTeX2e}[1996/06/01]
+
+\documentclass[11pt,twoside,makeidx]{memoir}
+\usepackage{layouts}[2001/04/29]
+\makeglossary
+\makeindex
+
+%========================
+% Page Layout
+\setstocksize{9in}{6in}
+\settrimmedsize{9in}{6in}{*}	% Use entire page
+\settrims{0pt}{0pt}
+
+\setlrmarginsandblock{0.8in}{0.5in}{*}
+\setulmarginsandblock{0.8in}{0.5in}{*}
+
+\setmarginnotes{0.1pt}{0.2in}{\onelineskip}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\linespread{1.05}
+
+\checkandfixthelayout
+\setlength{\headsep}{8pt}
+\aliaspagestyle{title}{empty}
+
+\makepagestyle{ebook}
+\makeoddhead{ebook}{}{\normalfont\scshape\theauthor}{\normalfont\thepage}
+\makeevenhead{ebook}{\normalfont\thepage}{\normalfont\scshape \thetitle}{}
+
+%========================
+% Fonts
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{Liberation Serif}
+\setsansfont{TitilliumText22L Light}
+\setmonofont{Liberation Mono}
+\newfontinstance\scshape[Letters=SmallCaps, Numbers=Uppercase]{Liberation Mono}
+
+\usepackage{verbatim}
+\usepackage[colorlinks=false]{hyperref}
+% \usepackage[utf8x]{inputenc}
+\usepackage{
+  fancyvrb,
+  graphics,
+  url,
+  rotating,
+  lipsum,
+  microtype,
+  fancybox,
+  glossaries,
+  titling
+}
+
+\ifdefined\disableligature
+  \DisableLigatures[f]{encoding = *, family = * }
+\fi
+
+%========================
+% Document Headings
+
+%% Chapter
+\setsecheadstyle{\bfseries\large\centering}
+\newcounter{renewsection}
+\newcommand{\Chapter}[1]{
+  \setcounter{renewsection}{\value{section}}
+  \chapter{#1}
+  \setcounter{section}{\value{renewsection}}
+}
+
+%========================
+\renewcommand{\thesection}{\arabic{section}.}
+
+%========================
+% TEXT LAYOUT
+\newlength{\AfterFancyBreakMin}
+\setlength{\AfterFancyBreakMin}{3\baselineskip}
+
+\setlength{\parindent}{1.5 em}
+
+\makeatletter
+\g@addto@macro\quote{\linespread{1}\small{}}
+\g@addto@macro\quotation{\linespread{1}\small{}}
+\g@addto@macro\caption{\linespread{1}\footnotesize{}}
+\makeatother
+\tolerance 1414
+\hbadness 1414
+\setlength{\emergencystretch}{3em}
+\righthyphenmin 62
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\clubpenalty=10000
+
+\setlength{\parindent}{1.5 em}
+
+\def\thinspace{\kern .16667em }
+\newcommand{\Dash}{\thinspace---\thinspace}
+\newcommand{\dash}{\tk{--Wrong Dash--}}
+
+
+%========================
+% Dates
+\usepackage{datetime}
+\newdateformat{yearonly}{\THEYEAR}
+\newdateformat{usmonthyear}{\monthname[\THEMONTH], \THEYEAR}
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
+
+%========================
+% Text Tweaks
+\newcommand{\ellip}{\ldots}
+% \newcommand{\email}[1]{{\vspace*{0.0625in}\parindent{1in}\fontfamily{droidmono}\selectfont\texttt{#1}}}
+
+\newcommand{\pbreak}{\pfbreak}}%
+
+%========================
+% Book-Specific Metadata
+\def\NextBook{Luctation}
+\def\ReturningCharacters{Bophendze and Smee}
+\title{Bellicose}
+\author{Ben Wilson}
+\date{\today}
+\newdate{firstprint}{1}{10}{2013} % Setting January, 2011; Sam's Birthday.
+\newcommand{\isbn}{1234567891233}
+\renewcommand{\thesection}{\arabic{section}.}
+
+\begin{document}
+\frontmatter
+  \begin{titlingpage}
+  \pagestyle{empty}
+  \begin{center}
+  \vspace*{\fill}
+
+  \HUGE\textbf{\textsf\thetitle}
+
+  \vspace*{0.25in}
+  \line(1,0){150}
+  \vspace*{0.25in}
+
+  \Large\textsf\theauthor
+
+  \vspace*{\fill}
+
+  \vspace*{\fill}
+  \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
+  \textsf{Communications}
+  \end{center}
+  \end{titlingpage}
+
+  % r.3 Copyright Page
+  \vspace*{\fill}
+  \pagestyle{empty}
+
+  \par\noindent\emph{\thetitle}
+  \newline
+  
+  \par\noindent This is a work of fiction. All characters and events portrayed in this
+  book are fictional, and any resemblance to real people or incidents is
+  purely coincidental.\newline
+
+  \par\noindent\emph{Copyright \copyright{} \yearonly\displaydate{firstprint} by \theauthor.}\newline
+  
+  \par\noindent Cover Design by <!--AUTHOR-->\newline
+
+  \par\noindent Book Design by <!--AUTHOR-->\newline
+
+  \par\noindent All rights reserved.\newline
+
+  \par\noindent No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.\newline
+
+  \par\noindent \theauthor
+  \par\noindent Visit my website at \url{http://dausha.net}\newline
+
+  \par\noindent Printed in the United States of America
+  \newline
+
+  \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
+  \newline
+  
+  \par\noindent ISBN-13 <!--IBSN-->
+  \vspace*{\fill}
+  \newpage
+% \fi
+
+% Todolist
+%
+\ifdefined\isfinal
+\else
+  
+  This page omitted in final version.
+  
+  \listoftodos
+  \newpage
+  This page omitted in final version.
+  \tableofcontents
+  \newpage
+\fi
+
+\mainmatter
+<!--CONTENTS-->
+
+\end{document}

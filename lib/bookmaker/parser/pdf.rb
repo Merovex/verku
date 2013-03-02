@@ -7,12 +7,15 @@ module Bookmaker
         filename = root_dir.join("output/#{name}.tex")
         
         support_dir = "#{File.dirname(__FILE__)}/../support"
-        out =  File.read("#{support_dir}/preamble.tex")
-        out << File.read("#{support_dir}/frontmatter.tex")
-        out << parse_layout(content)
-        out << "\\end{document}"
+        output = File.read("#{support_dir}/template.tex")
+        # out =  File.read("#{support_dir}/preamble.tex")
+        # out << "\n\\begin{document}\n\n"
+        # out << File.read("#{support_dir}/frontmatter.tex")
+        # out << parse_layout(content)
+        # out << "\\end{document}"
+        output.gsub(%r{<!--CONTENTS-->}, parse_layout(content))
         
-        file.open(filename, 'w').write(out)
+        File.open(filename, 'w').write(out)
         # File.open(filename, "w") do |file|
         #   file << "\\documentclass{book}\\begin{document}"
         #   file << File.read("#{File.dirname(__FILE__)}/../support/frontmatter.tex")
