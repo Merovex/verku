@@ -37,6 +37,7 @@
 \setsansfont{TitilliumText22L Light}
 \setmonofont{Liberation Mono}
 \newfontinstance\scshape[Letters=SmallCaps, Numbers=Uppercase]{Liberation Mono}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
 
 \usepackage{verbatim}
 \usepackage[colorlinks=false]{hyperref}
@@ -114,19 +115,17 @@
 %========================
 % Text Tweaks
 \newcommand{\ellip}{\ldots}
-% \newcommand{\email}[1]{{\vspace*{0.0625in}\parindent{1in}\fontfamily{droidmono}\selectfont\texttt{#1}}}
-
-\newcommand{\pbreak}{\pfbreak}}%
+\newcommand{\pbreak}{\pfbreak}%
 
 %========================
 % Book-Specific Metadata
 \def\NextBook{Luctation}
 \def\ReturningCharacters{Bophendze and Smee}
-\title{Bellicose}
-\author{Ben Wilson}
+\title{<!--TITLE-->}
+\author{<!--AUTHOR-->}
 \date{\today}
 \newdate{firstprint}{1}{10}{2013} % Setting January, 2011; Sam's Birthday.
-\newcommand{\isbn}{1234567891233}
+% \newcommand{\isbn}{<}
 \renewcommand{\thesection}{\arabic{section}.}
 
 \begin{document}
@@ -165,9 +164,9 @@
 
   \par\noindent\emph{Copyright \copyright{} \yearonly\displaydate{firstprint} by \theauthor.}\newline
   
-  \par\noindent Cover Design by <!--AUTHOR-->\newline
+  \par\noindent Cover Design by <!--COVERDESIGN-->\newline
 
-  \par\noindent Book Design by <!--AUTHOR-->\newline
+  \par\noindent Book Design by <!--BOOKDESIGN-->\newline
 
   \par\noindent All rights reserved.\newline
 
@@ -182,26 +181,19 @@
   \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
   \newline
   
-  \par\noindent ISBN-13 <!--IBSN-->
+  \par\noindent ISBN-13 <!--ISBN-->
   \vspace*{\fill}
   \newpage
 % \fi
 
 % Todolist
 %
-\ifdefined\isfinal
-\else
-  
-  This page omitted in final version.
-  
-  \listoftodos
-  \newpage
-  This page omitted in final version.
-  \tableofcontents
-  \newpage
-\fi
+
+\tableofcontents
 
 \mainmatter
+\pagestyle{ebook}
+\sloppy
 <!--CONTENTS-->
 
 \end{document}

@@ -8,37 +8,29 @@ module Bookmaker
         
         support_dir = "#{File.dirname(__FILE__)}/../support"
         output = File.read("#{support_dir}/template.tex")
-        # out =  File.read("#{support_dir}/preamble.tex")
-        # out << "\n\\begin{document}\n\n"
-        # out << File.read("#{support_dir}/frontmatter.tex")
-        # out << parse_layout(content)
-        # out << "\\end{document}"
-        output.gsub(%r{<!--CONTENTS-->}, parse_layout(content))
+        output.gsub!(%r{<!--CONTENTS-->}, parse_layout(content))
+        output.gsub!(%r{<!--AUTHOR-->}, config['author']['name'])
+        output.gsub!(%r{<!--TITLE-->}, config['title'])
+        output.gsub!(%r{<!--IBSN-->}, config['title'])
+        output.gsub!(%r{<!--COVERDESIGN-->}, config['design']['cover'] || '')
+        output.gsub!(%r{<!--BOOKDESIGN-->}, config['design']['book'] || '')
+        output.gsub!(%r{<!--ISBN-->}, config["isbn"].to_s)
         
-        File.open(filename, 'w').write(out)
-        # File.open(filename, "w") do |file|
-        #   file << "\\documentclass{book}\\begin{document}"
-        #   file << File.read("#{File.dirname(__FILE__)}/../support/frontmatter.tex")
-        #   file << parse_layout(content)
-        #   file << "\\end{document}"
-        # end
-        # puts `xelatex #{filename}`
+        File.open(filename, 'w').write(output)
         true
       # rescue Exception
       #   false
       end
       def content
         raw = ""
-        puts entries.inspect
-        entries.each do |sections|
-          sections.each do |s|
-            raw << "\n#{File.read(s)}\n"
-            # raw << File.read(s) + "\n"
-          end
+        entries.each do |s|
+          # raw << "\n#{File.read(s)}"
+          raw << read_content(s)[0]
         end
         raw
       end
       def parse_layout(text)
+        text.gsub!('* * *', "\n\n{::nomarkdown}\\pbreak{:/}\n\n")
         Kramdown::Document.new(text, :latex_headers => %w(chapter section subsection paragraph subparagraph subsubparagraph)).to_latex
       end
     end

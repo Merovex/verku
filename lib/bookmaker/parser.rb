@@ -40,22 +40,27 @@ module Bookmaker
         Bookmaker.config(root_dir)
       end
       def entries
-        chapters = []
-        config['chapters'].each do |sections|
-          files = []
-          sections.each do |s|
-            files << Dir["**/#{s}"][0]
-          end
-          chapters << files
-        end
-        chapters
+        config['sections'].map{|s| Dir["**/#{s}"][0] }.compact
       end
       # Render a eRb template using +locals+ as data seed.
       #
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }
       end
-
+      def read_content(file)
+        content = File.read(file)
+        begin
+          if content =~ /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
+            content = "\n#{$'}\n"
+            data = YAML.load($1)
+          end
+          return [content, data]
+        rescue => e
+          puts "Error reading file #{File.join(base, name)}: #{e.message}"
+        rescue SyntaxError => e
+          puts "YAML Exception reading #{File.join(base, name)}: #{e.message}"
+        end
+      end
       def spawn_command(cmd)
         begin
           stdout_and_stderr, status = Open3.capture2e(*cmd)
