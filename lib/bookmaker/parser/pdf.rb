@@ -4,7 +4,6 @@ module Bookmaker
   module Parser
     class PDF < Base
       def content
-        puts "In content"
         raw = []
         entries.keys.each do |chapter|
           raw << "{::nomarkdown}\\Chapter{#{chapter.split(/_/)[1].gsub('-',' ')}}{:/}"

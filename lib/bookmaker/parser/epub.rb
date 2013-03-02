@@ -3,7 +3,6 @@ module Bookmaker
     class Epub < Base
       def sections
         @sections ||= html.css("div.section").each_with_index.map do |chapter, index|
-          puts "Processing Section"
           OpenStruct.new({
             :index    => index,
             :filename => "section_#{index}.html",

@@ -42,7 +42,6 @@ module Bookmaker
         files = Dir["text/**/*.md"]
         @entries = {}
         files.each do |f|
-          # puts "Entries #{f}"
           k = File.dirname(f)
           k.gsub!('text/','')
           @entries[k] = [] if @entries[k].nil?

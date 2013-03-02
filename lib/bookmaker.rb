@@ -37,7 +37,7 @@ module Bookmaker
 
   def self.config(root_dir = nil)
     root_dir ||= Pathname.new(Dir.pwd)
-    path = root_dir.join("_config.yml")
+    path = root_dir.join("_bookmaker.yml")
 
     raise "Invalid Bookmaker directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)

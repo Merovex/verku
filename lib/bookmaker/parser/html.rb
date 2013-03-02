@@ -16,7 +16,6 @@ module Bookmaker
         html = parse_layout(content)
         toc = TOC::HTML.generate(html)
         locals = config.merge({
-                  # :contents => html
                   :contents  => toc.content,
                   :toc       => toc.to_html,
                  })
