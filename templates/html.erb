@@ -3,13 +3,12 @@
 <head>
   <title></title> 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-  <meta name="generator" content="TEST" /> 
-  <meta name="originator" content="TEST" /> 
+  <meta name="generator" content="Bookmaker Gem" /> 
+  <meta name="originator" content="<%= author %>" /> 
   <!-- charset=utf-8,html,xhtml --> 
-  <meta name="src" content="kindle.tex" /> 
-  <meta name="date" content="2013-02-18 17:52:00" /> 
-  <link rel="stylesheet" type="text/css" href="kindle.css" /> 
-  <style>
+  <meta name="date" content="<%= published_at %>" /> 
+  <meta name="dc:Title" content="<%= title %>" />
+  <style><!--
     /* Eliminate all default margin and padding settings */
     html,body,div,h1,h2,h3,h4,h5,p,blockquote {margin: 0; padding: 0.01em;}
 
@@ -34,9 +33,10 @@
       margin-right: 3em; 
       font-style: italic;
     }
+  -->
   </style>
 </head>
 <body>
-  <!--CONTENTS-->
+  <%= contents %>
 </body>
 </html>

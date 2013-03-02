@@ -1,26 +1,17 @@
 require 'kramdown'
-require 'awesome_print'
 
 module Bookmaker
   module Parser
     class PDF < Base
       def parse
-        filename = root_dir.join("output/#{name}.tex")
-        
-        # support_dir = "#{File.dirname(__FILE__)}/../support"
         locals = config.merge({
-                  "contents"   => parse_layout(content)
-                  # :toc       => toc.to_html,
-                  # :changelog => render_changelog
+                  :contents => parse_layout(content)
                  })
-                 ap locals
-                 ap root_dir.join("templates/pdf/layout.erb")
-        output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)
-        
-        File.open(filename, 'w').write(output)
+        output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)        
+        File.open(root_dir.join("output/#{name}.tex"), 'w').write(output)
         true
-      # rescue Exception
-      #   false
+      rescue Exception
+        false
       end
       def parse_layout(text)
         text.gsub!('* * *', "\n\n{::nomarkdown}\\pbreak{:/}\n\n")

@@ -5,33 +5,30 @@ module Bookmaker
       File.dirname(__FILE__) + "/../../templates"
     end
     def build_config_file      
-      puts "Building Configuration File"
       @title = File.basename(destination_root).gsub('-', ' ')
       @name = full_name
       @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
       @year = Date.today.year
       template "config.erb", "_config.yml"
     end
-    def copy_pdf_templates
-      copy_file "latex.erb"  , "templates/pdf/layout.erb"
+    def copy_templates
+      copy_file "latex.erb",  "templates/pdf/layout.erb"
+      copy_file "html.erb",   "templates/html/layout.erb"
     end
     def copy_sample_text
-      puts "Copying Sample Text"
       copy_file "sample.md"   , "text/01-Welcome.md"
     end
     def create_directories
-      puts "Creating Directories"
       empty_directory "output"
-      empty_directory "templates"
       empty_directory "images"
     end
     private
-    # Retrieve user's name using finger.
-    # Defaults to <tt>John Doe</tt>.
-    #
-    def full_name
-      name = `finger $USER 2> /dev/null | grep Login | colrm 1 46`.chomp
-      name.empty? ? "John Doe" : name.squish# : "John Doe"
-    end
+      # Retrieve user's name using finger.
+      # Defaults to <tt>John Doe</tt>.
+      #
+      def full_name
+        name = `finger $USER 2> /dev/null | grep Login | colrm 1 46`.chomp
+        name.empty? ? "John Doe" : name.squish
+      end
   end
 end

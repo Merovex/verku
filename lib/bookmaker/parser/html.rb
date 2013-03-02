@@ -3,13 +3,18 @@ module Bookmaker
   module Parser
     class HTML < Base
       def parse
-        support_dir = "#{File.dirname(__FILE__)}/../support"
-        filename = root_dir.join("output/#{name}.html")
-
-        output = File.read("#{support_dir}/template.html")
-        output.gsub!(%r{<!--CONTENTS-->}, parse_layout(content))
-
-        File.open(filename, 'w').write(output)
+        # support_dir = "#{File.dirname(__FILE__)}/../support"
+        # filename = root_dir.join("output/#{name}.html")
+        # 
+        # output = File.read("#{support_dir}/template.html")
+        # output.gsub!(%r{<!--CONTENTS-->}, parse_layout(content))
+        # 
+        # File.open(filename, 'w').write(output)
+        locals = config.merge({
+                  :contents => parse_layout(content)
+                 })
+        output = render_template(root_dir.join("templates/html/layout.erb"), locals)        
+        File.open(root_dir.join("output/#{name}.html"), 'w').write(output)
       end
       def parse_layout(text)
         Kramdown::Document.new(text).to_html
