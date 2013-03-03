@@ -28,9 +28,10 @@ module Bookmaker
           epub.cover        cover_image
         end
         write_sections!
-        write_toc!
-        
-        epub.files    sections.map(&:filepath) + assets
+        write_toc!        # 
+                # ap cover_page + sections.map(&:filepath) + assets
+                # exit
+        epub.files    cover_page + sections.map(&:filepath) + assets
         epub.nav      navigation
         
         epub.save(epub_path)
@@ -39,7 +40,9 @@ module Bookmaker
         p $!, $@
         false
       end
-
+      def cover_page
+        Dir[root_dir.join("templates/epub/cover.html")]
+      end
       def write_toc!
         toc = TOC::Epub.new(navigation)
         File.open(toc_path, "w") do |file|
@@ -97,12 +100,12 @@ module Bookmaker
         @assets ||= begin
           assets = Dir[root_dir.join("templates/epub/*.css")]
           assets += Dir[root_dir.join("images/**/*.{jpg,png,gif}")]
+          assets += # Dir[root_dir.join("templates/epub/cover.html")]
           assets
         end
       end
 
       def cover_image
-        # path = Dir[root_dir.join("templates/epub/cover.{jpg,png,gif}").to_s].first
         path = Dir[root_dir.join("images/cover.{jpg,png,gif}").to_s].first
         return File.basename(path) if path && File.exist?(path)
       end
