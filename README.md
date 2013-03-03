@@ -112,7 +112,7 @@ To create valid Mobi for Kindle, you need an appropriate cover image. **Bookmake
 
 **Bookmaker** needs the following dependencies satisfied:
 
-* [xelatex](en.wikipedia.org/wiki/XeTeX), available on via MacTeX (Mac) and MiKTex (Windows, unconfirmed).
+* [xelatex](http://en.wikipedia.org/wiki/XeTeX), available on via MacTeX (Mac) and MiKTex (Windows, unconfirmed).
 * LaTex to HTML conversion done within the gem itself.
 * HTML to EPUB via [Merovex-EeePub](https://github.com/Merovex/eeepub). Install it directly from Github
 * EPUB to Mobi via [Kindlegen](http://kindlegen.s3.amazonaws.com)
