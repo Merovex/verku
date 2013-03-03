@@ -18,7 +18,7 @@ Installation
 
 To install Bookmaker, you’ll need a working [Ruby](www.ruby-lang.org) 1.9+ installation.
 
-  gem install bookmaker
+    gem install bookmaker
 
 <!--
 
@@ -50,23 +50,23 @@ To create a new Bookmaker project, execute the following on the command line:
 
 This command creates a directory <tt>mybook</tt> with the following structure:
 
-  mybook
-  ├── _bookmaker.yml
-  ├── output
-  ├── templates
-  │   ├── epub
-  │   │   ├── cover.erb
-  │   │   ├── cover.png
-  │   │   ├── page.erb
-  │   │   └── user.css
-  │   └── html
-  │       ├── layout.css
-  │       ├── layout.erb
-  │       ├── syntax.css
-  │       └── user.css
-  └── text
-      └── 01_Chapter
-          └──01_Welcome.md
+    mybook
+    ├── _bookmaker.yml
+    ├── output
+    ├── templates
+    │   ├── epub
+    │   │   ├── cover.erb
+    │   │   ├── cover.png
+    │   │   ├── page.erb
+    │   │   └── user.css
+    │   └── html
+    │       ├── layout.css
+    │       ├── layout.erb
+    │       ├── syntax.css
+    │       └── user.css
+    └── text
+        └── 01_Chapter
+            └──01_Welcome.md
 
 The <tt>_bookmaker.yml</tt> file holds the project's metadata. Update the relevant fields.
 
