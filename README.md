@@ -92,9 +92,11 @@ You'll want to see your progress eventually; it's time for you to generate the b
 When you're ready to view your progress, the commands below will compile the book into the appropriate format:
 
 Compile into: PDF, HTML, Epub, Mobi
+
     $ bookmaker export
 
 Compile into a specific format:
+
     $ bookmaker export --only [pdf|html|epub|mobi]
 
 When compiling into HTML, Epub or Mobi, **Bookmaker** generates the Table of Contents (TOC) based on the h2-h6 tags. The h1 tag is discarded because it's meant to be the book title.
