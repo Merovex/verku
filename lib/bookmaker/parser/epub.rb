@@ -2,7 +2,7 @@ module Bookmaker
   module Parser
     class Epub < Base
       def sections
-        @sections ||= html.css("div.section").each_with_index.map do |chapter, index|
+        @sections ||= html.css("div.chapter").each_with_index.map do |chapter, index|
           OpenStruct.new({
             :index    => index,
             :filename => "section_#{index}.html",
@@ -40,6 +40,7 @@ module Bookmaker
       end
 
       def write_toc!
+        puts "In Write_TOC #{toc_path}"
         toc = TOC::Epub.new(navigation)
         File.open(toc_path, "w") do |file|
           file << toc.to_html
@@ -106,6 +107,7 @@ module Bookmaker
       end
 
       def navigation
+        puts "In Navigation"
         sections.map do |section|
           {
             :label => section.html.css("h2:first-of-type").text,

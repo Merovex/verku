@@ -5,13 +5,14 @@ module Bookmaker
       def content
         raw = []
         entries.keys.each do |chapter|
-          text = "<h2>#{chapter.split(/_/)[1].gsub('-',' ')}</h2>"
+          text = "<h2>#{chapter.split(/_/)[1].gsub('-',' ').titleize}</h2>"
           sections = []
           entries[chapter].each do |section|
             sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map do |s|
               s.gsub!(/%.*/, '')
-              s.gsub!("\n", ' ')
-              s.chomp
+              s.squish
+              # s.gsub!("\n", ' ')
+              # s.chomp
             end.join("</p>\n\n<p>")}</p>"
           end
           text << sections.join("\n\n<hr />\n\n")
