@@ -3,7 +3,7 @@ bookmaker
 
 Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
 
-Bookmaker requires familiarity with LaTeX. Many TeX features are lacking when exporting to HTML, EPUB or MOBI.
+Bookmaker requires familiarity with LaTeX. Many TeX features are lacking when compileing to HTML, EPUB or MOBI.
 
 What Does Bookmaker Provide?
 ----------------------------
@@ -37,7 +37,7 @@ dependencies.
   Not installed.
 
 There's no requirements here; just make sure you cleared the correct dependency based
-on the formats you want to export to.
+on the formats you want to compile to.
 
 -->
 
@@ -87,17 +87,15 @@ Now it's time to write your e-book. All your book content will be placed on the 
 
 Please note, **Kitabu** allows multiple file formats. **Bookmaker** only allows <tt>.tex</tt>.
 
-You'll want to see your progress eventually; it's time for you to generate the book PDF. Run the command <tt>bookmaker export</tt> and your book will be created on the <tt>output</tt> directory.
-
-When you're ready to view your progress, the commands below will compile the book into the appropriate format:
+When you're ready to view your progress, the commands below will compile the book into the <tt>output</tt> directory in the appropriate format:
 
 Compile into: PDF, HTML, Epub, Mobi
 
-    $ bookmaker export
+    $ bookmaker compile
 
 Compile into a specific format:
 
-    $ bookmaker export --only [pdf|html|epub|mobi]
+    $ bookmaker compile --only [pdf|html|epub|mobi]
 
 When compiling into HTML, Epub or Mobi, **Bookmaker** generates the Table of Contents (TOC) based on the h2-h6 tags. The h1 tag is discarded because it's meant to be the book title.
 
