@@ -18,7 +18,7 @@ Installation
 
 To install Bookmaker, you’ll need a working [Ruby](http://www.ruby-lang.org) 1.9+ installation.
 
-    gem install bookmaker
+    $ gem install bookmaker
 
 <!--
 
@@ -89,15 +89,23 @@ Please note, **Kitabu** allows multiple file formats. **Bookmaker** only allows 
 
 You'll want to see your progress eventually; it's time for you to generate the book PDF. Run the command <tt>bookmaker export</tt> and your book will be created on the <tt>output</tt> directory.
 
-Bookmaker can generate a Table of Contents (TOC) based on your h2-h6 tags. The h1 tag is discarded because it's meant to be the book title.
+When you're ready to view your progress, the commands below will compile the book into the appropriate format:
+
+Compile into: PDF, HTML, Epub, Mobi
+    $ bookmaker export
+
+Compile into a specific format:
+    $ bookmaker export --only [pdf|html|epub|mobi]
+
+When compiling into HTML, Epub or Mobi, **Bookmaker** generates the Table of Contents (TOC) based on the h2-h6 tags. The h1 tag is discarded because it's meant to be the book title.
 
 To print the TOC, you need to print a variable called +toc+, using the eRb tag.
 
-  <%= toc %>
+    <%= toc %>
 
 ### Dependencies
 
-**Bookmaker** needs the following dependencies satsified:
+**Bookmaker** needs the following dependencies satisfied:
 
 * [xelatex](en.wikipedia.org/wiki/XeTeX), available on via MacTeX (Mac) and MiKTex (Windows, unconfirmed).
 * LaTex to HTML conversion done within the gem itself.
@@ -132,7 +140,7 @@ included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
