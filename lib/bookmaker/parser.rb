@@ -39,7 +39,7 @@ module Bookmaker
       end
       def entries
         return @entries unless @entries.nil?
-        files = Dir["text/**/*.md"]
+        files = Dir["text/**/*.tex"]
         @entries = {}
         files.each do |f|
           k = File.dirname(f)

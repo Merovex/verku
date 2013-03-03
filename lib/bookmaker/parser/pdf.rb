@@ -6,12 +6,10 @@ module Bookmaker
       def content
         raw = []
         entries.keys.each do |chapter|
-          raw << "{::nomarkdown}\\Chapter{#{chapter.split(/_/)[1].gsub('-',' ')}}{:/}"
+          title = (chapter.empty?) ? "Untitled" : chapter.split('_')[1]
+          raw << "\\Chapter{#{title.gsub('-',' ')}}\n\n"
           entries[chapter].each do |section|
             s = read_content(section)[0]
-            s.gsub!(/\[([^\]]+?)\]\(([^\)]+?\![^\)]+?)\)/m) { "{::nomarkdown}\\emph{#{$1}}\\index{#{$2}}{:/}" }
-            # puts s
-            #             exit
             raw << "#{s}\n\n* * *"
           end
         end
@@ -29,7 +27,7 @@ module Bookmaker
         # spawn_command ["makeglossaries #{name}.glo"]
         spawn_command ["xelatex", tex_file.to_s,]
         
-        spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux"]
+        spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux *ilg *ind *ist"]
         spawn_command ["mv #{name}.pdf output/#{name}.pdf"]
         true
       rescue Exception
@@ -38,8 +36,7 @@ module Bookmaker
       end
       def parse_layout(text)
         text = text.join("\n\n")
-        text.gsub!('* * *', "\n\n{::nomarkdown}\\pbreak{:/}\n\n")
-        Kramdown::Document.new(text).to_latex
+        text.gsub!('* * *', "\n\n\\pbreak{}\n\n")
       end
       def tex_file
         root_dir.join("output/#{name}.tex")
