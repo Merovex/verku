@@ -11,10 +11,8 @@ module Bookmaker
           })
         end
       end
-
       def epub; @epub ||= EeePub.make ;end
       def html; @html ||= Nokogiri::HTML(html_path.read); end
-
       def parse
         puts "-- Exporting EPUB"
         epub.title        config["title"]
@@ -24,7 +22,7 @@ module Bookmaker
         epub.date         config["published_at"]
         epub.uid          config["uid"]
         epub.identifier   config["identifier"]["id"], :scheme => config["identifier"]["type"]
-        epub.cover_page   cover_image if cover_image && File.exist?(cover_image)
+        epub.cover        cover_image unless cover_image.empty?
         
         write_sections!
         write_toc!
@@ -40,7 +38,6 @@ module Bookmaker
       end
 
       def write_toc!
-        puts "In Write_TOC #{toc_path}"
         toc = TOC::Epub.new(navigation)
         File.open(toc_path, "w") do |file|
           file << toc.to_html
@@ -102,12 +99,12 @@ module Bookmaker
       end
 
       def cover_image
-        path = Dir[root_dir.join("templates/epub/cover.{jpg,png,gif}").to_s].first
-        return path if path && File.exist?(path)
+        # path = Dir[root_dir.join("templates/epub/cover.{jpg,png,gif}").to_s].first
+        path = Dir[root_dir.join("images/cover.{jpg,png,gif}").to_s].first
+        return File.basename(path) if path && File.exist?(path)
       end
 
       def navigation
-        puts "In Navigation"
         sections.map do |section|
           {
             :label => section.html.css("h2:first-of-type").text,
