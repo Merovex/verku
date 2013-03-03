@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 require 'thor'
+require 'bookmaker/version'
 module Bookmaker
   class Cli < Thor
     FORMATS = %w[pdf draft proof html epub mobi txt]
