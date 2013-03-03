@@ -48,10 +48,13 @@ To create a new Bookmaker project, execute the following on the command line:
 
     $ bookmaker new mybook
 
-This command creates a directory <tt>mybook</tt> with the following structure:
+This command creates a directory <tt>mybook</tt> with the following structure (may be slightly different in production):
 
     mybook
     ├── _bookmaker.yml
+    ├── images
+    │   ├── cover.jpg
+    │   └── dp-logo.png
     ├── output
     ├── templates
     │   ├── epub
@@ -66,7 +69,7 @@ This command creates a directory <tt>mybook</tt> with the following structure:
     │       └── user.css
     └── text
         └── 01_Chapter
-            └──01_Welcome.md
+            └──01_Welcome.tex
 
 The <tt>_bookmaker.yml</tt> file holds the project's metadata. Update the relevant fields.
 
