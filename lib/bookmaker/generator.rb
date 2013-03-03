@@ -13,6 +13,7 @@ module Bookmaker
     end
     def copy_templates
       copy_file "latex.erb",  "templates/pdf/layout.erb"
+      copy_file "dp-logo.png",  "images/dp-logo.png"
       
       copy_file "html.erb",   "templates/html/layout.erb"
       copy_file "user.css",   "templates/html/user.css"
@@ -25,11 +26,10 @@ module Bookmaker
       copy_file "cover.jpg",  "images/cover.jpg"
     end
     def copy_sample_text
-      copy_file "sample.md"   , "text/01_First-Chapter/01-Welcome.md"
+      copy_file "sample.tex"   , "text/01_First-Chapter/01-Welcome.tex"
     end
     def create_directories
       empty_directory "output"
-      empty_directory "output/01_First-Chapter"
       empty_directory "images"
     end
     private

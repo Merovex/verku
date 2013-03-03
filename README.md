@@ -3,7 +3,7 @@ bookmaker
 
 Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
 
-Bookmaker requires familiarity with LaTeX. Many TeX features are lacking when compileing to HTML, EPUB or MOBI.
+Bookmaker requires familiarity with LaTeX. Many TeX features are lacking when compiling to HTML, EPUB or MOBI.
 
 What Does Bookmaker Provide?
 ----------------------------
