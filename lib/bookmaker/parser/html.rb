@@ -11,8 +11,6 @@ module Bookmaker
             sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map do |s|
               s.gsub!(/%.*/, '')
               s.squish
-              # s.gsub!("\n", ' ')
-              # s.chomp
             end.join("</p>\n\n<p>")}</p>"
           end
           text << sections.join("\n\n<hr />\n\n")
@@ -29,7 +27,9 @@ module Bookmaker
                   :toc       => toc.to_html,
                  })
         output = render_template(root_dir.join("templates/html/layout.erb"), locals)        
-        File.open(root_dir.join("output/#{name}.html"), 'w').write(output)
+        f = File.open(root_dir.join("output/#{name}.html"), 'w')
+        f.write(output)
+        f.close
         true
       rescue Exception
         p $!, $@

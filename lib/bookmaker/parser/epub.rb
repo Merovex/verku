@@ -25,12 +25,10 @@ module Bookmaker
         if cover_image.nil?
           puts "   - Consider adding a cover images in /images."
         else
-          epub.cover        cover_image
+          epub.cover      cover_image
         end
         write_sections!
-        write_toc!        # 
-                # ap cover_page + sections.map(&:filepath) + assets
-                # exit
+        write_toc!
         epub.files    cover_page + sections.map(&:filepath) + assets
         epub.nav      navigation
         
@@ -100,7 +98,6 @@ module Bookmaker
         @assets ||= begin
           assets = Dir[root_dir.join("templates/epub/*.css")]
           assets += Dir[root_dir.join("images/**/*.{jpg,png,gif}")]
-          assets += # Dir[root_dir.join("templates/epub/cover.html")]
           assets
         end
       end
