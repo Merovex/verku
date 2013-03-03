@@ -1,7 +1,7 @@
 bookmaker
 =========
 
-Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](princexml.com) as the PDF generator (due to licensing issues).
+Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
 
 Bookmaker requires familiarity with LaTeX. Many TeX features are lacking when exporting to HTML, EPUB or MOBI.
 
@@ -9,14 +9,14 @@ What Does Bookmaker Provide?
 ----------------------------
 
 * Write using LaTeX
-* Paper Support: Book-quality PDF output (6"x9") using [Memoir](www.ctan.org/tex-archive/macros/latex/contrib/memoir), suitable for publishing via [Createspace](https://www.createspace.com).
-* Electronic Support: HTML, Epub and Mobi output (using [kindlegen](kindlegen.s3.amazonaws.com)).
+* Paper Support: Book-quality PDF output (6"x9") using [Memoir](http://www.ctan.org/tex-archive/macros/latex/contrib/memoir), suitable for publishing via [Createspace](https://www.createspace.com).
+* Electronic Support: HTML, Epub and Mobi output (using [kindlegen](http://kindlegen.s3.amazonaws.com)).
 * Table of Contents automatically generated from chapter titles
 
 Installation
 -------------
 
-To install Bookmaker, you’ll need a working [Ruby](www.ruby-lang.org) 1.9+ installation.
+To install Bookmaker, you’ll need a working [Ruby](http://www.ruby-lang.org) 1.9+ installation.
 
     gem install bookmaker
 
