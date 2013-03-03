@@ -46,7 +46,7 @@ How to Use Bookmaker
 
 To create a new Bookmaker project, execute the following on the command line:
 
-  $ bookmaker new mybook
+    $ bookmaker new mybook
 
 This command creates a directory <tt>mybook</tt> with the following structure:
 
