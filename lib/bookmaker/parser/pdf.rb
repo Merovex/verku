@@ -8,9 +8,14 @@ module Bookmaker
         entries.keys.each do |chapter|
           raw << "{::nomarkdown}\\Chapter{#{chapter.split(/_/)[1].gsub('-',' ')}}{:/}"
           entries[chapter].each do |section|
-            raw << read_content(section)[0] + "\n\n* * *"
+            s = read_content(section)[0]
+            s.gsub!(/\[([^\]]+?)\]\(([^\)]+?\![^\)]+?)\)/m) { "{::nomarkdown}\\emph{#{$1}}\\index{#{$2}}{:/}" }
+            # puts s
+            #             exit
+            raw << "#{s}\n\n* * *"
           end
         end
+        
         raw
       end
       def parse
@@ -20,6 +25,10 @@ module Bookmaker
         File.open(root_dir.join(tex_file), 'w').write(output)
         spawn_command ["xelatex", tex_file.to_s,]
         spawn_command ["xelatex", tex_file.to_s,]
+        spawn_command ["makeindex #{name}.idx"]
+        # spawn_command ["makeglossaries #{name}.glo"]
+        spawn_command ["xelatex", tex_file.to_s,]
+        
         spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux"]
         spawn_command ["mv #{name}.pdf output/#{name}.pdf"]
         true

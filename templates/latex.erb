@@ -196,6 +196,53 @@
 
 <%= contents %>
 
+% Todolist
+%
+% \ifdefined\isdraft
+%   \listoftodos
+% \fi
+% Back Matter
+%
 \backmatter
+
+%% Bibliography
+% \bibliographystyle{\mybibliostyle}
+% \bibliocommand
+% \pagestyle{empty}
+\begin{center}
+	\vspace*{\fill}
+	
+	\ifdefined\ReturningCharacters {\Large \par
+	\noindent Thank you for reading
+	
+	\vspace*{0.125in}
+	{\LARGE\textbf{\textsf{\thetitle}}}
+	\vspace*{0.125in}
+	
+	\par
+	\noindent\ReturningCharacters{} will return in \emph{\NextBook}.} \vspace*{\fill} \fi
+	
+	{\LARGE\textbf{\textsf{Follow Me}}}
+	
+	\vspace*{0.125in}
+	
+	\textbf{\theauthor{}} can be followed on Twitter and Facebook.
+	\newline Visit his web site at http://dausha.net for more information. You can also sign up for announcements of other books in this series at http://dausha.net.
+	
+	\vspace*{\fill} 
+\end{center}
+
+% \notfinal{
+
+%% Glossary
+\printglossaries
+
+%% Index
+\printindex
+%  }
+
+% \chapter{Colophon}
+
+% This book was typeset using the venerable \TeX document markup protocol, using \XeTeX. The \emph{Memoir} class was used for the many features it provided over the standard \emph{Book} class of \TeX{}. \XeTeX{} is distributed at no cost under the \TeX{} Project Public License. Spell checking was done using Aspell. The final version was compiled into the Portable Document Format (PDF) or various epublishing formats, facilitated by use of Make, a utility for automatically building large applications that would otherwise be time-consuming to build through non-automated means.
 
 \end{document}
