@@ -8,7 +8,11 @@ module Bookmaker
           text = "<h2>#{chapter.split(/_/)[1].gsub('-',' ')}</h2>"
           sections = []
           entries[chapter].each do |section|
-            sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map{|a| a.gsub("\n",' ').chomp}.join("</p>\n\n<p>")}</p>"
+            sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map do |s|
+              s.gsub!(/%.*/, '')
+              s.gsub!("\n", ' ')
+              s.chomp
+            end.join("</p>\n\n<p>")}</p>"
           end
           text << sections.join("\n\n<hr />\n\n")
           raw << "<div class='chapter'>\n#{text}\n</div>\n"
@@ -33,19 +37,26 @@ module Bookmaker
       def parse_layout(chapters)
         output = ''
         chapters.each do |text|
-          text.gsub!(/%.*/,'')
-          text.gsub!(/``(.*?)''/m) { "&ldquo;#{$1}&rdquo;"}
-          # \{([^\}]+?)\} Within the curly braces.
-          text.gsub!(/\\begin\{quote\}(.*?)\\end\{quote\}/m) { "<blockquote>#{$1}</blockquote>"}
-          text.gsub!(/<\/blockquote>\s+?<blockquote>/m, "\n")
-          text.gsub!(/\\begin\{([^\}]+?)\}(.*?)\\end\{[^\}]+?\}/m) { "<div class='#{$1}'>#{$2}</div>"}
-          text.gsub!(/\\section\{([^\}]+?)\}/m) { "<h3>#{$1}</h3>"}
-          text.gsub!(/\\emph\{([^\}]+?)\}/m) { "<em>#{$1}</em>"}
-          text.gsub!(/\\(.*?)\{([^\}]+?)\}/) { "<span class='#{$1}'>#{$2}</span>"}
-          text.gsub!(/<\/span>\{[^\}]+?}/, "</span>")
-          text.gsub!(/<p><h([1-6])>(.*?)<\/h[1-6]><\/p>/) { "<h#{$1}>#{$2}</h#{$1}>"}
-          text.gsub!(/\\Dash\{\}/, "&mdash;")
+          # text.gsub!("{%", "{")
+          # text.gsub!(/%.*/,'')
+          text.gsub!(/``(.*?'?)''/) { "&ldquo;#{$1}&rdquo;"}
+          text.gsub!(/``/, "&ldquo;")
           text.gsub!(/\b'\b/) { "&#39;" }
+          text.gsub!(/`(.*?)'/) { "&lsquo;#{$1}&rsquo;"}
+          # \{([^\}]+?)\} Within the curly braces.
+          text.gsub!(/\\Dash\{\}/, "&mdash;")
+          text.gsub!(/\\begin\{quote\}(.*?)\\end\{quote\}/m) { "<blockquote>#{$1.strip}</blockquote>"}
+          text.gsub!(/<\/blockquote>\s+?<blockquote>/m, "\n")
+          text.gsub!(/\\begin\{([^\}]+?)\}(.*?)\\end\{[^\}]+?\}/m) { "<div class='#{$1.strip}'>#{$2.strip}</div>"}
+          text.gsub!(/\\section\{([^\}]+?)\}/m) { "<h3>#{$1.strip}</h3>"}
+          text.gsub!(/\\emph\{([^\}]+?)\}/m) { "<em>#{$1.strip}</em>"}
+          text.gsub!(/\\thought\{([^\}]+?)\}/m) { "<em>#{$1.strip}</em>"}
+          text.gsub!(/\\(.*?)\{([^\}]+?)\}/) { "<span class='#{$1}'>#{$2.strip}</span>"}
+          text.gsub!(/\\(.*?)\{([^\}]+?)\}/) { "<span class='#{$1}'>#{$2.strip}</span>"}
+          text.gsub!(/<\/span>\{[^\}]+?}/, "</span>")
+          text.gsub!(/<p><h([1-6])>(.*?)<\/h[1-6]><\/p>/) { "<h#{$1}>#{$2.strip}</h#{$1}>"}
+          text.gsub!(/(\S+)~(\S+)/) { "#{$1}&nbsp;#{$2}"}
+          # text.gsub!(/> +/, ">")
           output << text
         end
         output.gsub!(/\n\n+/, "\n\n")

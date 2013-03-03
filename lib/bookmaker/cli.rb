@@ -17,8 +17,9 @@ module Bookmaker
     end
     
     desc "create", "Start new work"
+    map %w(create new) => :create
     def create(path)
-      puts "A Million Monkeys Writing Your Masterpiece."
+      puts "Bookmaker -- A Million Monkeys Writing Your Masterpiece."
       generator = Generator.new
       generator.destination_root = path.squish.gsub(' ','-')
       generator.invoke_all
