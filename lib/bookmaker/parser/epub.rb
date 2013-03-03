@@ -22,8 +22,11 @@ module Bookmaker
         epub.date         config["published_at"]
         epub.uid          config["uid"]
         epub.identifier   config["identifier"]["id"], :scheme => config["identifier"]["type"]
-        epub.cover        cover_image unless cover_image.empty?
-        
+        if cover_image.nil?
+          puts "   - Consider adding a cover images in /images."
+        else
+          epub.cover        cover_image
+        end
         write_sections!
         write_toc!
         
