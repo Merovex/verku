@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1996/06/01]
-\documentclass[11pt,twoside,makeidx,hidelinks]{memoir}
+\documentclass[12pt,twoside,makeidx,hidelinks]{memoir}
 \usepackage{layouts}[2001/04/29]
 \def\isfinal{<%= is_final %>}
 
@@ -119,6 +119,8 @@
   \chapter{#1}
   \setcounter{section}{\value{renewsection}}
 }
+\chapterstyle{<%= chapter_style || 'ell'%>}
+
 
 % Section
 %---------
@@ -145,7 +147,7 @@
   \pbreak
 }%
 
-\newcommand{\smee}[1]{\Dash{}\textsc{\small#1}}
+\newcommand{\smee}[1]{\${-} \textsc{\small#1}}
 \whenfinal%
   {\newcommand{\pbreak}{\pfbreak}}%
   {\newcommand{\pbreak}{\begin{center} \# \# \# \end{center}}}
@@ -216,6 +218,7 @@
   \vspace*{\fill}
 
   \vspace*{\fill}
+  \includegraphics[width=0.25\textwidth]{images/dp-logo.png}\\[0cm]
   \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
   \textsf{Communications}
   \end{center}
