@@ -87,7 +87,7 @@ Now it's time to write your e-book. All your book content will be placed on the 
 
 Please note, **Kitabu** allows multiple file formats. **Bookmaker** only allows <tt>.tex</tt>.
 
-When you're ready to view your progress, the commands below will compile the book into the <tt>output</tt> directory in the appropriate format:
+When you're ready to view your progress, the commands below will compile the book into the <tt>output/</tt> directory in the appropriate format:
 
 Compile into: PDF, HTML, Epub, Mobi
 
@@ -102,6 +102,8 @@ When compiling into HTML, Epub or Mobi, **Bookmaker** generates the Table of Con
 To print the TOC, you need to print a variable called +toc+, using the eRb tag.
 
     <%= toc %>
+
+To create valid Mobi for Kindle, you need an appropriate cover image. **Bookmaker** looks for <tt>image/cover.jpg</tt>, and compiles it into the Epub and Mobi files. Refer to the Kindle documentation for the cover requirements.
 
 ### Dependencies
 
