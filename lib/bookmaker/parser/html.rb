@@ -5,14 +5,18 @@ module Bookmaker
       def content
         raw = []
         entries.keys.each do |chapter|
-          raw << "{::nomarkdown}<h2>#{chapter.split(/_/)[1].gsub('-',' ')}</h2>{:/}"
+          text = "<h2>#{chapter.split(/_/)[1].gsub('-',' ')}</h2>"
+          sections = []
           entries[chapter].each do |section|
-            raw << read_content(section)[0] + "\n\n* * *"
+            sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map{|a| a.gsub("\n",' ').chomp}.join("</p>\n\n<p>")}</p>"
           end
+          text << sections.join("\n\n<hr />\n\n")
+          raw << "<div class='chapter'>\n#{text}\n</div>\n"
         end
         raw
       end
       def parse
+        puts "-- Exporting HTML"
         html = parse_layout(content)
         toc = TOC::HTML.generate(html)
         locals = config.merge({
@@ -26,12 +30,26 @@ module Bookmaker
         p $!, $@
         false
       end
-      def parse_layout(text)
-        output = ""
-        text.each do |s|
-         output << "<div class='section'>\n#{Kramdown::Document.new(s).to_html}\n</div>\n"
+      def parse_layout(chapters)
+        output = ''
+        chapters.each do |text|
+          text.gsub!(/%.*/,'')
+          text.gsub!(/``(.*?)''/m) { "&ldquo;#{$1}&rdquo;"}
+          # \{([^\}]+?)\} Within the curly braces.
+          text.gsub!(/\\begin\{quote\}(.*?)\\end\{quote\}/m) { "<blockquote>#{$1}</blockquote>"}
+          text.gsub!(/<\/blockquote>\s+?<blockquote>/m, "\n")
+          text.gsub!(/\\begin\{([^\}]+?)\}(.*?)\\end\{[^\}]+?\}/m) { "<div class='#{$1}'>#{$2}</div>"}
+          text.gsub!(/\\section\{([^\}]+?)\}/m) { "<h3>#{$1}</h3>"}
+          text.gsub!(/\\emph\{([^\}]+?)\}/m) { "<em>#{$1}</em>"}
+          text.gsub!(/\\(.*?)\{([^\}]+?)\}/) { "<span class='#{$1}'>#{$2}</span>"}
+          text.gsub!(/<\/span>\{[^\}]+?}/, "</span>")
+          text.gsub!(/<p><h([1-6])>(.*?)<\/h[1-6]><\/p>/) { "<h#{$1}>#{$2}</h#{$1}>"}
+          text.gsub!(/\\Dash\{\}/, "&mdash;")
+          text.gsub!(/\b'\b/) { "&#39;" }
+          output << text
         end
-        output
+        output.gsub!(/\n\n+/, "\n\n")
+        return output
       end
     end
      #  # List of directories that should be skipped.

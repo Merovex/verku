@@ -1,3 +1,3 @@
 module Bookmaker
-  VERSION = "0.3.1"
+  VERSION = "0.3.2.--minor2"
 end

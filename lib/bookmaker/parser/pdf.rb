@@ -17,6 +17,7 @@ module Bookmaker
         raw
       end
       def parse
+        puts "-- Exporting PDF"
         locals = config.merge({ :contents => parse_layout(content) })
         locals['copyright'].gsub!("(C)", "\\copyright{}")
         output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)

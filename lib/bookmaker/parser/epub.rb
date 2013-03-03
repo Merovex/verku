@@ -16,6 +16,7 @@ module Bookmaker
       def html; @html ||= Nokogiri::HTML(html_path.read); end
 
       def parse
+        puts "-- Exporting EPUB"
         epub.title        config["title"]
         epub.language     config["language"]
         epub.creator      config["authors"].to_sentence
