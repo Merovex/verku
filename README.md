@@ -95,6 +95,15 @@ To print the TOC, you need to print a variable called +toc+, using the eRb tag.
 
   <%= toc %>
 
+### Dependencies
+
+**Bookmaker** needs the following dependencies satsified:
+
+* [xelatex](en.wikipedia.org/wiki/XeTeX), available on via MacTeX (Mac) and MiKTex (Windows, unconfirmed).
+* LaTex to HTML conversion done within the gem itself.
+* HTML to EPUB via [Merovex-EeePub](https://github.com/Merovex/eeepub). Install it directly from Github
+* EPUB to Mobi via [Kindlegen](http://kindlegen.s3.amazonaws.com)
+* Patience - This was developed for my own writing purposes, and is likely incomplete as of this writing.
 
 ### References
 
