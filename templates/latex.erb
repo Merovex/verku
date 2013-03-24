@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1996/06/01]
 \documentclass[12pt,twoside,makeidx,hidelinks]{memoir}
 \usepackage{layouts}[2001/04/29]
-\def\isfinal{<%= is_final %>}
+\def\isfinal{<%= (status == 'final') ? 1 : 0 %>}
 
 % Packages
 %=========
@@ -33,11 +33,22 @@
 
 % Page Layout
 %============
-\setstocksize{9in}{6in}
-\settrimmedsize{9in}{6in}{*}	% Use entire page
+<% 
+  if status == 'final'
+    stock_size = %w(9in 6in)
+    ul_margin  = %w(0.8in 0.5in)
+    trim_size  = %w(9in 6in)
+  else
+    stock_size = %w(11in 8.5in)
+    ul_margin  = %w(1.8in 1.5in)
+    trim_size  = %w(11in 6in)
+  end
+%>
+\setstocksize{<%=stock_size[0]%>}{<%=stock_size[1]%>}
+\settrimmedsize{<%=trim_size[0]%>}{<%=trim_size[1]%>}{*}	% Use entire page
 \settrims{0pt}{0pt}
 \setlrmarginsandblock{0.8in}{0.5in}{*}
-\setulmarginsandblock{0.8in}{0.5in}{*}
+\setulmarginsandblock{<%=ul_margin[0]%>}{<%=ul_margin[1]%>}{*}
 
 \setmarginnotes{0.1pt}{0.2in}{\onelineskip}
 \setheadfoot{\onelineskip}{2\onelineskip}
@@ -69,8 +80,8 @@
 % Page Heading
 %-------------
 \makepagestyle{ebook}
-\makeoddhead{ebook}{}{\normalfont\scshape\theauthor}{\normalfont\thepage}
-\makeevenhead{ebook}{\normalfont\thepage}{\normalfont\scshape \thetitle}{}
+\makeoddhead{ebook}{}{\textsf\theauthor}{\normalfont\thepage}
+\makeevenhead{ebook}{\normalfont\thepage}{\textsf \thetitle}{}
 
 \aliaspagestyle{title}{empty}
 
@@ -87,10 +98,10 @@
 \usepackage{xunicode}
 \usepackage{xltxtra}
 \defaultfontfeatures{Mapping=tex-text}
-\setmainfont{Liberation Serif}
-\setsansfont{TitilliumText22L Light}
-\setmonofont{Liberation Mono}
-\newfontinstance\scshape[Letters=SmallCaps, Numbers=Uppercase]{Liberation Mono}
+\setmainfont{<%= fonts['serif'] %>}
+\setsansfont{<%= fonts['sans'] %>}
+\setmonofont{<%= fonts['mono'] %>}
+\newfontinstance\scshape[Letters=SmallCaps, Numbers=Uppercase]{<%= fonts['small_caps'] || fonts['mono'] %>}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
 \ifdefined\disableligature
   \DisableLigatures[f]{encoding = *, family = * }
@@ -152,6 +163,20 @@
   {\newcommand{\pbreak}{\pfbreak}}%
   {\newcommand{\pbreak}{\begin{center} \# \# \# \end{center}}}
 
+% Series Title Page
+%==================
+\def\seriestitle#1{\def\theseriestitle{\uppercase{#1}}}
+\def\seriespage{\thispagestyle{empty}
+\begin{center}
+  \noindent{\large\theseriestitle}
+  \vskip10.5pt
+  \noindent Other Books in the series:
+  \vskip4pt
+  \theseriesbooks
+\end{center}\newpage}
+\def\seriesbook#1{\vskip.5pt{\noindent\hskip8pt\emph{#1}}\vskip1sp}
+\def\seriesbooks#1\endseriesbooks{\def\theseriesbooks{\let\book\seriesbook{#1}}}
+
 % Indices
 %=========
 \makeglossary
@@ -181,6 +206,12 @@
 \date{<%= published_at %>}
 \newdate{firstprint}{<%= published_at.split('-')[2]%>}{<%= published_at.split('-')[1]%>}{<%= published_at.split('-')[0]%>}
 
+<% unless series.nil? or series['books'].nil? %>
+\seriestitle{<%= series['title'] %>}
+\seriesbooks
+  <%= series['books'].map{ |b| "\\book{#{b}}" }.join("\n  ") %>
+\endseriesbooks
+<% end %>
 
 % Drafting Help
 %==============
@@ -202,44 +233,63 @@
 % Frontmatter
 %-------------
 \frontmatter
+  % r.1 - Half-Title
+  
+  % r.2 - Series Title Page
+  <%= "\\seriespage" unless series.nil? %>
+  
+  % r.3 Titlepage
   \begin{titlingpage}
-  \pagestyle{empty}
-  \begin{center}
-  \vspace*{\fill}
+    \pagestyle{empty}
+    \begin{center}
+    \vspace*{\fill}
 
-  \HUGE\textbf{\textsf\thetitle}
+    \HUGE\textbf{\textsf\thetitle}
 
-  \vspace*{0.25in}
-  \line(1,0){150}
-  \vspace*{0.25in}
+    \vspace*{0.25in}
+    \line(1,0){150}
+    \vspace*{0.25in}
 
-  \Large\textsf\theauthor
+    \Large\textsf\theauthor
 
-  \vspace*{\fill}
+    \vspace*{\fill}
 
-  \vspace*{\fill}
-  \includegraphics[width=0.25\textwidth]{images/dp-logo.png}\\[0cm]
-  \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
-  \textsf{Communications}
-  \end{center}
+    \vspace*{\fill}
+    \includegraphics[width=0.25\textwidth]{images/dp-logo.png}\\[0cm]
+    \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
+    \textsf{Communications}
+    \end{center}
   \end{titlingpage}
 
-  % r.3 Copyright Page
+  % r.4 Copyright Page
   \vspace*{\fill}
   \pagestyle{empty}
 
   \par\noindent\emph{\thetitle}
   \newline
   
-  \par\noindent This is a work of fiction. All characters and events portrayed in this
-  book are fictional, and any resemblance to real people or incidents is
-  purely coincidental.\newline
+  <% if type == 'fiction' %>
+  
+  \par\noindent This is a work of fiction. Names, characters, places and incidents are either
+  the product of the author's imagination or are used ficticiously, and any resemblance to
+  actual persons, living or dead, business establishments, events or locales is entirely
+  coincidental.\newline
+  <% end %>
 
   \par\noindent\emph{<%= copyright %>}\newline
   
-  \par\noindent Cover Design by <%= name %>\newline
+  <% unless designer['cover'].nil? || designer['cover'].empty? %>
+  \par\noindent Cover Design by <%= designer['cover'] %>\newline
+  <% end %>
 
-  \par\noindent Book Design by <%= name %>\newline
+  <% unless designer['book'].nil? || designer['book'].empty? %>
+  \par\noindent Book Design by <%= designer['book'] %>\newline
+  <% end %>
+
+  <% unless editors['text'].nil? || editors['text'].empty? %>
+  \par\noindent Book Design by <%= editors['text'].join(',') %>\newline
+  <% end %>
+  
 
   \par\noindent All rights reserved.\newline
 
@@ -257,10 +307,8 @@
   \par\noindent <%= identifier['type'] %> <%= identifier['id'] %>
   \vspace*{\fill}
   \newpage
-% \fi
 
-% Todolist
-%
+  % r.5 - Dedication
 
 \tableofcontents
 
@@ -269,12 +317,6 @@
   \sloppy
 
 <%= contents %>
-
-% Todolist
-%
-% \ifdefined\isdraft
-%   \listoftodos
-% \fi
 
 % Back Matter
 %-------------
@@ -287,15 +329,17 @@
 \begin{center}
 	\vspace*{\fill}
 	
-	\ifdefined\ReturningCharacters {\Large \par
+  {\Large \par
 	\noindent Thank you for reading
-	
+
 	\vspace*{0.125in}
 	{\LARGE\textbf{\textsf{\thetitle}}}
 	\vspace*{0.125in}
 	
-	\par
-	\noindent\ReturningCharacters{} will return in \emph{\NextBook}.} \vspace*{\fill} \fi
+	\ifdefined\ReturningCharacters
+  	\par
+  	\noindent\ReturningCharacters{} will return in \emph{\NextBook}.} \vspace*{\fill}
+	\fi
 	
 	{\LARGE\textbf{\textsf{Follow Me}}}
 	
@@ -307,13 +351,13 @@
 	\vspace*{\fill} 
 \end{center}
 
-% \notfinal{
+<% if (type == 'fiction' and status != 'final') or type == 'nonfiction' %>
 
 %% Glossary
 \printglossaries
 
 %% Index
 \printindex
-%  }
+<% end %>
 
 \end{document}

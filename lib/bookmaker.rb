@@ -1,6 +1,6 @@
 # require "bookmaker/version"
 require "active_support/all"
-require "awesome_print"
+#require "awesome_print"
 require "eeepub"
 require "erb"
 require "logger"

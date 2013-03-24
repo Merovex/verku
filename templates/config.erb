@@ -2,7 +2,12 @@
 title: "<%= @title %>"
 
 # The book's language.
-language: en
+language: "en"
+
+# Type: 'fiction' or 'nonfiction'
+type: 'fiction' 
+# Status: 'draft' or 'final'
+status: "draft"
 
 # Your book copyright info.
 # Here's some examples:
@@ -42,6 +47,23 @@ authors:
 
 # The base URL from your source code.
 base_url: http://example.com
+
+series:
+  title: 
+  books:
+    - "Bellicose"
+# 
+fonts:
+  serif: "Garamond"
+  sans:  "Tahoma"
+  mono:  "Courier"
+
+designer:
+  book: "Ben Wilson"
+  cover: "<%= @name %>"
+  
+editors:
+  text:
 
 #==========
 # Book Manifest
