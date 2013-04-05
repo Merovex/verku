@@ -10,7 +10,7 @@ module Bookmaker
       true
     end
     def initialize(args = [], options = {}, config = {})
-      if config[:current_task].name == "new" && args.empty?
+      if (config[:current_task] || config[:current_command]).name == "new" && args.empty?
         raise Error, "The e-Book path is required. For details run: bookmaker help new"
       end
       super
@@ -35,6 +35,12 @@ module Bookmaker
         raise Error, "The --only option need to be one of: #{FORMATS.join(", ")}"
       end
       Bookmaker::Exporter.run(root_dir, options)
+    end
+    
+    desc "pdf", "Export PDF only"
+    def pdf
+      inside_ebook!
+      Bookmaker::Exporter.run(root_dir, {:only => 'pdf'})
     end
     
     desc "version", "Prints the Bookmaker's version information"
