@@ -27,19 +27,49 @@ module Bookmaker
         else
           epub.cover      cover_image
         end
+        write_coverpage!
+        write_copyright!
         write_sections!
+        write_backpage!
         write_toc!
-        epub.files    cover_page + sections.map(&:filepath) + assets
+        epub.files    cover_page  + sections.map(&:filepath) + back_page + copyright_page + assets
         epub.nav      navigation
-        
+
         epub.save(epub_path)
         true
       rescue Exception
         p $!, $@
         false
       end
+      def back_page
+        return Dir[back_path] if File.exist?(back_path)
+        []
+      end
       def cover_page
-        Dir[root_dir.join("templates/epub/cover.html")]
+        Dir[cover_path]
+      end
+      def copyright_page
+        Dir[copyright_path]
+      end
+      def write_backpage!
+        contents = render_template(root_dir.join("templates/epub/back.html"), config)
+        File.open(back_path,"w") do |file|
+          file << contents
+        end
+      end
+      def write_coverpage!
+        contents = render_template(root_dir.join("templates/epub/cover.html"), config)
+        File.open(cover_path,"w") do |file|
+          file << contents
+        end
+      end
+      def write_copyright!
+        contents = render_template(root_dir.join("templates/html/copyright.erb"), config)
+        # File.open('help.html','w').write(contents)
+        File.open(copyright_path,"w") do |file|
+          file << contents
+          # puts file
+        end
       end
       def write_toc!
         toc = TOC::Epub.new(navigation)
@@ -79,21 +109,16 @@ module Bookmaker
           end
 
           FileUtils.mkdir_p(tmp_dir)
-
-          # Save file to disk.
-          #
           File.open(section.filepath, "w") do |file|
             body = section.html.css("body").to_xhtml.gsub(%r[<body>(.*?)</body>]m, "\\1")
             file << render_chapter(body)
           end
         end
       end
-
       def render_chapter(content)
         locals = config.merge(:content => content)
         render_template(template_path, locals)
       end
-
       def assets
         @assets ||= begin
           assets = Dir[root_dir.join("templates/epub/*.css")]
@@ -101,37 +126,38 @@ module Bookmaker
           assets
         end
       end
-
       def cover_image
-        path = Dir[root_dir.join("images/cover.{jpg,png,gif}").to_s].first
+        path = Dir[root_dir.join("images/cover-#{name}.{jpg,png,gif}").to_s.downcase].first
         return File.basename(path) if path && File.exist?(path)
       end
-
       def navigation
-        sections.map do |section|
-          {
+        sections.map do |section| {
             :label => section.html.css("h2:first-of-type").text,
             :content => section.filename
           }
         end
       end
-
       def template_path
         root_dir.join("templates/epub/page.erb")
       end
-
       def html_path
         root_dir.join("output/#{name}.html")
       end
-
       def epub_path
         root_dir.join("output/#{name}.epub")
       end
-
       def tmp_dir
         root_dir.join("output/tmp")
       end
-
+      def cover_path
+        tmp_dir.join("cover.html")
+      end
+      def back_path
+        tmp_dir.join("back.html")
+      end
+      def copyright_path
+        tmp_dir.join("copyright.html")
+      end
       def toc_path
         tmp_dir.join("toc.html")
       end

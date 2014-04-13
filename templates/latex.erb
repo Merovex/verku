@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1996/06/01]
-\documentclass[12pt,twoside,makeidx,hidelinks]{memoir}
+\documentclass[11pt,twoside,makeidx,hidelinks,<%= (status == 'final') ? '' : 'showtrims' %>]{memoir}
 \usepackage{layouts}[2001/04/29]
-\def\isfinal{<%= (status == 'final') ? 1 : 0 %>}
+<%= (status == 'final') ? '\def\isfinal{1}' : '' %>
 
 % Packages
 %=========
@@ -17,43 +17,51 @@
   microtype,
   fancybox,
   glossaries,
-  titling
+  titling,
+  xspace,
 }
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\input{./extras/characters.tex}
 
 % Boolean-ness
 %=============
-\newcommand{\onlyfinal}[1]{\ifdefined\isfinal{#1}\fi}
-\newcommand{\notfinal}[1]{\ifdefined\isfinal\else{#1}\fi}
+\newcommand{\onlyfinal}[1]{\ifdefined\isfinal{#1}\fi}%
+\newcommand{\notfinal}[1]{\ifdefined\isfinal\else{#1}\fi}%
 \newcommand{\whenfinal}[2]{%
   \ifdefined\isfinal%
-    #1
+    #1%
     \else%
-    #2
+    #2%
   \fi}%
 
+%
 % Page Layout
 %============
-<% 
+<%
   if status == 'final'
-    stock_size = %w(9in 6in)
-    ul_margin  = %w(0.8in 0.5in)
-    trim_size  = %w(9in 6in)
+    stock_size = [9, 6]
+    trims      = [0, 0]
   else
-    stock_size = %w(11in 8.5in)
-    ul_margin  = %w(1.8in 1.5in)
-    trim_size  = %w(11in 6in)
+    stock_size = [11 , 8.5]
+    trims      = [0.8, 0.5]
   end
+  ul_margin  = [0.8, 0.5]
+  lr_margin  = [0.8, 0.6]
+  type_block = [(9 - ul_margin.sum), (6 - lr_margin.sum)]
+
 %>
-\setstocksize{<%=stock_size[0]%>}{<%=stock_size[1]%>}
-\settrimmedsize{<%=trim_size[0]%>}{<%=trim_size[1]%>}{*}	% Use entire page
-\settrims{0pt}{0pt}
+<%= (status == 'final') ? '' : '\trimFrame' %>
+\setstocksize{<%=stock_size[0]%>in}{<%=stock_size[1]%>in}
+\setulmarginsandblock{0.8in}{0.5in}{*}
+\settrims{<%=trims[0]%>in}{<%=trims[1]%>in}
 \setlrmarginsandblock{0.8in}{0.5in}{*}
-\setulmarginsandblock{<%=ul_margin[0]%>}{<%=ul_margin[1]%>}{*}
+\settrimmedsize{9in}{6in}{*}
+\settypeblocksize{<%=type_block[0]%>in}{<%=type_block[1]%>in}{*}
 
 \setmarginnotes{0.1pt}{0.2in}{\onelineskip}
 \setheadfoot{\onelineskip}{2\onelineskip}
 \setheaderspaces{*}{2\onelineskip}{*}
-\linespread{1.05}
+\linespread{1.15}
 
 \checkandfixthelayout
 
@@ -127,7 +135,8 @@
 \newcounter{renewsection}
 \newcommand{\Chapter}[1]{
   \setcounter{renewsection}{\value{section}}
-  \chapter{#1}
+  \chapter{}
+  %\chapter{#1}
   \setcounter{section}{\value{renewsection}}
 }
 \chapterstyle{<%= chapter_style || 'ell'%>}
@@ -140,8 +149,32 @@
 % Novel Tweaks
 %=============
 
+\newenvironment{xdedication}%
+        {\vspace*{6ex}\begin{quotation}\begin{center}\begin{em}}%
+        {\par\end{em}\end{center}\end{quotation}}%
+
+\newenvironment{dedication}
+  {\clearpage           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+
 % Scene Formatting
 %-----------------
+
+\newcommand*\thoughtbreak{
+  \begin{center}
+    \vspace{1cm}
+  \noindent\rule{0.5\textwidth}{0.4pt}
+    \vspace{1cm}
+  \end{center}
+}
 
 \newcommand{\thought}[1]{\emph{#1}}
 \newcommand{\email}[1]{\texttt{#1}}
@@ -152,17 +185,18 @@
 \newcommand{\slugline}[2]{\notfinal{\section{#1}}\onlyfinal{\section{}}\slug{#2}}
 \newcommand{\interlude}[1]{\plainfancybreak{\AfterFancyBreakMin}{1}{#1}}
 
-\newcommand{\scene}[3]{%
-  \notfinal{\section{#1}\slug{#2}}
-  \input{#3}
-  \pbreak
-}%
+% \newcommand{\scene}[3]{%
+%   \notfinal{\section{#1}\slug{#2}}
+%   \input{#3}
+%   \pbreak
+% }%
 
 \newcommand{\smee}[1]{\${-} \textsc{\small#1}}
 \whenfinal%
   {\newcommand{\pbreak}{\pfbreak}}%
   {\newcommand{\pbreak}{\begin{center} \# \# \# \end{center}}}
 
+% \renewcommand{\pbreak}{\thoughtbreak}
 % Series Title Page
 %==================
 \def\seriestitle#1{\def\theseriestitle{\uppercase{#1}}}
@@ -173,7 +207,7 @@
   \noindent Other Books in the series:
   \vskip4pt
   \theseriesbooks
-\end{center}\newpage}
+\end{center}\cleardoublepage}
 \def\seriesbook#1{\vskip.5pt{\noindent\hskip8pt\emph{#1}}\vskip1sp}
 \def\seriesbooks#1\endseriesbooks{\def\theseriesbooks{\let\book\seriesbook{#1}}}
 
@@ -181,12 +215,14 @@
 %=========
 \makeglossary
 \makeindex
-\let\oldindex\index
+\let\oldindex\index{}%
 \newcommand{\marked}[1]{\whenfinal{#1}{\underline{#1}}}%
 \renewcommand{\index}[1]{\oldindex{#1}\marked{#1}}%
 \newcommand{\Index}[2]{\oldindex{#1}\marked{#2}}%
 \newcommand{\orbital}[1]{\oldindex{Orbital!#1}\marked{#1}}%
 \newcommand{\equipment}[1]{\oldindex{Equipment!#1}\marked{#1}}%
+\newcommand{\Equipment}[2]{\oldindex{Equipment!#1}\marked{#2}}%
+\newcommand{\System}[2]{\oldindex{System!#1}\marked{#2}}%
 \newcommand{\system}[1]{\oldindex{System!#1}\marked{#1}}%
 \newcommand{\character}[1]{\oldindex{Character!#1}\marked{#1}}%
 \newcommand{\Character}[2]{\oldindex{Character!#1}\marked{#2}}%
@@ -199,8 +235,8 @@
 % Book-Specific Metadata
 %========================
 
-\def\NextBook{Luctation}
-\def\ReturningCharacters{Bophendze and Smee}
+\def\NextBook{<%=next_book%>}
+\def\ReturningCharacters{<%=returning_characters%>}
 \title{<%= title %>}
 \author{<%= authors.join(', ') %>}
 \date{<%= published_at %>}
@@ -229,15 +265,29 @@
 % Document
 %========================
 \begin{document}
-  
+
 % Frontmatter
 %-------------
 \frontmatter
   % r.1 - Half-Title
-  
+  \begin{titlingpage}
+    \pagestyle{empty}
+    \begin{center}
+    \vspace*{2in}
+
+    \Huge\textbf{\textsf\thetitle}
+
+    \vspace*{0.75in}
+
+    \Large\textsf\theauthor
+
+    \vspace*{\fill}
+    \end{center}
+  \end{titlingpage}
+
   % r.2 - Series Title Page
   <%= "\\seriespage" unless series.nil? %>
-  
+ \newpage
   % r.3 Titlepage
   \begin{titlingpage}
     \pagestyle{empty}
@@ -255,9 +305,9 @@
     \vspace*{\fill}
 
     \vspace*{\fill}
-    \includegraphics[width=0.25\textwidth]{images/dp-logo.png}\\[0cm]
+    \includegraphics[width=0.75in]{images/dp-logo.png}\\[0cm]
     \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
-    \textsf{Communications}
+    \textsf{Publishing}
     \end{center}
   \end{titlingpage}
 
@@ -267,17 +317,17 @@
 
   \par\noindent\emph{\thetitle}
   \newline
-  
+
   <% if type == 'fiction' %>
-  
+
   \par\noindent This is a work of fiction. Names, characters, places and incidents are either
-  the product of the author's imagination or are used ficticiously, and any resemblance to
+  the product of the author's imagination or are used fictitiously, and any resemblance to
   actual persons, living or dead, business establishments, events or locales is entirely
   coincidental.\newline
   <% end %>
 
   \par\noindent\emph{<%= copyright %>}\newline
-  
+
   <% unless designer['cover'].nil? || designer['cover'].empty? %>
   \par\noindent Cover Design by <%= designer['cover'] %>\newline
   <% end %>
@@ -289,7 +339,7 @@
   <% unless editors['text'].nil? || editors['text'].empty? %>
   \par\noindent Book Design by <%= editors['text'].join(',') %>\newline
   <% end %>
-  
+
 
   \par\noindent All rights reserved.\newline
 
@@ -303,15 +353,17 @@
 
   \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
   \newline
-  
+
   \par\noindent <%= identifier['type'] %> <%= identifier['id'] %>
   \vspace*{\fill}
-  \newpage
 
   % r.5 - Dedication
+  <%= "\\begin{dedication}\n#{File.open('extras/dedication.tex').read}\\end{dedication}" if File.exist?('extras/dedication.tex')
+  %>
+  <%= (status != 'final') ? '\tableofcontents' : '' %>
 
-\tableofcontents
 
+  \newpage
 \mainmatter
   \pagestyle{ebook}
   \sloppy
@@ -327,28 +379,28 @@
 % \bibliocommand
 % \pagestyle{empty}
 \begin{center}
-	\vspace*{\fill}
-	
-  {\Large \par
-	\noindent Thank you for reading
+  \vspace*{\fill}
 
-	\vspace*{0.125in}
-	{\LARGE\textbf{\textsf{\thetitle}}}
-	\vspace*{0.125in}
-	
-	\ifdefined\ReturningCharacters
-  	\par
-  	\noindent\ReturningCharacters{} will return in \emph{\NextBook}.} \vspace*{\fill}
-	\fi
-	
-	{\LARGE\textbf{\textsf{Follow Me}}}
-	
-	\vspace*{0.125in}
-	
-	\textbf{\theauthor{}} can be followed on Twitter and Facebook.
-	\newline Visit his web site at http://dausha.net for more information. You can also sign up for announcements of other books in this series at http://dausha.net.
-	
-	\vspace*{\fill} 
+  {\Large \par
+  \noindent Thank you for reading
+
+  \vspace*{0.125in}
+  {\LARGE\textbf{\textsf{\thetitle}}}
+  \vspace*{0.125in}
+
+  \ifdefined\ReturningCharacters
+    \par
+    \noindent\ReturningCharacters{} will return in \emph{\NextBook}.} \vspace*{\fill}
+  \fi
+
+  {\LARGE\textbf{\textsf{Follow Me}}}
+
+  \vspace*{0.125in}
+
+  \textbf{\theauthor{}} can be followed on Twitter and Facebook.
+  \newline Visit his web site at http://dausha.net for more information. You can also sign up for announcements of other books in this series at http://dausha.net.
+
+  \vspace*{\fill}
 \end{center}
 
 <% if (type == 'fiction' and status != 'final') or type == 'nonfiction' %>

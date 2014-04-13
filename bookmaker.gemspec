@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Bookmaker::VERSION
   s.authors     = ["Merovex"]
   s.email       = ["dausha@gmail.com"]
-  s.homepage    = "http://dausha.net"
-  s.summary     = %q{ODO: Write a gem summary}
-  s.description = %q{ODO: Write a gem description}
+  s.homepage    = "http://dausha.net/bookmaker"
+  s.summary     = %q{Bookmaker is a Ruby & LaTeX based production toolchain for self-publishers.}
+  s.description = %q{Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the LaTeX document preparation system.}
 
   s.rubyforge_project = "bookmaker"
 
@@ -18,10 +18,14 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  # https://github.com/technicalpickles/jeweler
+
   # specify any dependencies here; for example:
   s.add_dependency "activesupport"
   s.add_development_dependency "aruba"
   s.add_development_dependency "cucumber"
+  s.add_dependency "rubyzip"
+  s.add_dependency "zip-zip"
   s.add_dependency "eeepub"
   s.add_dependency "kramdown"
   s.add_dependency "thor"
