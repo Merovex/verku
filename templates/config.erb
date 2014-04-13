@@ -1,13 +1,23 @@
 # The book's title. Will be used everywhere!
 title: "<%= @title %>"
+#next_book: Title of next book in series
+epub_cover: "cover.jpg" # Name of bookcover
+
+returning_characters: "Bophendze and Smee"
+
 
 # The book's language.
 language: "en"
 
 # Type: 'fiction' or 'nonfiction'
-type: 'fiction' 
+type: 'fiction'
+
 # Status: 'draft' or 'final'
 status: "draft"
+
+# Chapter Style based on Memoir class
+# ftp://ftp.tex.ac.uk/tex-archive/documentation/MemoirChapStyles/MemoirChapStyles.pdf
+chapter_style: "chappell"
 
 # Your book copyright info.
 # Here's some examples:
@@ -49,10 +59,11 @@ authors:
 base_url: http://example.com
 
 series:
-  title: 
+  title: "Series TItle"
   books:
-    - "Bellicose"
-# 
+    - "Book in Series"
+    - "Book in Series"
+#
 fonts:
   serif: "Garamond"
   sans:  "Tahoma"
@@ -61,7 +72,7 @@ fonts:
 designer:
   book: "Ben Wilson"
   cover: "<%= @name %>"
-  
+
 editors:
   text:
 
@@ -70,4 +81,3 @@ editors:
 sections:
   - 01-Welcome.md
 
-  

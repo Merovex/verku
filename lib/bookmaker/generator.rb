@@ -4,7 +4,7 @@ module Bookmaker
     def self.source_root
       File.dirname(__FILE__) + "/../../templates"
     end
-    def build_config_file      
+    def build_config_file
       @title = File.basename(destination_root).gsub('-', ' ')
       @name = full_name
       @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
@@ -14,13 +14,15 @@ module Bookmaker
     def copy_templates
       copy_file "latex.erb",  "templates/pdf/layout.erb"
       copy_file "dp-logo.png",  "images/dp-logo.png"
-      
+
       copy_file "html.erb",   "templates/html/layout.erb"
       copy_file "user.css",   "templates/html/user.css"
       copy_file "layout.css", "templates/html/layout.css"
       copy_file "syntax.css", "templates/html/syntax.css"
-      
-      copy_file "cover.html", "templates/epub/cover.html"
+
+      copy_file "back.erb",   "templates/epub/back.erb"
+      copy_file "copyright.erb",   "templates/epub/copyright.erb"
+      copy_file "cover.erb", "templates/epub/cover.erb"
       copy_file "epub.erb",   "templates/epub/page.erb"
       copy_file "epub.css",   "templates/epub/user.css"
       copy_file "cover.jpg",  "images/cover.jpg"

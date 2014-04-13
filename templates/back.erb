@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Back Page</title>
+    <style type="text/css"> img { max-width: 100%; } </style>
+  </head>
+  <body>
+    <div class="copyright">
+
+<h2 class="no-toc"><%= title %></h2>
+
+ <p><%= returning_characters %> will return in <em><%= next_book %></em>.</p>
+
+  <h3>Follow Me</h3>
+
+  <strong><%= authors.join(', ') %></strong> can be followed on Twitter and Facebook.
+
+  Visit his web site at <%= "<a href='#{base_url}'>#{base_url}</a>" %> for more information. You can also sign up for announcements of other books in this series at <%= "<a href='#{base_url}'>#{base_url}</a>" %>.
+    </div>
+
+  </body>
+</html>
