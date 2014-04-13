@@ -26,6 +26,9 @@ module Bookmaker
       copy_file "epub.erb",   "templates/epub/page.erb"
       copy_file "epub.css",   "templates/epub/user.css"
       copy_file "cover.jpg",  "images/cover.jpg"
+      copy_file "rakefile.rb",  "Rakefile"
+      copy_file "extras.tex",  "extras/characters.tex"
+      copy_file "extras.tex",  "extras/dedicationls.tex"
     end
     def copy_sample_text
       copy_file "sample.tex"   , "text/01_First-Chapter/01-Welcome.tex"
