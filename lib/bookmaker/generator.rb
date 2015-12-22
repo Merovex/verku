@@ -22,7 +22,7 @@ module Bookmaker
       copy_file "html/layout.css",        "_templates/html/layout.css"
       copy_file "html/syntax.css",        "_templates/html/syntax.css"
 
-      copy_file "epub/back.erb",          "_templates/epub/back.erb"
+      copy_file "epub/back.erb",          "_templates/epub/back.html"
       copy_file "epub/copyright.erb",     "_templates/epub/copyright.erb"
       copy_file "epub/cover.erb",         "_templates/epub/cover.erb"
       copy_file "epub/cover.html",        "_templates/epub/cover.html"
