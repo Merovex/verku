@@ -17,6 +17,7 @@ module Bookmaker
       
       copy_file "html/layout.erb",        "_templates/html/layout.erb"
       copy_file "html/thanks.erb",        "_templates/html/thanks.erb"
+      copy_file "html/copyright.erb",        "_templates/html/copyright.erb"
       copy_file "html/user.css",          "_templates/html/user.css"
       copy_file "html/layout.css",        "_templates/html/layout.css"
       copy_file "html/syntax.css",        "_templates/html/syntax.css"
