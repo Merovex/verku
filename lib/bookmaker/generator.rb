@@ -25,7 +25,7 @@ module Bookmaker
       copy_file "epub/cover.erb",         "templates/epub/cover.erb"
       copy_file "epub/cover.html",        "templates/epub/cover.html"
       copy_file "epub/page.erb",          "templates/epub/page.erb"
-      copy_file "epub/epub.css",          "templates/epub/user.css"
+      copy_file "epub/user.css",          "templates/epub/user.css"
 
       copy_file "cover.jpg",              "images/cover.jpg"
       copy_file "rakefile.rb",            "Rakefile"
