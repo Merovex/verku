@@ -12,7 +12,9 @@ end
 require 'rake'
 
 require 'jeweler'
+require './lib/bookmaker/version.rb'
 Jeweler::Tasks.new do |gem|
+
   gem.name        = "bookmaker"
   gem.version     = Bookmaker::Version::STRING
   gem.authors     = ["Merovex"]
