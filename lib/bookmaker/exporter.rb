@@ -21,6 +21,10 @@ module Bookmaker
       helper = root_dir.join("config/helper.rb")
       load(helper) if helper.exist?
 
+      raise "Missing Templates directory (_templates)" unless File.exist?("_templates")
+      raise "Missing Images directory (_images)" unless File.exist?("_images")
+      raise "Missing Output directory (_output)" unless File.exist?("_output")
+
       export_pdf  = [nil, "pdf"].include?(options[:only])
       export_html = [nil, "html", "mobi", "epub"].include?(options[:only])
       export_epub = [nil, "mobi", "epub"].include?(options[:only])
@@ -50,7 +54,7 @@ module Bookmaker
         end
 
         Notifier.notify(
-          :image   => Bookmaker::ROOT.join("templates/ebook.png"),
+          :image   => Bookmaker::ROOT.join("_templates/ebook.png"),
           :title   => "Bookmaker",
           :message => "Your \"#{config[:title]}\" e-book has been exported!"
         )
