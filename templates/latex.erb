@@ -21,7 +21,7 @@
   xspace,
 }
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
-%\input{./extras/characters.tex}
+%\input{./_extras/characters.tex}
 
 % Boolean-ness
 %=============
@@ -358,7 +358,7 @@
   \vspace*{\fill}
 
   % r.5 - Dedication
-  <%= "\\begin{dedication}\n#{File.open('extras/dedication.tex').read}\\end{dedication}" if File.exist?('extras/dedication.tex')
+  <%= "\\begin{dedication}\n#{File.open('_extras/dedication.tex').read}\\end{dedication}" if File.exist?('_extras/dedication.tex')
   %>
   <%= (status != 'final') ? '\tableofcontents' : '' %>
 
