@@ -14,7 +14,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   gem.name        = "bookmaker"
-  # gem.version     = Bookmaker::VERSION
+  gem.version     = Bookmaker::Version::STRING
   gem.authors     = ["Merovex"]
   gem.email       = ["dausha+bookmaker@gmail.com"]
   gem.homepage    = "https://github.com/Merovex/bookmaker"
