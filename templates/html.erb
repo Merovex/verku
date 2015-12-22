@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+  <title><%= title %></title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <meta name="generator" content="Bookmaker Gem" /> 
+  <meta name="author" content="<%= authors.to_sentence %>" />
+  <meta name="subject" content="<%= subject %>" />
+  <meta name="keywords" content="<%= keywords %>" />
+  <meta name="date" content="<%= published_at %>" />
+   
+  <!-- charset=utf-8,html,xhtml --> 
+  <meta name="date" content="<%= published_at %>" /> 
+
+  <link rel="stylesheet" type="text/css" href="../templates/html/layout.css"/>
+  <link rel="stylesheet" type="text/css" href="../templates/html/syntax.css"/>
+  <link rel="stylesheet" type="text/css" href="../templates/html/user.css"/>
+</head>
+<body>
+  <div class="frontcover container">
+    <div>
+      <h1><%= title %></h1>
+      <p class="description"><%= subject %></p>
+      <p class="authors"><%= authors.to_sentence %></p>
+    </div>
+  </div>
+
+  <div class="table-of-contents">
+    <h2 class="no-toc">Content</h2>
+    <div id="toc">
+      <%= toc %>
+    </div>
+  </div>
+  <div id='chapters'>
+    <%= contents %>
+  </div>
+  <div class="imprint container">
+    <div>
+      <h2><%= title %></h2>
+      <p><%= authors.to_sentence %></p>
+      <p><%= copyright %></p>
+    </div>
+  </div>
+</body>
+</html>

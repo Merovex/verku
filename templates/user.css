@@ -1,0 +1,7 @@
+/* add custom CSS */
+span.smee {
+  font-family: monospace;
+}
+span.smee:before {
+  content: '$ ';
+}
