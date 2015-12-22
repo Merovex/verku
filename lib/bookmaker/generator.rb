@@ -23,6 +23,7 @@ module Bookmaker
       copy_file "epub/back.erb",          "templates/epub/back.erb"
       copy_file "epub/copyright.erb",     "templates/epub/copyright.erb"
       copy_file "epub/cover.erb",         "templates/epub/cover.erb"
+      copy_file "epub/cover.html",         "templates/epub/cover.html"
       copy_file "epub/epub.erb",          "templates/epub/page.erb"
       copy_file "epub/epub.css",          "templates/epub/user.css"
 
