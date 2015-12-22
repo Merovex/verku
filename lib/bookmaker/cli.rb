@@ -46,7 +46,7 @@ module Bookmaker
     desc "version", "Prints the Bookmaker's version information"
     map %w(-v --version) => :version
     def version
-      say "Bookmaker version #{Bookmaker::VERSION}"
+      say "Bookmaker version #{Bookmaker::Version::STRING}"
     end
     
     desc "stats", "Display some stats about your e-book"
