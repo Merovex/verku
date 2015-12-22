@@ -3,7 +3,7 @@ module Bookmaker
     MAJOR = 0
     MINOR = 7
     PATCH = 1
-    BUILD = 'pre1'
+    BUILD = 'pre2'
 
     STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join('.')
   end
