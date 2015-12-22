@@ -12,32 +12,32 @@ module Bookmaker
       template "config.erb", "_bookmaker.yml"
     end
     def copy_templates
-      copy_file "pdf/layout.erb",         "templates/pdf/layout.erb"
-      copy_file "dp-logo.png",            "images/dp-logo.png"
+      copy_file "pdf/layout.erb",         "_templates/pdf/layout.erb"
+      copy_file "dp-logo.png",            "_images/dp-logo.png"
       
-      copy_file "html/layout.erb",        "templates/html/layout.erb"
-      copy_file "html/user.css",          "templates/html/user.css"
-      copy_file "html/layout.css",        "templates/html/layout.css"
-      copy_file "html/syntax.css",        "templates/html/syntax.css"
+      copy_file "html/layout.erb",        "_templates/html/layout.erb"
+      copy_file "html/user.css",          "_templates/html/user.css"
+      copy_file "html/layout.css",        "_templates/html/layout.css"
+      copy_file "html/syntax.css",        "_templates/html/syntax.css"
 
-      copy_file "epub/back.erb",          "templates/epub/back.erb"
-      copy_file "epub/copyright.erb",     "templates/epub/copyright.erb"
-      copy_file "epub/cover.erb",         "templates/epub/cover.erb"
-      copy_file "epub/cover.html",        "templates/epub/cover.html"
-      copy_file "epub/page.erb",          "templates/epub/page.erb"
-      copy_file "epub/user.css",          "templates/epub/user.css"
+      copy_file "epub/back.erb",          "_templates/epub/back.erb"
+      copy_file "epub/copyright.erb",     "_templates/epub/copyright.erb"
+      copy_file "epub/cover.erb",         "_templates/epub/cover.erb"
+      copy_file "epub/cover.html",        "_templates/epub/cover.html"
+      copy_file "epub/page.erb",          "_templates/epub/page.erb"
+      copy_file "epub/user.css",          "_templates/epub/user.css"
 
-      copy_file "cover.jpg",              "images/cover.jpg"
+      copy_file "cover.jpg",              "_images/cover.jpg"
       copy_file "rakefile.rb",            "Rakefile"
-      copy_file "extras.tex",             "extras/characters.tex"
-      copy_file "extras.tex",             "extras/dedications.tex"
+      copy_file "extras.tex",             "_extras/characters.tex"
+      copy_file "extras.tex",             "_extras/dedications.tex"
     end
     def copy_sample_text
       copy_file "sample.tex",             "text/01_First-Chapter/01-Welcome.tex"
     end
     def create_directories
-      empty_directory "output"
-      empty_directory "images"
+      empty_directory "_output"
+      empty_directory "_images"
     end
     private
       # Retrieve user's name using finger.

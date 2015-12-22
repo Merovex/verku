@@ -57,13 +57,13 @@ module Bookmaker
         Dir[thanks_path]
       end
       def write_backpage!
-        contents = render_template(root_dir.join("templates/epub/back.html"), config)
+        contents = render_template(root_dir.join("_templates/epub/back.html"), config)
         File.open(back_path,"w") do |file|
           file << contents
         end
       end
       def write_coverpage!
-        contents = render_template(root_dir.join("templates/epub/cover.html"), config)
+        contents = render_template(root_dir.join("_templates/epub/cover.html"), config)
         puts "Writing cover page. #{cover_path}"
         # 
         # raise File.dirname(cover_path).inspect
@@ -73,7 +73,7 @@ module Bookmaker
         end
       end
       def write_copyright!
-        contents = render_template(root_dir.join("templates/html/copyright.erb"), config)
+        contents = render_template(root_dir.join("_templates/html/copyright.erb"), config)
         # File.open('help.html','w').write(contents)
         FileUtils.mkdir_p(File.dirname(copyright_path))
         File.open(copyright_path,"w") do |file|
@@ -82,7 +82,7 @@ module Bookmaker
         end
       end
       def write_thankspage!
-        contents = render_template(root_dir.join("templates/html/thanks.erb"), config)
+        contents = render_template(root_dir.join("_templates/html/thanks.erb"), config)
         # File.open('help.html','w').write(contents)
         FileUtils.mkdir_p(File.dirname(thanks_path))
         File.open(thanks_path,"w") do |file|
@@ -141,7 +141,7 @@ module Bookmaker
       end
       def assets
         @assets ||= begin
-          assets = Dir[root_dir.join("templates/epub/*.css")]
+          assets = Dir[root_dir.join("_templates/epub/*.css")]
           assets += Dir[root_dir.join("images/**/*.{jpg,png,gif}")]
           assets
         end
@@ -158,16 +158,16 @@ module Bookmaker
         end
       end
       def template_path
-        root_dir.join("templates/epub/page.erb")
+        root_dir.join("_templates/epub/page.erb")
       end
       def html_path
-        root_dir.join("output/#{name}.html")
+        root_dir.join("_output/#{name}.html")
       end
       def epub_path
-        root_dir.join("output/#{name}.epub")
+        root_dir.join("_output/#{name}.epub")
       end
       def tmp_dir
-        root_dir.join("output/tmp")
+        root_dir.join("_output/tmp")
       end
       def cover_path
         tmp_dir.join("cover.html")

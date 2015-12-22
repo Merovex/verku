@@ -47,7 +47,7 @@ module Bookmaker
         text.gsub!('* * *', "\n\n\\pbreak{}\n\n")
       end
       def tex_file
-        root_dir.join("output/#{name}.tex")
+        root_dir.join("_output/#{name}.tex")
       end
     end
   end
