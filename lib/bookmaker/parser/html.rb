@@ -27,7 +27,7 @@ module Bookmaker
                   :contents  => toc.content,
                   :toc       => toc.to_html,
                  })
-        output = render_template(root_dir.join("templates/html/layout.erb"), locals)
+        output = render_template(root_dir.join("_templates/html/layout.erb"), locals)
         f = File.open(root_dir.join("output/#{name}.html"), 'w')
         f.write(output)
         f.close
@@ -221,7 +221,7 @@ module Bookmaker
      #       :toc       => toc.to_html,
      #       :changelog => render_changelog
      #     })
-     #     render_template(root_dir.join("templates/html/layout.erb"), locals)
+     #     render_template(root_dir.join("_templates/html/layout.erb"), locals)
      #   end
      #
      #   # Render changelog file.

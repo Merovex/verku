@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Reader Page</title>
+    <style type="text/css"> img { max-width: 100%; } </style>
+  </head>
+  <body>
+    <div class="copyright">
+    <h2 class="no-toc">I'd like your feedback</h2>
+
+  <p>Dear Reader,</p>
+ 	<p>I would like to thank you for downloading this book and giving it a read. I would love to read your feedback as I try to improve this series and my writing.</p>
+  
+	<p>Just send an email to: <%= "<a href='mailto:feedback@dausha.net?subject=#{title.gsub(' ','%20')}-#{Date.today}%20Feedback'>feedback@dausha.net</a>" %></p>
+
+	<p>You can also visit my Facebook page: <a href='https://www.facebook.com/pages/Ben-Wilson-Author/143743165675224'>Ben Wilson, Author</a>, where you can get updates as well.</p>
+
+  <p>Version Date: <%= Date.today %></p>
+  </div>
+</body>
+</html>
