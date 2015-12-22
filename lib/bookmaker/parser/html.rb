@@ -28,7 +28,7 @@ module Bookmaker
                   :toc       => toc.to_html,
                  })
         output = render_template(root_dir.join("_templates/html/layout.erb"), locals)
-        f = File.open(root_dir.join("output/#{name}.html"), 'w')
+        f = File.open(root_dir.join("_output/#{name}.html"), 'w')
         f.write(output)
         f.close
         true
@@ -107,7 +107,7 @@ module Bookmaker
      #   def parse
      #     reset_footnote_index!
      #
-     #     # File.open(root_dir.join("output/#{name}.html"), "w") do |file|
+     #     # File.open(root_dir.join("_output/#{name}.html"), "w") do |file|
      #     #   file << parse_layout(content)
      #     # end
      #     true

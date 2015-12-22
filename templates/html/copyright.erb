@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Copyright Page</title>
+    <style type="text/css"> img { max-width: 100%; } </style>
+  </head>
+  <body>
+    <div class="copyright">
+    <h2 class="no-toc"><%= title %></h2>
+  <% if type == 'fiction' %>
+  <p>This is a work of fiction. Names, characters, places and incidents are either
+  the product of the author's imagination or are used fictitiously, and any resemblance to
+  actual persons, living or dead, business establishments, events or locales is entirely
+  coincidental.</p>
+  <% end %>
+
+  <p><em><%= copyright.gsub("(C)", "&copy;") %></em></p>
+
+  <% unless designer['cover'].nil? || designer['cover'].empty? %>
+  <p> Cover Design by <%= designer['cover'] %></p>
+  <% end %>
+
+  <% unless designer['book'].nil? || designer['book'].empty? %>
+  <p> Book Design by <%= designer['book'] %></p>
+  <% end %>
+
+  <% unless editors['text'].nil? || editors['text'].empty? %>
+  <p> Edited by <%= editors['text'].join(',') %></p>
+  <% end %>
+
+
+  <p> All rights reserved.</p>
+
+  <p> No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.</p>
+
+  <p> Visit my website at <%= "<a href='#{base_url}'>#{base_url}</a>" %></p>
+
+  <p> Printed in the United States of America</p>
+
+  <p><em>First Printing, <%= published_at %></em></p>
+
+  <p> <%= identifier['type'] %> <%= identifier['id'] %></p>
+
+  </div>
+</body>
+</html>
