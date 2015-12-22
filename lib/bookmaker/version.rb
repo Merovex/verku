@@ -1,4 +1,4 @@
-class Bookmaker
+module Bookmaker
   module Version
     MAJOR = 0
     MINOR = 7
