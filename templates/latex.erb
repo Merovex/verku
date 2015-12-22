@@ -356,6 +356,7 @@
 
   \par\noindent <%= identifier['type'] %> <%= identifier['id'] %>
   \vspace*{\fill}
+  
 
   % r.5 - Dedication
   <%= "\\begin{dedication}\n#{File.open('_extras/dedication.tex').read}\\end{dedication}" if File.exist?('_extras/dedication.tex')
