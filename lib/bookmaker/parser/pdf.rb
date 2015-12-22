@@ -21,7 +21,7 @@ module Bookmaker
         puts "-- Exporting PDF"
         locals = config.merge({ :contents => parse_layout(content) })
         locals['copyright'].gsub!("(C)", "\\copyright{}")
-        output = render_template(root_dir.join("templates/pdf/layout.erb"), locals)
+        output = render_template(root_dir.join("_templates/pdf/layout.erb"), locals)
         File.open(root_dir.join(tex_file), 'w').write(output)
         puts "    - Pass 1"
         spawn_command ["xelatex", tex_file.to_s,]
@@ -36,7 +36,7 @@ module Bookmaker
         end
         
         spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux *ist"]
-        spawn_command ["mv #{name}.pdf output/#{name}.pdf"]
+        spawn_command ["mv #{name}.pdf _output/#{name}.pdf"]
         true
       rescue Exception
         p $!, $@
