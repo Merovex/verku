@@ -12,26 +12,27 @@ module Bookmaker
       template "config.erb", "_bookmaker.yml"
     end
     def copy_templates
-      copy_file "latex.erb",  "templates/pdf/layout.erb"
-      copy_file "dp-logo.png",  "images/dp-logo.png"
+      copy_file "pdf/layout.erb",         "templates/pdf/layout.erb"
+      copy_file "dp-logo.png",            "images/dp-logo.png"
+      
+      copy_file "html/html.erb",          "templates/html/layout.erb"
+      copy_file "html/user.css",          "templates/html/user.css"
+      copy_file "html/layout.css",        "templates/html/layout.css"
+      copy_file "html/syntax.css",        "templates/html/syntax.css"
 
-      copy_file "html.erb",   "templates/html/layout.erb"
-      copy_file "user.css",   "templates/html/user.css"
-      copy_file "layout.css", "templates/html/layout.css"
-      copy_file "syntax.css", "templates/html/syntax.css"
+      copy_file "epub/back.erb",          "templates/epub/back.erb"
+      copy_file "epub/copyright.erb",     "templates/epub/copyright.erb"
+      copy_file "epub/cover.erb",         "templates/epub/cover.erb"
+      copy_file "epub/epub.erb",          "templates/epub/page.erb"
+      copy_file "epub/epub.css",          "templates/epub/user.css"
 
-      copy_file "back.erb",   "templates/epub/back.erb"
-      copy_file "copyright.erb",   "templates/epub/copyright.erb"
-      copy_file "cover.erb", "templates/epub/cover.erb"
-      copy_file "epub.erb",   "templates/epub/page.erb"
-      copy_file "epub.css",   "templates/epub/user.css"
-      copy_file "cover.jpg",  "images/cover.jpg"
-      copy_file "rakefile.rb",  "Rakefile"
-      copy_file "extras.tex",  "extras/characters.tex"
-      copy_file "extras.tex",  "extras/dedicationls.tex"
+      copy_file "cover.jpg",              "images/cover.jpg"
+      copy_file "rakefile.rb",            "Rakefile"
+      copy_file "extras.tex",             "extras/characters.tex"
+      copy_file "extras.tex",             "extras/dedications.tex"
     end
     def copy_sample_text
-      copy_file "sample.tex"   , "text/01_First-Chapter/01-Welcome.tex"
+      copy_file "sample.tex",             "text/01_First-Chapter/01-Welcome.tex"
     end
     def create_directories
       empty_directory "output"

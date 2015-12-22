@@ -1,0 +1,415 @@
+\NeedsTeXFormat{LaTeX2e}[1996/06/01]
+\documentclass[11pt,twoside,makeidx,hidelinks,<%= (status == 'final') ? '' : 'showtrims' %>]{memoir}
+\usepackage{layouts}[2001/04/29]
+<%= (status == 'final') ? '\def\isfinal{1}' : '' %>
+
+% Packages
+%=========
+\usepackage{verbatim}
+\usepackage[colorlinks=false]{hyperref}
+% \usepackage[utf8x]{inputenc}
+\usepackage{
+  fancyvrb,
+  graphics,
+  url,
+  rotating,
+  lipsum,
+  microtype,
+  fancybox,
+  glossaries,
+  titling,
+  xspace,
+}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\input{./extras/characters.tex}
+
+% Boolean-ness
+%=============
+\newcommand{\onlyfinal}[1]{\ifdefined\isfinal{#1}\fi}%
+\newcommand{\notfinal}[1]{\ifdefined\isfinal\else{#1}\fi}%
+\newcommand{\whenfinal}[2]{%
+  \ifdefined\isfinal%
+    #1%
+    \else%
+    #2%
+  \fi}%
+
+%
+% Page Layout
+%============
+<%
+  if status == 'final'
+    stock_size = [9, 6]
+    trims      = [0, 0]
+  else
+    stock_size = [11 , 8.5]
+    trims      = [0.8, 0.5]
+  end
+  ul_margin  = [0.8, 0.5]
+  lr_margin  = [0.8, 0.6]
+  type_block = [(9 - ul_margin.sum), (6 - lr_margin.sum)]
+
+%>
+<%= (status == 'final') ? '' : '\trimFrame' %>
+\setstocksize{<%=stock_size[0]%>in}{<%=stock_size[1]%>in}
+\setulmarginsandblock{0.8in}{0.5in}{*}
+\settrims{<%=trims[0]%>in}{<%=trims[1]%>in}
+\setlrmarginsandblock{0.8in}{0.5in}{*}
+\settrimmedsize{9in}{6in}{*}
+\settypeblocksize{<%=type_block[0]%>in}{<%=type_block[1]%>in}{*}
+
+\setmarginnotes{0.1pt}{0.2in}{\onelineskip}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\linespread{1.15}
+
+\checkandfixthelayout
+
+\setlength{\headsep}{8pt}
+
+\newlength{\AfterFancyBreakMin}
+\setlength{\AfterFancyBreakMin}{3\baselineskip}
+\setlength{\parindent}{1.5 em}
+\makeatletter
+\g@addto@macro\quote{\linespread{1}\small{}}
+\g@addto@macro\quotation{\linespread{1}\small{}}
+\g@addto@macro\caption{\linespread{1}\footnotesize{}}
+\makeatother
+\tolerance 1414
+\hbadness 1414
+\setlength{\emergencystretch}{3em}
+\righthyphenmin 62
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\clubpenalty=10000
+\setlength{\parindent}{1.5 em}
+
+% Page Heading
+%-------------
+\makepagestyle{ebook}
+\makeoddhead{ebook}{}{\textsf\theauthor}{\normalfont\thepage}
+\makeevenhead{ebook}{\normalfont\thepage}{\textsf \thetitle}{}
+
+\aliaspagestyle{title}{empty}
+
+% Text Tweaks
+%-------------
+\def\thinspace{\kern .16667em }
+\newcommand{\ellip}{\ldots}
+\newcommand{\Dash}{\thinspace---\thinspace}
+\newcommand{\dash}{\tk{--Wrong Dash--}}
+
+% Fonts
+%------
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{<%= fonts['serif'] %>}
+\setsansfont{<%= fonts['sans'] %>}
+\setmonofont{<%= fonts['mono'] %>}
+\newfontinstance\scshape[Letters=SmallCaps, Numbers=Uppercase]{<%= fonts['small_caps'] || fonts['mono'] %>}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\ifdefined\disableligature
+  \DisableLigatures[f]{encoding = *, family = * }
+\fi
+
+% Dates
+%-------
+\usepackage{datetime}
+\newdateformat{yearonly}{\THEYEAR}
+\newdateformat{usmonthyear}{\monthname[\THEMONTH], \THEYEAR}
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
+
+% Document Headings
+%==================
+
+% Chapter
+%-----------
+\setsecheadstyle{\bfseries\large\centering}
+\newcounter{renewsection}
+\newcommand{\Chapter}[1]{
+  \setcounter{renewsection}{\value{section}}
+  \chapter{}
+  %\chapter{#1}
+  \setcounter{section}{\value{renewsection}}
+}
+\chapterstyle{<%= chapter_style || 'ell'%>}
+
+
+% Section
+%---------
+\renewcommand{\thesection}{\arabic{section}.}
+
+% Novel Tweaks
+%=============
+
+\newenvironment{xdedication}%
+        {\vspace*{6ex}\begin{quotation}\begin{center}\begin{em}}%
+        {\par\end{em}\end{center}\end{quotation}}%
+
+\newenvironment{dedication}
+  {\clearpage           % we want a new page
+   \thispagestyle{empty}% no header and footer
+   \vspace*{\stretch{1}}% some space at the top
+   \itshape             % the text is in italics
+   \raggedleft          % flush to the right margin
+  }
+  {\par % end the paragraph
+   \vspace{\stretch{3}} % space at bottom is three times that at the top
+   \clearpage           % finish off the page
+  }
+
+% Scene Formatting
+%-----------------
+
+\newcommand*\thoughtbreak{
+  \begin{center}
+    \vspace{1cm}
+  \noindent\rule{0.5\textwidth}{0.4pt}
+    \vspace{1cm}
+  \end{center}
+}
+
+\newcommand{\thought}[1]{\emph{#1}}
+\newcommand{\email}[1]{\texttt{#1}}
+\newcommand{\status}[1]{\notfinal{\textbf{Status:} #1\newline}}
+\newcommand{\synopsis}[1]{\notfinal{\line(1,0){320}\newline\textbf{What's going on here?} #1\newline
+\line(1,0){320}\newline}}
+\newcommand{\slug}[1]{\notfinal{\MakeUppercase{#1}\newline\newline}}
+\newcommand{\slugline}[2]{\notfinal{\section{#1}}\onlyfinal{\section{}}\slug{#2}}
+\newcommand{\interlude}[1]{\plainfancybreak{\AfterFancyBreakMin}{1}{#1}}
+
+% \newcommand{\scene}[3]{%
+%   \notfinal{\section{#1}\slug{#2}}
+%   \input{#3}
+%   \pbreak
+% }%
+
+\newcommand{\smee}[1]{\${-} \textsc{\small#1}}
+\whenfinal%
+  {\newcommand{\pbreak}{\pfbreak}}%
+  {\newcommand{\pbreak}{\begin{center} \# \# \# \end{center}}}
+
+% \renewcommand{\pbreak}{\thoughtbreak}
+% Series Title Page
+%==================
+\def\seriestitle#1{\def\theseriestitle{\uppercase{#1}}}
+\def\seriespage{\thispagestyle{empty}
+\begin{center}
+  \noindent{\large\theseriestitle}
+  \vskip10.5pt
+  \noindent Other Books in the series:
+  \vskip4pt
+  \theseriesbooks
+\end{center}\cleardoublepage}
+\def\seriesbook#1{\vskip.5pt{\noindent\hskip8pt\emph{#1}}\vskip1sp}
+\def\seriesbooks#1\endseriesbooks{\def\theseriesbooks{\let\book\seriesbook{#1}}}
+
+% Indices
+%=========
+\makeglossary
+\makeindex
+\let\oldindex\index{}%
+\newcommand{\marked}[1]{\whenfinal{#1}{\underline{#1}}}%
+\renewcommand{\index}[1]{\oldindex{#1}\marked{#1}}%
+\newcommand{\Index}[2]{\oldindex{#1}\marked{#2}}%
+\newcommand{\orbital}[1]{\oldindex{Orbital!#1}\marked{#1}}%
+\newcommand{\equipment}[1]{\oldindex{Equipment!#1}\marked{#1}}%
+\newcommand{\Equipment}[2]{\oldindex{Equipment!#1}\marked{#2}}%
+\newcommand{\System}[2]{\oldindex{System!#1}\marked{#2}}%
+\newcommand{\system}[1]{\oldindex{System!#1}\marked{#1}}%
+\newcommand{\character}[1]{\oldindex{Character!#1}\marked{#1}}%
+\newcommand{\Character}[2]{\oldindex{Character!#1}\marked{#2}}%
+\newcommand{\ship}[1]{\oldindex{Ship!#1}\marked{\emph{#1}}}%
+\newcommand{\Ship}[1]{\oldindex{Ship!#1}\marked{\emph{#1}}}%
+\newcommand{\location}[1]{\oldindex{Location!#1}\marked{#1}}%
+\newcommand{\Location}[2]{\oldindex{Location!#1}\marked{#2}}%
+\newcommand{\clin}[1]{\oldindex{Clin!#1}Clin \marked{#1}}%
+
+% Book-Specific Metadata
+%========================
+
+\def\NextBook{<%=next_book%>}
+\def\ReturningCharacters{<%=returning_characters%>}
+\title{<%= title %>}
+\author{<%= authors.join(', ') %>}
+\date{<%= published_at %>}
+\newdate{firstprint}{<%= published_at.split('-')[2]%>}{<%= published_at.split('-')[1]%>}{<%= published_at.split('-')[0]%>}
+
+<% unless series.nil? or series['books'].nil? %>
+\seriestitle{<%= series['title'] %>}
+\seriesbooks
+  <%= series['books'].map{ |b| "\\book{#{b}}" }.join("\n  ") %>
+\endseriesbooks
+<% end %>
+
+% Drafting Help
+%==============
+\newcommand{\tk}[1]{%
+  \ifdefined\isdraft%
+      % \textbf{TK-#1}
+      \todo{#1}\textbf{TK-#1}%
+    \else%
+      \textbf{TK-#1}%
+      % \todo{#1}\textbf{TK-#1}
+  \fi%
+}%
+\newcommand{\TK}[1]{\tk{BAD-TK--#1}}
+
+% Document
+%========================
+\begin{document}
+
+% Frontmatter
+%-------------
+\frontmatter
+  % r.1 - Half-Title
+  \begin{titlingpage}
+    \pagestyle{empty}
+    \begin{center}
+    \vspace*{2in}
+
+    \Huge\textbf{\textsf\thetitle}
+
+    \vspace*{0.75in}
+
+    \Large\textsf\theauthor
+
+    \vspace*{\fill}
+    \end{center}
+  \end{titlingpage}
+
+  % r.2 - Series Title Page
+  <%= "\\seriespage" unless series.nil? %>
+ \newpage
+  % r.3 Titlepage
+  \begin{titlingpage}
+    \pagestyle{empty}
+    \begin{center}
+    \vspace*{\fill}
+
+    \HUGE\textbf{\textsf\thetitle}
+
+    \vspace*{0.25in}
+    \line(1,0){150}
+    \vspace*{0.25in}
+
+    \Large\textsf\theauthor
+
+    \vspace*{\fill}
+
+    \vspace*{\fill}
+    \includegraphics[width=0.75in]{images/dp-logo.png}\\[0cm]
+    \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
+    \textsf{Publishing}
+    \end{center}
+  \end{titlingpage}
+
+  % r.4 Copyright Page
+  \vspace*{\fill}
+  \pagestyle{empty}
+
+  \par\noindent\emph{\thetitle}
+  \newline
+
+  <% if type == 'fiction' %>
+
+  \par\noindent This is a work of fiction. Names, characters, places and incidents are either
+  the product of the author's imagination or are used fictitiously, and any resemblance to
+  actual persons, living or dead, business establishments, events or locales is entirely
+  coincidental.\newline
+  <% end %>
+
+  \par\noindent\emph{<%= copyright %>}\newline
+
+  <% unless designer['cover'].nil? || designer['cover'].empty? %>
+  \par\noindent Cover Design by <%= designer['cover'] %>\newline
+  <% end %>
+
+  <% unless designer['book'].nil? || designer['book'].empty? %>
+  \par\noindent Book Design by <%= designer['book'] %>\newline
+  <% end %>
+
+  <% unless editors['text'].nil? || editors['text'].empty? %>
+  \par\noindent Book Design by <%= editors['text'].join(',') %>\newline
+  <% end %>
+
+
+  \par\noindent All rights reserved.\newline
+
+  \par\noindent No part of this publication may be reproduced, stored in a retrieval system, posted on the Internet, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from the author. The only exception is by a reviewer, who may quote short excerpts in a review.\newline
+
+  \par\noindent \theauthor
+  \par\noindent Visit my website at \url{<%= base_url %>}\newline
+
+  \par\noindent Printed in the United States of America
+  \newline
+
+  \par\noindent\textit{First Printing, \usmonthyear\displaydate{firstprint}}
+  \newline
+
+  \par\noindent <%= identifier['type'] %> <%= identifier['id'] %>
+  \vspace*{\fill}
+
+  % r.5 - Dedication
+  <%= "\\begin{dedication}\n#{File.open('extras/dedication.tex').read}\\end{dedication}" if File.exist?('extras/dedication.tex')
+  %>
+  <%= (status != 'final') ? '\tableofcontents' : '' %>
+
+
+  \newpage
+\mainmatter
+  \pagestyle{ebook}
+  \sloppy
+
+<%= contents %>
+
+% Back Matter
+%-------------
+\backmatter
+
+%% Bibliography
+% \bibliographystyle{\mybibliostyle}
+% \bibliocommand
+% \pagestyle{empty}
+\begin{center}
+  \vspace*{\fill}
+
+  {\Large \par
+  \noindent Thank you for reading
+
+  \vspace*{0.125in}
+  {\LARGE\textbf{\textsf{\thetitle}}}
+  \vspace*{0.125in}
+
+  \ifdefined\ReturningCharacters
+    \par
+    \noindent\ReturningCharacters{} will return in \emph{\NextBook}.} \vspace*{\fill}
+  \fi
+
+  {\LARGE\textbf{\textsf{Follow Me}}}
+
+  \vspace*{0.125in}
+
+  \textbf{\theauthor{}} can be followed on Twitter and Facebook.
+  \newline Visit his web site at http://dausha.net for more information. You can also sign up for announcements of other books in this series at http://dausha.net.
+
+  \vspace*{\fill}
+\end{center}
+
+<% if (type == 'fiction' and status != 'final') or type == 'nonfiction' %>
+
+%% Glossary
+\printglossaries
+
+%% Index
+\printindex
+<% end %>
+
+\end{document}
