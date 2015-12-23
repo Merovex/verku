@@ -54,16 +54,21 @@ module Bookmaker
       end
       def read_content(file)
         content = File.read(file)
+        data = {}
         begin
-          if content =~ /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
-            content = "\n#{$'}\n"
-            data = YAML.load($1)
+          # YAML_FRONT_MATTER_REGEXP = /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+                      # /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+          if content =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+            # content = "\n#{$'}\n"
+            content = $POSTMATCH
+            data = SafeYAML.load($1)
+            # data = YAML.load($1)
           end
           return [content, data]
-        rescue => e
-          puts "Error reading file #{File.join(base, name)}: #{e.message}"
         rescue SyntaxError => e
-          puts "YAML Exception reading #{File.join(base, name)}: #{e.message}"
+          puts "YAML Exception reading #{path}: #{e.message}"
+        rescue Exception => e
+          puts "Error reading file #{path}: #{e.message}"
         end
       end
       def spawn_command(cmd)

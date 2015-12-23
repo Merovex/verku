@@ -25,7 +25,9 @@ module Bookmaker
       raise "Missing Images directory (_images)" unless File.exist?("_images")
       raise "Missing Output directory (_output)" unless File.exist?("_output")
 
-puts Dependency.xelatex?
+      puts "Missing Kindlegen" unless Dependency.kindlegen?
+      puts "Missing XeLatex" unless Dependency.xelatex?
+      # puts "Missing Html2Text" unless Dependency.html2text?
 
       export_pdf  = [nil, "pdf"].include?(options[:only])
       export_html = [nil, "html", "mobi", "epub"].include?(options[:only])

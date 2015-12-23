@@ -14,9 +14,9 @@ module Bookmaker
             raw << "#{s}\n\n* * *"
           end
         end
-        
         raw
       end
+      
       def parse
         puts "-- Exporting PDF"
         locals = config.merge({ :contents => parse_layout(content) })

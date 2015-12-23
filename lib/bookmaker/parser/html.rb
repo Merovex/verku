@@ -5,7 +5,6 @@ module Bookmaker
       def content
         raw = []
         entries.keys.each do |chapter|
-          # text = "<h2>#{chapter.split(/_/)[1].gsub('-',' ').titleize}</h2>"
           text = "<h2>Chapter</h2>"
           sections = []
           entries[chapter].each do |section|
@@ -62,8 +61,6 @@ module Bookmaker
           text.gsub!(/\\begin\{([^\}]+?)\}(.*?)\\end\{[^\}]+?\}/m) { "<div class='#{$1.strip}'>#{$2.strip}</div>"}
           text.gsub!(/\\section\{([^\}]+?)\}/m) { "<h3>#{$1.strip}</h3>"}
           ['Character','Equipment','Organization','Index'].each do |s|
-            # puts "Working on #{s}"
-            # text.gsub!(/\\#{s}{Drazen, Joven}{(Drazen)}/) { "<span class='#{s.downcase}'>#{$1.strip}</span>"}
             text.gsub!(/\\#{s}\{[^\}]+?\}\{([^\}]+?)\}/) { "<span class='#{s.downcase}'>#{$1.strip}</span>"}
             text.gsub!(/\\#{s}\{([^\}]+?)\}/) { ""}
             # text.gsub!(/\\#{s}\{([^\}]+?)\}/) { "<span class='#{s.downcase}'>#{$1.strip}</span>"}

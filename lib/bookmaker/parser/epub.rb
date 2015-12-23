@@ -78,7 +78,6 @@ module Bookmaker
         FileUtils.mkdir_p(File.dirname(copyright_path))
         File.open(copyright_path,"w") do |file|
           file << contents
-          # puts file
         end
       end
       def write_thankspage!
@@ -87,7 +86,6 @@ module Bookmaker
         FileUtils.mkdir_p(File.dirname(thanks_path))
         File.open(thanks_path,"w") do |file|
           file << contents
-          # puts file
         end
       end
       def write_toc!
