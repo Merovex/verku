@@ -1,6 +1,6 @@
 module Verku
   module TOC
-    autoload :HTML, "bookmaker/toc/html"
-    autoload :Epub, "bookmaker/toc/epub"
+    autoload :HTML, "verku/toc/html"
+    autoload :Epub, "verku/toc/epub"
   end
 end

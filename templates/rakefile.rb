@@ -39,7 +39,7 @@ desc "Compile PDF and display."
 task :preview do
     puts "## Creating another craptacular preview for your viewing pleasure."
     puts "## Give me a second to start as looking at this stuff makes me puke."
-    system "bookmaker compile --only pdf;"
+    system "verku compile --only pdf;"
     pdf = Dir.glob("output/*.pdf").first
     system "open #{pdf}" unless pdf.nil?
 end

@@ -1,9 +1,9 @@
-Bookmaker
+Verku
 =========
 
-Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
+Verku provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
 
-What Does Bookmaker Provide?
+What Does Verku Provide?
 ----------------------------
 
 * Write using Markdown
@@ -14,16 +14,16 @@ What Does Bookmaker Provide?
 Installation
 -------------
 
-To install Bookmaker, you’ll need a working [Ruby](http://www.ruby-lang.org) 1.9+ installation.
+To install Verku, you’ll need a working [Ruby](http://www.ruby-lang.org) 1.9+ installation.
 
-    $ gem install bookmaker
+    $ gem install verku
 
 <!--
 
-After installing Bookmaker, run the following command to check your external
+After installing Verku, run the following command to check your external
 dependencies.
 
-  $ bookmaker check
+  $ verku check
 
   KindleGen: Converts ePub e-books into .mobi files.
   Installed.
@@ -39,17 +39,17 @@ on the formats you want to compile to.
 
 -->
 
-How to Use Bookmaker
+How to Use Verku
 --------------------
 
-To create a new Bookmaker project, execute the following on the command line:
+To create a new Verku project, execute the following on the command line:
 
-    $ bookmaker new mybook
+    $ verku new mybook
 
 This command creates a directory <tt>mybook</tt> with the following structure (may be slightly different in production):
 
     mybook
-    ├── _bookmaker.yml
+    ├── _verku.yml
     ├── _images
     │   ├── cover.jpg
     │   └── logo.png
@@ -69,9 +69,9 @@ This command creates a directory <tt>mybook</tt> with the following structure (m
         └── 01_Chapter
             └──01_Welcome.tex
 
-The <tt>_bookmaker.yml</tt> file holds the project's metadata. Update the relevant fields.
+The <tt>_verku.yml</tt> file holds the project's metadata. Update the relevant fields.
 
-Now it's time to write your e-book. All your book content will be placed on the text directory. Bookmaker requires you to separate your book into chapters. A chapter is nothing but a directory that holds lots of text files. The e-book will be generated using every folder/file alphabetically. So be sure to use a sequential numbering as the name. Here's a sample:
+Now it's time to write your e-book. All your book content will be placed on the text directory. Verku requires you to separate your book into chapters. A chapter is nothing but a directory that holds lots of text files. The e-book will be generated using every folder/file alphabetically. So be sure to use a sequential numbering as the name. Here's a sample:
 
   * text
     * 01_Introduction
@@ -91,23 +91,23 @@ When you're ready to view your progress, the commands below will compile the boo
 
 Compile into: PDF, HTML, Epub, Mobi
 
-    $ bookmaker compile
+    $ verku compile
 
 Compile into a specific format:
 
-    $ bookmaker compile --only [pdf|html|epub|mobi]
+    $ verku compile --only [pdf|html|epub|mobi]
 
-When compiling into HTML, Epub or Mobi, **Bookmaker** generates the Table of Contents (TOC) based on the h2-h6 tags. The h1 tag is discarded because it's meant to be the book title.
+When compiling into HTML, Epub or Mobi, **Verku** generates the Table of Contents (TOC) based on the h2-h6 tags. The h1 tag is discarded because it's meant to be the book title.
 
 To print the TOC, you need to print a variable called +toc+, using the eRb tag.
 
     <%= toc %>
 
-To create valid Mobi for Kindle, you need an appropriate cover image. **Bookmaker** looks for <tt>image/cover.jpg</tt>, and compiles it into the Epub and Mobi files. Refer to the Kindle documentation for the cover requirements.
+To create valid Mobi for Kindle, you need an appropriate cover image. **Verku** looks for <tt>image/cover.jpg</tt>, and compiles it into the Epub and Mobi files. Refer to the Kindle documentation for the cover requirements.
 
 ### Dependencies
 
-**Bookmaker** needs the following dependencies satisfied:
+**Verku** needs the following dependencies satisfied:
 
 * [xelatex](http://en.wikipedia.org/wiki/XeTeX), available on via MacTeX (Mac) and MiKTex (Windows, unconfirmed).
 * LaTex to HTML conversion done within the gem itself.

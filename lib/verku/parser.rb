@@ -2,11 +2,11 @@ require 'open3'
 
 module Verku
   module Parser
-    autoload :HTML  , "bookmaker/parser/html"
-    autoload :PDF   , "bookmaker/parser/pdf"
-    autoload :Epub  , "bookmaker/parser/epub"
-    autoload :Mobi  , "bookmaker/parser/mobi"
-#    autoload :Txt   , "bookmaker/parser/txt"
+    autoload :HTML  , "verku/parser/html"
+    autoload :PDF   , "verku/parser/pdf"
+    autoload :Epub  , "verku/parser/epub"
+    autoload :Mobi  , "verku/parser/mobi"
+#    autoload :Txt   , "verku/parser/txt"
 
     class Base
       # The e-book directory.
