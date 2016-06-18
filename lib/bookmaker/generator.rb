@@ -34,8 +34,9 @@ module Bookmaker
       copy_file "extras.tex",             "_extras/dedications.tex"
     end
     def copy_sample_text
-      copy_file "sample.md",             "text/01_First-Chapter/01-Welcome.md"
-      copy_file "markdown-test.md",      "text/02_Second-Chapter/01-Markdown-Test-File.tex"
+      directory "text", "text"
+      # copy_file "sample.md",             "text/01_First-Chapter/01-Welcome.md"
+      # copy_file "markdown-test.md",      "text/02_Second-Chapter/01-Markdown-Test-File.tex"
     end
     def create_directories
       empty_directory "_output"
