@@ -3,13 +3,11 @@ Bookmaker
 
 Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
 
-Bookmaker requires familiarity with LaTeX. Many TeX features are lacking when compiling to HTML, EPUB or MOBI.
-
 What Does Bookmaker Provide?
 ----------------------------
 
-* Write using LaTeX
-* Paper Support: Book-quality PDF output (6"x9") using [Memoir](http://www.ctan.org/tex-archive/macros/latex/contrib/memoir), suitable for publishing via [Createspace](https://www.createspace.com).
+* Write using Markdown
+* Paper Support: Book-quality PDF output (6"x9") using LaTeX's [Memoir](http://www.ctan.org/tex-archive/macros/latex/contrib/memoir) class, suitable for publishing via [Createspace](https://www.createspace.com).
 * Electronic Support: HTML, Epub and Mobi output (using [kindlegen](http://kindlegen.s3.amazonaws.com)).
 * Table of Contents automatically generated from chapter titles
 
@@ -52,11 +50,11 @@ This command creates a directory <tt>mybook</tt> with the following structure (m
 
     mybook
     ├── _bookmaker.yml
-    ├── images
+    ├── _images
     │   ├── cover.jpg
     │   └── dp-logo.png
-    ├── output
-    ├── templates
+    ├── build
+    ├── _templates
     │   ├── epub
     │   │   ├── cover.erb
     │   │   ├── cover.png
@@ -67,7 +65,7 @@ This command creates a directory <tt>mybook</tt> with the following structure (m
     │       ├── layout.erb
     │       ├── syntax.css
     │       └── user.css
-    └── text
+    └── docs
         └── 01_Chapter
             └──01_Welcome.tex
 
@@ -88,7 +86,6 @@ Now it's time to write your e-book. All your book content will be placed on the 
       * 03_Windows_instructions.tex
       * 04_Ubuntu_Linux_instructions.tex
 
-Please note, **Kitabu** allows multiple file formats. **Bookmaker** only allows <tt>.tex</tt>.
 
 When you're ready to view your progress, the commands below will compile the book into the <tt>output/</tt> directory in the appropriate format:
 

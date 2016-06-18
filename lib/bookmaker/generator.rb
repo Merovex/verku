@@ -8,14 +8,13 @@ module Bookmaker
       require "uuidtools"
       @title = File.basename(destination_root).gsub('-', ' ')
       @name = full_name
-      # @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
-      @uid = SecureRandom.uuid
+      @uuid = SecureRandom.uuid
       @year = Date.today.year
       template "config.erb", "_bookmaker.yml"
     end
     def copy_templates
       copy_file "pdf/layout.erb",         "_templates/pdf/layout.erb"
-      copy_file "dp-logo.png",            "_images/logo.png"
+      copy_file "merovex-logo.png",            "_images/logo.png"
       
       copy_file "html/layout.erb",        "_templates/html/layout.erb"
       copy_file "html/thanks.erb",        "_templates/html/thanks.erb"

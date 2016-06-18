@@ -40,7 +40,7 @@ module Bookmaker
       def entries
         return @entries unless @entries.nil?
         # files = Dir["text/**/*.tex"]
-        files = Dir["text/**/*.md"]
+        files = Dir["docs/**/*.md"]
         @entries = {}
         files.each do |f|
           k = File.dirname(f)
