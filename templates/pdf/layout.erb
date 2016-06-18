@@ -8,6 +8,7 @@
 \usepackage{verbatim}
 \usepackage[colorlinks=false]{hyperref}
 % \usepackage[utf8x]{inputenc}
+\usepackage{listings}
 \usepackage{
   fancyvrb,
   graphics,
@@ -134,8 +135,11 @@
 \newcounter{renewsection}
 \newcommand{\Chapter}[1]{
   \setcounter{renewsection}{\value{section}}
+  <% if type == 'fiction' %>
   \chapter{}
+  <% else %>
   %\chapter{#1}
+  <% end %>
   \setcounter{section}{\value{renewsection}}
 }
 \chapterstyle{<%= chapter_style || 'ell'%>}
@@ -304,7 +308,7 @@
     \vspace*{\fill}
 
     \vspace*{\fill}
-    \includegraphics[width=0.75in]{_images/logo.png}\\[0cm]
+    \includegraphics[width=0.75in]{_images/dp-logo.png}\\[0cm]
     \hspace*{\fill}\textsf{Dausha}\hspace*{\fill}\newline%
     \textsf{Publishing}
     \end{center}
@@ -318,7 +322,10 @@
   \newline
 
   <% if type == 'fiction' %>
-  \par\noindent This is a work of fiction. Names, characters, places and incidents are either the product of the author's imagination or are used fictitiously, and any resemblance to actual persons, living or dead, business establishments, events or locales is entirely
+
+  \par\noindent This is a work of fiction. Names, characters, places and incidents are either
+  the product of the author's imagination or are used fictitiously, and any resemblance to
+  actual persons, living or dead, business establishments, events or locales is entirely
   coincidental.\newline
   <% end %>
 
@@ -335,6 +342,7 @@
   <% unless editors['text'].nil? || editors['text'].empty? %>
   \par\noindent Book Design by <%= editors['text'].join(',') %>\newline
   <% end %>
+
 
   \par\noindent All rights reserved.\newline
 

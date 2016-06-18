@@ -10,7 +10,7 @@ module Bookmaker
           title = 'Untitled' if title.nil?
           raw << "\\Chapter{#{title.gsub('-',' ')}}\n\n"
           entries[chapter].each do |section|
-            s = read_content(section)[0]
+            s = read_content(section)[0].to_latex
             raw << "#{s}\n\n* * *"
           end
         end

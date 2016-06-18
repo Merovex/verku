@@ -1,20 +1,21 @@
 require 'kramdown'
 module Bookmaker
   module Parser
-    class HTML < Base
+    class HTML < Base 
       def content
         raw = []
         entries.keys.each do |chapter|
-          text = "<h2>Chapter</h2>"
+          text = "\n\n## Chapter\n\n"
           sections = []
           entries[chapter].each do |section|
-            sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map do |s|
-              s.gsub!(/%.*/, '')
-              s.squish
-            end.join("</p>\n\n<p>")}</p>"
+            sections << read_content(section)[0]
+            # sections << "<p>#{read_content(section)[0].split(/\n{2,}/).map do |s|
+            #   s.gsub!(/%.*/, '')
+            #   s.squish
+            # end.join("</p>\n\n<p>")}</p>"
           end
-          text << sections.join("\n\n<hr />\n\n")
-          raw << "<div class='chapter'>\n#{text}\n</div>\n"
+          text << sections.join("\n\n* * *\n\n")
+          raw << "<div class='chapter'>\n#{text.to_html}\n</div>\n"
         end
         raw
       end
