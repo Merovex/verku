@@ -52,8 +52,7 @@ This command creates a directory <tt>mybook</tt> with the following structure (m
     ├── _bookmaker.yml
     ├── _images
     │   ├── cover.jpg
-    │   └── dp-logo.png
-    ├── build
+    │   └── logo.png
     ├── _templates
     │   ├── epub
     │   │   ├── cover.erb
@@ -64,7 +63,8 @@ This command creates a directory <tt>mybook</tt> with the following structure (m
     │       ├── layout.css
     │       ├── layout.erb
     │       ├── syntax.css
-    │       └── user.css
+    │       └── user.css   
+    ├── builds
     └── docs
         └── 01_Chapter
             └──01_Welcome.tex

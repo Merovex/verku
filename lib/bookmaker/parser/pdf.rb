@@ -14,7 +14,7 @@ module Bookmaker
             raw << "#{s}\n\n* * *"
           end
         end
-        raw
+        raw.gsub(/\$(\\index\{[^\$]*?\})\$/) {"#{$1}"}
       end
       
       def parse
