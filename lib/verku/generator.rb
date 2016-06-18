@@ -10,11 +10,11 @@ module Verku
       @name = full_name
       @uuid = SecureRandom.uuid
       @year = Date.today.year
-      template "config.erb", "_bookmaker.yml"
+      template "config.erb", "_verku.yml"
     end
     def copy_templates
       copy_file "pdf/layout.erb",         "_templates/pdf/layout.erb"
-      copy_file "merovex-logo.png",            "_images/logo.png"
+      copy_file "merovex-logo.png",       "_images/logo.png"
       
       copy_file "html/layout.erb",        "_templates/html/layout.erb"
       copy_file "html/thanks.erb",        "_templates/html/thanks.erb"

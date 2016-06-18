@@ -1,4 +1,4 @@
-# require "bookmaker/version"
+# require "verku/version"
 require "active_support/all"
 require 'fileutils'
 #require "awesome_print"
@@ -17,38 +17,38 @@ require "thor/group"
 require "yaml"
 require "cgi"
 
-module Bookmaker
+module Verku
   
-  require "bookmaker/extensions/string"
+  require "verku/extensions/string"
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
   
-  autoload :Cli,        "bookmaker/cli"
-  autoload :Dependency, "bookmaker/dependency"
-  autoload :Exporter,   "bookmaker/exporter"
-  autoload :Generator,  "bookmaker/generator"
-  autoload :Markdown,   "bookmaker/adapters/markdown"
-  autoload :Parser,     "bookmaker/parser"
-  autoload :Stats,      "bookmaker/stats"
-  autoload :Stream,     "bookmaker/stream"
-  autoload :Structure,  "bookmaker/structure"
-  autoload :TOC,        "bookmaker/toc"
-  # autoload :Version,    "bookmaker/version"
+  autoload :Cli,        "verku/cli"
+  autoload :Dependency, "verku/dependency"
+  autoload :Exporter,   "verku/exporter"
+  autoload :Generator,  "verku/generator"
+  autoload :Markdown,   "verku/adapters/markdown"
+  autoload :Parser,     "verku/parser"
+  autoload :Stats,      "verku/stats"
+  autoload :Stream,     "verku/stream"
+  autoload :Structure,  "verku/structure"
+  autoload :TOC,        "verku/toc"
+  # autoload :Version,    "verku/version"
     
   Encoding.default_internal = "utf-8"
   Encoding.default_external = "utf-8"
 
   def self.config(root_dir = nil)
     root_dir ||= Pathname.new(Dir.pwd)
-    path = root_dir.join("_bookmaker.yml")
+    path = root_dir.join("_verku.yml")
 
-    raise "Invalid Bookmaker directory; couldn't found #{path} file." unless File.file?(path)
+    raise "Invalid Verku directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)
     erb = ERB.new(content).result
 
     YAML.load(erb)#.with_indifferent_access
   end
   def self.logger
-     @logger ||= Logger.new(File.open("/tmp/bookmaker.log", "a"))
+     @logger ||= Logger.new(File.open("/tmp/verku.log", "a"))
   end
   def self.hi
     puts "hi"

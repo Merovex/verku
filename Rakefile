@@ -12,18 +12,18 @@ end
 require 'rake'
 
 require 'jeweler'
-require './lib/bookmaker/version.rb'
+require './lib/verku/version.rb'
 Jeweler::Tasks.new do |gem|
 
-  gem.name        = "bookmaker"
-  gem.version     = Bookmaker::Version::STRING
+  gem.name        = "verku"
+  gem.version     = Verku::Version::STRING
   gem.authors     = ["Merovex"]
-  gem.email       = ["dausha+bookmaker@gmail.com"]
-  gem.homepage    = "https://github.com/Merovex/bookmaker"
-  gem.summary     = %q{Bookmaker is a Ruby & LaTeX based production toolchain for self-publishers.}
-  gem.description = %q{Bookmaker provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the LaTeX document preparation system.}
+  gem.email       = ["dausha+verku@gmail.com"]
+  gem.homepage    = "https://github.com/Merovex/verku"
+  gem.summary     = %q{Verku is a Ruby & LaTeX based production toolchain for self-publishers.}
+  gem.description = %q{Verku provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the LaTeX document preparation system.}
 
-  gem.rubyforge_project = "bookmaker"
+  gem.rubyforge_project = "verku"
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -66,7 +66,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "bookmaker #{version}"
+  rdoc.title = "verku #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

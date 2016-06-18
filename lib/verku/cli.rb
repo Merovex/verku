@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 require 'thor'
-require 'bookmaker/version'
+require 'verku/version'
 module Verku
   class Cli < Thor
     FORMATS = %w[pdf draft proof html epub mobi txt]
@@ -11,7 +11,7 @@ module Verku
     end
     def initialize(args = [], options = {}, config = {})
       if (config[:current_task] || config[:current_command]).name == "new" && args.empty?
-        raise Error, "The e-Book path is required. For details run: bookmaker help new"
+        raise Error, "The e-Book path is required. For details run: verku help new"
       end
       super
     end
@@ -79,7 +79,7 @@ module Verku
         YAML.load_file(config_path).with_indifferent_access
       end
       def config_path
-        root_dir.join("_bookmaker.yml")
+        root_dir.join("_verku.yml")
       end
       def root_dir
         @root ||= Pathname.new(Dir.pwd)
