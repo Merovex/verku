@@ -39,8 +39,7 @@ module Verku
       end
       def entries
         return @entries unless @entries.nil?
-        # files = Dir["text/**/*.tex"]
-        files = Dir["docs/**/*.md"]
+        files = Dir["text/**/*.tex"]
         @entries = {}
         files.each do |f|
           k = File.dirname(f)

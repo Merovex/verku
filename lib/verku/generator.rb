@@ -5,12 +5,13 @@ module Verku
       File.dirname(__FILE__) + "/../../templates"
     end
     def build_config_file
-      require "uuidtools"
+      # require "uuidtools"
       @title = File.basename(destination_root).gsub('-', ' ')
       @name = full_name
       @uuid = SecureRandom.uuid
       @year = Date.today.year
       template "config.erb", "_verku.yml"
+      template "readme.erb", "README.md"
     end
     def copy_templates
       copy_file "pdf/layout.erb",         "_templates/pdf/layout.erb"
@@ -35,10 +36,11 @@ module Verku
       copy_file "extras.tex",             "_extras/dedications.tex"
     end
     def copy_sample_text
-      directory "docs", "docs"
+      directory "text", "text"
     end
     def create_directories
       empty_directory "builds"
+      empty_directory "docs"
       empty_directory "_images"
     end
     private
