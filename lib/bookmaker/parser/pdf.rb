@@ -36,7 +36,7 @@ module Bookmaker
         end
         
         spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux *ist"]
-        spawn_command ["mv #{name}.pdf _output/#{name}.pdf"]
+        spawn_command ["mv #{name}.pdf builds/#{name}.pdf"]
         true
       rescue Exception
         p $!, $@
@@ -47,7 +47,7 @@ module Bookmaker
         text.gsub!('* * *', "\n\n\\pbreak{}\n\n")
       end
       def tex_file
-        root_dir.join("_output/#{name}.tex")
+        root_dir.join("builds/#{name}.tex")
       end
     end
   end

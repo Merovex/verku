@@ -10,7 +10,7 @@ module Bookmaker
         false
       end
       def epub_file
-        root_dir.join("_output/#{name}.epub")
+        root_dir.join("builds/#{name}.epub")
       end
     end
   end

@@ -23,7 +23,7 @@ module Bookmaker
 
       raise "Missing Templates directory (_templates)" unless File.exist?("_templates")
       raise "Missing Images directory (_images)" unless File.exist?("_images")
-      raise "Missing Output directory (_output)" unless File.exist?("_output")
+      raise "Missing Output directory (builds)" unless File.exist?("builds")
 
       puts "Missing Kindlegen" unless Dependency.kindlegen?
       puts "Missing XeLatex" unless Dependency.xelatex?

@@ -5,9 +5,11 @@ module Bookmaker
       File.dirname(__FILE__) + "/../../templates"
     end
     def build_config_file
+      require "uuidtools"
       @title = File.basename(destination_root).gsub('-', ' ')
       @name = full_name
-      @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
+      # @uid = Digest::MD5.hexdigest("#{Time.now}--#{rand}")
+      @uid = SecureRandom.uuid
       @year = Date.today.year
       template "config.erb", "_bookmaker.yml"
     end
@@ -34,12 +36,10 @@ module Bookmaker
       copy_file "extras.tex",             "_extras/dedications.tex"
     end
     def copy_sample_text
-      directory "text", "text"
-      # copy_file "sample.md",             "text/01_First-Chapter/01-Welcome.md"
-      # copy_file "markdown-test.md",      "text/02_Second-Chapter/01-Markdown-Test-File.tex"
+      directory "docs", "docs"
     end
     def create_directories
-      empty_directory "_output"
+      empty_directory "builds"
       empty_directory "_images"
     end
     private

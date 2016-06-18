@@ -159,13 +159,13 @@ module Bookmaker
         root_dir.join("_templates/epub/page.erb")
       end
       def html_path
-        root_dir.join("_output/#{name}.html")
+        root_dir.join("builds/#{name}.html")
       end
       def epub_path
-        root_dir.join("_output/#{name}.epub")
+        root_dir.join("builds/#{name}.epub")
       end
       def tmp_dir
-        root_dir.join("_output/tmp")
+        root_dir.join("builds/tmp")
       end
       def cover_path
         tmp_dir.join("cover.html")
