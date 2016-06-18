@@ -13,7 +13,7 @@ module Bookmaker
     end
     def copy_templates
       copy_file "pdf/layout.erb",         "_templates/pdf/layout.erb"
-      copy_file "dp-logo.png",            "_images/dp-logo.png"
+      copy_file "dp-logo.png",            "_images/logo.png"
       
       copy_file "html/layout.erb",        "_templates/html/layout.erb"
       copy_file "html/thanks.erb",        "_templates/html/thanks.erb"

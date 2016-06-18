@@ -39,7 +39,8 @@ module Bookmaker
       end
       def entries
         return @entries unless @entries.nil?
-        files = Dir["text/**/*.tex"]
+        # files = Dir["text/**/*.tex"]
+        files = Dir["text/**/*.md"]
         @entries = {}
         files.each do |f|
           k = File.dirname(f)
@@ -56,9 +57,8 @@ module Bookmaker
         content = File.read(file)
         data = {}
         begin
-          # YAML_FRONT_MATTER_REGEXP = /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
-                      # /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
-          if content =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+# YAML_FRONT_MATTER_REGEXP = /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+          if    content   =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
             # content = "\n#{$'}\n"
             content = $POSTMATCH
             data = SafeYAML.load($1)

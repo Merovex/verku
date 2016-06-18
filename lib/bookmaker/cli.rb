@@ -26,7 +26,7 @@ module Bookmaker
     end
     
     desc "compile [OPTIONS]", "Export e-book"
-    map %w(compile export) => :export
+    map %w(compile export build) => :export
     method_option :only, :type => :string, :desc => "Can be one of: #{FORMATS.join(", ")}"
     method_option :open, :type => :boolean, :desc => "Automatically open PDF (Preview.app for Mac OS X and xdg-open for Linux)"
     def export
