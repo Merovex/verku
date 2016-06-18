@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   module Version
     MAJOR = 0
     MINOR = 8

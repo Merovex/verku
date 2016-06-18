@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   class Stream
     attr_accessor :listener, :content
     attr_reader :html

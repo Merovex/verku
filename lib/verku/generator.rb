@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   class Generator < Thor::Group
     include Thor::Actions
     def self.source_root

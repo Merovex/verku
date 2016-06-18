@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   module TOC
     class HTML
       # Return the table of contents in hash format.

@@ -1,5 +1,5 @@
 require 'kramdown'
-module Bookmaker
+module Verku
   module Parser
     class HTML < Base 
       def content
@@ -152,7 +152,7 @@ module Bookmaker
      #   def render_file(file, plain_syntax = false)
      #     file_format = format(file)
      #
-     #     content = Bookmaker::Syntax.render(root_dir, file_format, File.read(file), plain_syntax)
+     #     content = Verku::Syntax.render(root_dir, file_format, File.read(file), plain_syntax)
      #
      #     content = case file_format
      #     when :markdown

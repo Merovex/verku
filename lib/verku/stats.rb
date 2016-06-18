@@ -7,7 +7,7 @@ class Fixnum
   end
 end
 require 'json'
-module Bookmaker
+module Verku
   class Stats
     attr_reader :root_dir
 
@@ -23,7 +23,7 @@ module Bookmaker
     end
 
     def target
-      Bookmaker.config(@root_dir)['wordcount']
+      Verku.config(@root_dir)['wordcount']
     end
     def now
       Date.today.to_s

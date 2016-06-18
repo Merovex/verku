@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   class Exporter
     def self.run(root_dir, options)
       exporter = new(root_dir, options)
@@ -58,8 +58,8 @@ module Bookmaker
         end
 
         Notifier.notify(
-          :image   => Bookmaker::ROOT.join("_templates/ebook.png"),
-          :title   => "Bookmaker",
+          :image   => Verku::ROOT.join("_templates/ebook.png"),
+          :title   => "Verku",
           :message => "Your \"#{config[:title]}\" e-book has been exported!"
         )
       else
@@ -71,7 +71,7 @@ module Bookmaker
     end
 
     def config
-      Bookmaker.config(root_dir)
+      Verku.config(root_dir)
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'kramdown'
 
-module Bookmaker
+module Verku
   module Parser
     class PDF < Base
       def content

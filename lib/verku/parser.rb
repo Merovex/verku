@@ -1,6 +1,6 @@
 require 'open3'
 
-module Bookmaker
+module Verku
   module Parser
     autoload :HTML  , "bookmaker/parser/html"
     autoload :PDF   , "bookmaker/parser/pdf"
@@ -35,7 +35,7 @@ module Bookmaker
       # Return the configuration file.
       #
       def config
-        Bookmaker.config(root_dir)
+        Verku.config(root_dir)
       end
       def entries
         return @entries unless @entries.nil?

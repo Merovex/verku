@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   module TOC
     class Epub
       attr_accessor :navigation

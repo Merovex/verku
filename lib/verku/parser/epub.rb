@@ -1,5 +1,5 @@
 require 'fileutils'
-module Bookmaker
+module Verku
   module Parser
     class Epub < Base
       def sections

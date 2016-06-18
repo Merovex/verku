@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'thor'
 require 'bookmaker/version'
-module Bookmaker
+module Verku
   class Cli < Thor
     FORMATS = %w[pdf draft proof html epub mobi txt]
     check_unknown_options!
@@ -19,7 +19,7 @@ module Bookmaker
     desc "create", "Start new work"
     map %w(create new) => :create
     def create(path)
-      puts "Bookmaker -- A Million Monkeys Writing Your Masterpiece."
+      puts "Verku -- A Million Monkeys Writing Your Masterpiece."
       generator = Generator.new
       generator.destination_root = path.squish.gsub(' ','-')
       generator.invoke_all
@@ -34,25 +34,25 @@ module Bookmaker
       if options[:only] && !FORMATS.include?(options[:only])
         raise Error, "The --only option need to be one of: #{FORMATS.join(", ")}"
       end
-      Bookmaker::Exporter.run(root_dir, options)
+      Verku::Exporter.run(root_dir, options)
     end
     
     desc "pdf", "Export PDF only"
     def pdf
       inside_ebook!
-      Bookmaker::Exporter.run(root_dir, {:only => 'pdf'})
+      Verku::Exporter.run(root_dir, {:only => 'pdf'})
     end
     
-    desc "version", "Prints the Bookmaker's version information"
+    desc "version", "Prints the Verku's version information"
     map %w(-v --version) => :version
     def version
-      say "Bookmaker version #{Bookmaker::Version::STRING}"
+      say "Verku version #{Verku::Version::STRING}"
     end
     
     desc "stats", "Display some stats about your e-book"
     def stats
       inside_ebook!
-      stats = Bookmaker::Stats.new(root_dir)
+      stats = Verku::Stats.new(root_dir)
 
       say [
         # "Chapters: #{stats.chapters}",

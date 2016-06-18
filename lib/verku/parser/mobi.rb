@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   module Parser
     class Mobi < Base
       def parse

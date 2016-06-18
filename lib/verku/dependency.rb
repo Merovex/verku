@@ -1,4 +1,4 @@
-module Bookmaker
+module Verku
   class Dependency
     def self.kindlegen?
       @kindlegen ||= `which kindlegen` && $?.success?
