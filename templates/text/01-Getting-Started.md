@@ -18,7 +18,7 @@ To install Ruby, consider using [RVM](http://rvm.io) or [rbenv](http://rbenv.org
 
 [XeTeX](hhttps://en.wikipedia.org/wiki/XeTeX) is a TeX typesetting engine using Unicode and supporting modern font technologies such as OpenType, Graphite and Apple Advanced Typography (AAT). We're using XeTeX because TeX is one of the best ways of formatting a beautiful hard-copy book.
 
-* On Mac: To install on a Mac, you will want to install the [MacTEX distribution](http://www.howtotex.com/howto/installing-latex-on-mac-os-x/).
+* On Mac: To install on a Mac, you will want to install the [MacTEX distribution](https://tug.org/mactex/).
 
 ## Installing KindleGen
 
