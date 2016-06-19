@@ -18,23 +18,23 @@ require "yaml"
 require "cgi"
 
 module Verku
-  
-  require "verku/extensions/string"
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
-  
-  autoload :Cli,        "verku/cli"
-  autoload :Dependency, "verku/dependency"
-  autoload :Exporter,   "verku/exporter"
-  autoload :Generator,  "verku/generator"
-  autoload :Markdown,   "verku/adapters/markdown"
-  # autoload :Parser,     "verku/parser"
-  autoload :SourceList,     "verku/source_list"
-  autoload :Stats,      "verku/stats"
-  autoload :Stream,     "verku/stream"
-  autoload :Structure,  "verku/structure"
-  autoload :TOC,        "verku/toc"
-  autoload :Version,         'verku/version'
-  # autoload :Version,    "verku/version"
+
+  require "verku/extensions/string"
+  require "verku/cli"
+  require "verku/dependency"
+  require "verku/exporter"
+  require "verku/exporter/base"
+  require "verku/exporter/pdf"
+  require "verku/generator"
+  require "verku/adapters/markdown"
+  # require "verku/parser"
+  require "verku/source_list"
+  require "verku/stats"
+  require "verku/stream"
+  # require "verku/structure"
+  require "verku/toc"
+  require 'verku/version'
     
   Encoding.default_internal = "utf-8"
   Encoding.default_external = "utf-8"

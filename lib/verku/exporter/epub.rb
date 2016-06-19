@@ -1,6 +1,6 @@
 require 'fileutils'
 module Verku
-  module Exporter
+  class Exporter
     class Epub < Base
       def sections
         @sections ||= html.css("div.chapter").each_with_index.map do |chapter, index|

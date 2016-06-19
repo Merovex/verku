@@ -1,11 +1,11 @@
 require 'open3'
 
 module Verku
-  module Exporter
-    autoload :HTML  , "verku/exporter/html"
-    autoload :PDF   , "verku/exporter/pdf"
-    autoload :Epub  , "verku/exporter/epub"
-    autoload :Mobi  , "verku/exporter/mobi"
+  class Exporter
+    # autoload :HTML  , "verku/exporter/html"
+    # autoload :PDF   , "verku/exporter/pdf"
+    # autoload :Epub  , "verku/exporter/epub"
+    # autoload :Mobi  , "verku/exporter/mobi"
 #    autoload :Txt   , "verku/exporter/txt"
 
     class Base
@@ -17,8 +17,8 @@ module Verku
       #
       attr_accessor :source
 
-      def self.parse(root_dir)
-        new(root_dir).parse
+      def self.export!(root_dir)
+        new(root_dir).export!
       end
 
       def initialize(root_dir)

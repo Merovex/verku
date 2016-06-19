@@ -1,7 +1,7 @@
 require 'kramdown'
 
 module Verku
-  module Exporter
+  class Exporter
     class PDF < Base
       def content
         raw = []
@@ -17,7 +17,7 @@ module Verku
         raw
       end
       
-      def parse
+      def export!
         puts "-- Exporting PDF"
         locals = config.merge({ :contents => parse_layout(content) })
         locals['copyright'].gsub!("(C)", "\\copyright{}")
