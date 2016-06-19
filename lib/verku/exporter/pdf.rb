@@ -5,6 +5,10 @@ module Verku
     class PDF < Base
       def content
         raw = []
+
+        puts entries.inspect
+
+        exit
         entries.keys.each do |chapter|
           title = (chapter.empty?) ? "Untitled" : chapter.split('_')[1]
           title = 'Untitled' if title.nil?
