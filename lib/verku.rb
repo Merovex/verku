@@ -24,9 +24,12 @@ module Verku
   require "verku/extensions/string"
   require "verku/cli"
   require "verku/dependency"
+  
   require "verku/exporter"
   require "verku/exporter/base"
   require "verku/exporter/pdf"
+  require "verku/exporter/html"
+
   require "verku/generator"
   require "verku/adapters/markdown"
   # require "verku/parser"
