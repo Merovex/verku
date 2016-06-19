@@ -1,10 +1,11 @@
 module Verku
-  module Version
-    MAJOR = 0
-    MINOR = 9
-    PATCH = 0
-    BUILD = 0
+	VERSION = '0.9.1.pre1'
+  # module Version
+  #   MAJOR = 0
+  #   MINOR = 9
+  #   PATCH = 0
+  #   BUILD = 1
 
-    STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join('.')
-  end
+  #   STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join('.')
+  # end
 end
