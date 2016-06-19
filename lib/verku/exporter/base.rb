@@ -1,12 +1,12 @@
 require 'open3'
 
 module Verku
-  module Parser
-    autoload :HTML  , "verku/parser/html"
-    autoload :PDF   , "verku/parser/pdf"
-    autoload :Epub  , "verku/parser/epub"
-    autoload :Mobi  , "verku/parser/mobi"
-#    autoload :Txt   , "verku/parser/txt"
+  module Exporter
+    autoload :HTML  , "verku/exporter/html"
+    autoload :PDF   , "verku/exporter/pdf"
+    autoload :Epub  , "verku/exporter/epub"
+    autoload :Mobi  , "verku/exporter/mobi"
+#    autoload :Txt   , "verku/exporter/txt"
 
     class Base
       # The e-book directory.
@@ -38,16 +38,18 @@ module Verku
         Verku.config(root_dir)
       end
       def entries
-        return @entries unless @entries.nil?
-        files = Dir["text/**/*.md"]
-        @entries = {}
-        files.each do |f|
-          k = File.dirname(f)
-          k.gsub!('text/','')
-          @entries[k] = [] if @entries[k].nil?
-          @entries[k] << f
-        end
-        return @entries
+        # return @entries unless @entries.nil?
+        # files = Dir["text/**/*.md"]
+        # @entries = {}
+        # files.each do |f|
+        #   k = File.dirname(f)
+        #   k.gsub!('text/','')
+        #   @entries[k] = [] if @entries[k].nil?
+        #   @entries[k] << f
+
+        # end
+        # return @entries
+        @entries ||= SourceList.new(@source)
       end
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }

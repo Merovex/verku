@@ -1,6 +1,6 @@
 require 'kramdown'
 module Verku
-  module Parser
+  module Exporter
     class HTML < Base 
       def content
         raw = []

@@ -1,7 +1,7 @@
 require 'kramdown'
 
 module Verku
-  module Parser
+  module Exporter
     class PDF < Base
       def content
         raw = []

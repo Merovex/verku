@@ -1,5 +1,5 @@
 module Verku
-  module Parser
+  module Exporter
     class Mobi < Base
       def parse
         puts "-- Exporting MOBI"
