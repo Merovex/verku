@@ -43,6 +43,8 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency "thor"
   gem.add_dependency "nokogiri"
   gem.add_dependency "notifier"
+  gem.add_dependency "awesome_print"
+  gem.add_dependency "safe_yaml"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
