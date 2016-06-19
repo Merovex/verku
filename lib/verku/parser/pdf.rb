@@ -23,10 +23,10 @@ module Verku
         locals['copyright'].gsub!("(C)", "\\copyright{}")
         output = render_template(root_dir.join("_templates/pdf/layout.erb"), locals)
         File.open(root_dir.join(tex_file), 'w').write(output)
-        puts "    - Pass 1"
-        spawn_command ["xelatex", tex_file.to_s,]
-        puts "    - Pass 2"
-        spawn_command ["xelatex", tex_file.to_s,]
+        
+        puts "    - Pass 1"; spawn_command ["xelatex", tex_file.to_s,]
+        puts "    - Pass 2"; spawn_command ["xelatex", tex_file.to_s,]
+
         if config['is_final'].to_i == 0
           puts "    - Pass 3 - Indexing"
           spawn_command ["makeindex #{name}.idx"]
