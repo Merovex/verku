@@ -77,6 +77,3 @@ DEPENDENCIES
   rdoc (~> 3.12)
   shoulda
   simplecov
-
-BUNDLED WITH
-   1.12.5
