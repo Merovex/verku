@@ -16,6 +16,7 @@ require "thor"
 require "thor/group"
 require "yaml"
 require "cgi"
+require "safe_yaml"
 
 module Verku
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
@@ -46,8 +47,8 @@ module Verku
     raise "Invalid Verku directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)
     erb = ERB.new(content).result
-
-    YAML.load(erb)#.with_indifferent_access
+    YAML.load(erb, :safe => true)
+    #YAML.load(erb)#.with_indifferent_access
   end
   def self.logger
      @logger ||= Logger.new(File.open("/tmp/verku.log", "a"))

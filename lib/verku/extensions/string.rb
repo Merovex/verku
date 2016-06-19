@@ -10,7 +10,8 @@ class String
   end
   def to_latex
   	require 'kramdown'
-  	Kramdown::Document.new(self.dup).to_latex
+  	s = Kramdown::Document.new(self.dup, :latex_headers => %w{chapter section subsection subsubsection paragraph subparagraph}).to_latex
+    s << "\\pbreak{}"
   end
   def to_html
   	require 'kramdown'

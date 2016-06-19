@@ -18,6 +18,7 @@ module Verku
     def initialize(root_dir)
       @root_dir = root_dir
       @source = root_dir.join('text')
+      # @source = root_dir
     end
 
     #

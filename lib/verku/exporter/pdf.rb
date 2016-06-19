@@ -1,29 +1,20 @@
 require 'kramdown'
+require "awesome_print"
 
 module Verku
   class Exporter
     class PDF < Base
       def content
-        raw = []
-
-        puts entries.inspect
-
-        exit
-        entries.keys.each do |chapter|
-          title = (chapter.empty?) ? "Untitled" : chapter.split('_')[1]
-          title = 'Untitled' if title.nil?
-          raw << "\\Chapter{#{title.gsub('-',' ')}}\n\n"
-          entries[chapter].each do |section|
-            s = read_content(section)[0].to_latex.gsub(/\$(\\index\{[^\$]*?\})\$/) {"#{$1}"}
-            raw << "#{s}\n\n* * *"
-          end
+        content = String.new
+        source_list.each_chapter do |files|
+          content << "\n#{render_chapter(files)}\n"
         end
-        raw
+        return content
       end
       
       def export!
         puts "-- Exporting PDF"
-        locals = config.merge({ :contents => parse_layout(content) })
+        locals = config.merge({ :contents => content })
         locals['copyright'].gsub!("(C)", "\\copyright{}")
         output = render_template(root_dir.join("_templates/pdf/layout.erb"), locals)
         File.open(root_dir.join(tex_file), 'w').write(output)
@@ -31,7 +22,7 @@ module Verku
         puts "    - Pass 1"; spawn_command ["xelatex", tex_file.to_s,]
         puts "    - Pass 2"; spawn_command ["xelatex", tex_file.to_s,]
 
-        if config['is_final'].to_i == 0
+        if config['status'] == 'final'
           puts "    - Pass 3 - Indexing"
           spawn_command ["makeindex #{name}.idx"]
           # spawn_command ["makeglossaries #{name}.glo"]
@@ -46,13 +37,26 @@ module Verku
         p $!, $@
         false
       end
-      def parse_layout(text)
-        text = text.join("\n\n")
-        text.gsub!('* * *', "\n\n\\pbreak{}\n\n")
-      end
+
       def tex_file
         root_dir.join("builds/#{name}.tex")
       end
+
+      private
+        def render_file(file)
+          data = read_content(file)
+          content = "#{data[0]}".to_latex
+          return content
+        end
+        def render_chapter(files)
+          chapter = ""
+          String.new.tap do
+            files.each do |file|
+              chapter << render_file(file) << "\n\n"
+            end
+          end
+          return chapter
+        end
     end
   end
 end
