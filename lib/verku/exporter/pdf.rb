@@ -4,8 +4,7 @@ require "awesome_print"
 module Verku
   class Exporter
     class PDF < Base
-      def export
-        
+      def export!
         locals = config.merge({ :contents => content })
         locals['copyright'].gsub!("(C)", "\\copyright{}")
         output = render_template(root_dir.join("_templates/pdf/layout.erb"), locals)
@@ -26,8 +25,9 @@ module Verku
         spawn_command ["rm *.glo *.idx *.log *.out *.toc *aux *ist"]
         spawn_command ["mv #{name}.pdf builds/#{name}.pdf"]
         true
-      rescue Exception
-        p $!, $@
+
+      rescue Exception => error
+        handle_error(error)
         false
       end
 

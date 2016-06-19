@@ -7,7 +7,11 @@ module Verku
       
       attr_accessor :root_dir # The e-book directory.
       attr_accessor :source   # Where the text files are stored.
-
+      
+      def handle_error(error)
+        ui.say "#{error.class}: #{error.message}", :red
+        ui.say error.backtrace.join("\n"), :white
+      end
       def self.export!(root_dir)
         new(root_dir).export!
       end
