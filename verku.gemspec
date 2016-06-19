@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Merovex"]
-  s.date = "2016-06-18"
+  s.date = "2016-06-19"
   s.description = "Verku provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the LaTeX document preparation system."
   s.email = ["dausha+verku@gmail.com"]
   s.executables = ["verku"]
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".gitignore",
+    ".rvmrc",
     "BUILD.md",
     "Gemfile",
     "Gemfile.lock",
