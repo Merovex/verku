@@ -1,6 +1,6 @@
 require 'fileutils'
 module Verku
-  module Parser
+  class Exporter
     class Epub < Base
       def sections
         @sections ||= html.css("div.chapter").each_with_index.map do |chapter, index|
@@ -14,7 +14,7 @@ module Verku
       end
       def epub; @epub ||= EeePub.make ;end
       def html; @html ||= Nokogiri::HTML(html_path.read); end
-      def parse
+      def export!
         puts "-- Exporting EPUB"
         epub.title        config["title"]
         epub.language     config["language"]

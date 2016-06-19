@@ -2,7 +2,7 @@ module Verku
   class Exporter
     def self.run(root_dir, options)
       exporter = new(root_dir, options)
-      exporter.export!
+      exporter.export
     end
 
     attr_accessor :root_dir
@@ -17,7 +17,7 @@ module Verku
       @ui ||= Thor::Base.shell.new
     end
 
-    def export!
+    def export
       helper = root_dir.join("config/helper.rb")
       load(helper) if helper.exist?
 
@@ -36,12 +36,12 @@ module Verku
       export_txt  = [nil, "txt"].include?(options[:only])
 
       exported = []
-      exported << Parser::PDF.parse(root_dir) if export_pdf && Dependency.xelatex?# && Dependency.prince?
-      exported << Parser::HTML.parse(root_dir) if export_html 
-      epub_done = Parser::Epub.parse(root_dir) if export_epub
+      exported << PDF.export!(root_dir)  if export_pdf && Dependency.xelatex?# && Dependency.prince?
+      exported << HTML.export!(root_dir) if export_html 
+      epub_done = Epub.export!(root_dir) if export_epub
       exported << epub_done
-      exported << Parser::Mobi.parse(root_dir) if export_mobi && epub_done && Dependency.kindlegen?
-      # exported << Parser::Txt.parse(root_dir) if export_txt && Dependency.html2text?
+      exported << Mobi.export!(root_dir) if export_mobi && epub_done && Dependency.kindlegen?
+      # exported << Txt.parse if export_txt && Dependency.html2text?
 
       if exported.all?
         color = :green

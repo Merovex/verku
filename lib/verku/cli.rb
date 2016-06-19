@@ -46,7 +46,7 @@ module Verku
     desc "version", "Prints the Verku's version information"
     map %w(-v --version) => :version
     def version
-      say "Verku version #{Verku::Version::STRING}"
+      say "Verku version #{Verku::VERSION}"
     end
     
     desc "stats", "Display some stats about your e-book"

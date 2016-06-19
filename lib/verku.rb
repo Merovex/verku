@@ -16,23 +16,31 @@ require "thor"
 require "thor/group"
 require "yaml"
 require "cgi"
+require "safe_yaml"
 
 module Verku
-  
-  require "verku/extensions/string"
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
+
+  require "verku/extensions/string"
+  require "verku/cli"
+  require "verku/dependency"
   
-  autoload :Cli,        "verku/cli"
-  autoload :Dependency, "verku/dependency"
-  autoload :Exporter,   "verku/exporter"
-  autoload :Generator,  "verku/generator"
-  autoload :Markdown,   "verku/adapters/markdown"
-  autoload :Parser,     "verku/parser"
-  autoload :Stats,      "verku/stats"
-  autoload :Stream,     "verku/stream"
-  autoload :Structure,  "verku/structure"
-  autoload :TOC,        "verku/toc"
-  # autoload :Version,    "verku/version"
+  require "verku/exporter"
+  require "verku/exporter/base"
+  require "verku/exporter/pdf"
+  require "verku/exporter/html"
+  require "verku/exporter/epub"
+  require "verku/exporter/mobi"
+
+  require "verku/generator"
+  require "verku/adapters/markdown"
+  # require "verku/parser"
+  require "verku/source_list"
+  require "verku/stats"
+  require "verku/stream"
+  # require "verku/structure"
+  require "verku/toc"
+  require 'verku/version'
     
   Encoding.default_internal = "utf-8"
   Encoding.default_external = "utf-8"
@@ -44,8 +52,8 @@ module Verku
     raise "Invalid Verku directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)
     erb = ERB.new(content).result
-
-    YAML.load(erb)#.with_indifferent_access
+    YAML.load(erb, :safe => true)
+    #YAML.load(erb)#.with_indifferent_access
   end
   def self.logger
      @logger ||= Logger.new(File.open("/tmp/verku.log", "a"))

@@ -1,7 +1,7 @@
 module Verku
-  module Parser
+  class Exporter
     class Mobi < Base
-      def parse
+      def export!
         puts "-- Exporting MOBI"
         spawn_command ["kindlegen", epub_file.to_s,]
         true
