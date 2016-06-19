@@ -14,7 +14,7 @@ module Verku
       end
       def epub; @epub ||= EeePub.make ;end
       def html; @html ||= Nokogiri::HTML(html_path.read); end
-      def parse
+      def export!
         puts "-- Exporting EPUB"
         epub.title        config["title"]
         epub.language     config["language"]

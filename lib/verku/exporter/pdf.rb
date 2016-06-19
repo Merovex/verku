@@ -32,16 +32,16 @@ module Verku
       end
 
       private
-        def content
-          content = String.new
-          source_list.each_chapter do |files|
-            content << "\n#{render_chapter(files)}\n"
-          end
-          return content
-        end
         def render_file(file)
           data = read_content(file)
           content = "#{data[0]}".to_latex
+          return content
+        end
+        def content
+          content = String.new
+          source_list.each_chapter do |files|
+            content << render_chapter(files)
+          end
           return content
         end
         def render_chapter(files)

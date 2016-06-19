@@ -29,6 +29,8 @@ module Verku
   require "verku/exporter/base"
   require "verku/exporter/pdf"
   require "verku/exporter/html"
+  require "verku/exporter/epub"
+  require "verku/exporter/mobi"
 
   require "verku/generator"
   require "verku/adapters/markdown"
