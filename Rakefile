@@ -16,7 +16,7 @@ require './lib/verku/version.rb'
 Jeweler::Tasks.new do |gem|
 
   gem.name        = "verku"
-  gem.version     = Verku::Version::STRING
+  gem.version     = Verku::VERSION
   gem.authors     = ["Merovex"]
   gem.email       = ["dausha+verku@gmail.com"]
   gem.homepage    = "https://github.com/Merovex/verku"

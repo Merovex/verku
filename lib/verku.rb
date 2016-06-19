@@ -33,6 +33,7 @@ module Verku
   autoload :Stream,     "verku/stream"
   autoload :Structure,  "verku/structure"
   autoload :TOC,        "verku/toc"
+  autoload :Version,         'verku/version'
   # autoload :Version,    "verku/version"
     
   Encoding.default_internal = "utf-8"

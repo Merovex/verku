@@ -36,12 +36,12 @@ module Verku
       export_txt  = [nil, "txt"].include?(options[:only])
 
       exported = []
-      exported << Parser::PDF.parse(root_dir) if export_pdf && Dependency.xelatex?# && Dependency.prince?
-      exported << Parser::HTML.parse(root_dir) if export_html 
-      epub_done = Parser::Epub.parse(root_dir) if export_epub
+      exported << PDF.parse(root_dir) if export_pdf && Dependency.xelatex?# && Dependency.prince?
+      exported << HTML.parse(root_dir) if export_html 
+      epub_done = Epub.parse(root_dir) if export_epub
       exported << epub_done
-      exported << Parser::Mobi.parse(root_dir) if export_mobi && epub_done && Dependency.kindlegen?
-      # exported << Parser::Txt.parse(root_dir) if export_txt && Dependency.html2text?
+      exported << Mobi.parse(root_dir) if export_mobi && epub_done && Dependency.kindlegen?
+      # exported << Txt.parse(root_dir) if export_txt && Dependency.html2text?
 
       if exported.all?
         color = :green
