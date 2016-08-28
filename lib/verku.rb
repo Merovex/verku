@@ -22,10 +22,10 @@ require "safe_yaml"
 module Verku
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
 
+  require "verku/build"
   require "verku/extensions/string"
   require "verku/cli"
   require "verku/dependency"
-  require "verku/build"
   require "verku/exporter"
   require "verku/exporter/base"
   require "verku/exporter/pdf"
