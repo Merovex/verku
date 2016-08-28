@@ -19,6 +19,7 @@ module Verku
       def initialize(root_dir)
         @root_dir = Pathname.new(root_dir)
         @source = root_dir.join("text")
+        @build = Build.new
       end
 
       # Return directory's basename.
@@ -30,7 +31,9 @@ module Verku
       def config
         Verku.config(root_dir)
       end
-
+      # def build_data
+      #   Verku.build(root_dir)
+      # end
       def source_list
         @source_list ||= SourceList.new(root_dir)
       end

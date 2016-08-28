@@ -34,6 +34,7 @@ module Verku
       copy_file "cover.jpg",              "_images/cover.jpg"
       copy_file "rakefile.rb",            "Rakefile"
       copy_file "extras.tex",             "_extras/dedications.tex"
+      copy_file "build.yml",              "_build.yml"
     end
     def copy_sample_text
       directory "text", "text"
