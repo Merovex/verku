@@ -42,16 +42,6 @@ Gem::Specification.new do |spec|
   # spec.add_runtime_dependency     "notifier",      "~> 0"
   # spec.add_runtime_dependency     "awesome_print", "~> 0"
   # spec.add_runtime_dependency     "safe_yaml",     ">= 1.0.4"
-  spec.add_dependency "activesupport"
-  spec.add_dependency "rubyzip"
-  spec.add_dependency "zip-zip"
-  spec.add_dependency "eeepub"
-  spec.add_dependency "kramdown"
-  spec.add_dependency "thor"
-  spec.add_dependency "nokogiri"
-  spec.add_dependency "notifier"
-  spec.add_dependency "awesome_print"
-  spec.add_dependency "safe_yaml"
 
   # if spec.respond_to? :specification_version then
   #   spec.specification_version = 4
