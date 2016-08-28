@@ -31,10 +31,9 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "kramdown",      "~> 0"
   spec.add_runtime_dependency "activesupport", "~> 0"
-  spec.add_runtime_dependency "rubyzip",       "~> 0"
+  spec.add_runtime_dependency "rubyzip",       ">= 1.0.0"
   spec.add_runtime_dependency "zip-zip",       "~> 0"
   spec.add_runtime_dependency "eeepub",        "~> 0"
-  spec.add_runtime_dependency "kramdown",      "~> 0"
   spec.add_runtime_dependency "thor",          "~> 0"
   spec.add_runtime_dependency "nokogiri",      "~> 0"
   spec.add_runtime_dependency "notifier",      "~> 0"
@@ -52,15 +51,6 @@ Gem::Specification.new do |spec|
   
   #     spec.add_development_dependency(%q<aruba>, ["~> 0"])
   #     spec.add_development_dependency(%q<cucumber>, ["~> 0"])
-  
-  
-  
-  
-  
-  
-  
-  
-  
   #   else
   #     spec.add_dependency(%q<shoulda>, ["~> 0"])
   #     spec.add_dependency(%q<rdoc>, ["~> 3.12"])
