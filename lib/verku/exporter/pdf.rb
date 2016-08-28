@@ -34,7 +34,9 @@ module Verku
       private
         def render_file(file)
           data = read_content(file)
-          content = "#{data[0]}".to_latex
+          # h = config["headers"]
+          raise config.inspect
+          content = "#{data[0]}".to_latex()
           return content
         end
         def content
