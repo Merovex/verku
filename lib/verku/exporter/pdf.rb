@@ -34,10 +34,13 @@ module Verku
       private
         def render_file(file)
           data = read_content(file)
-          # h = config["headers"]
-          raise config.inspect
-          content = "#{data[0]}".to_latex()
-          return content
+          h    = nil
+
+          if config["headers"].is_a? Array
+            h = config["headers"][0..5]
+          end
+
+          return "#{data[0]}".to_latex(h)
         end
         def content
           content = String.new
