@@ -1,5 +1,6 @@
 require 'open3'
 require "English"
+require "verku/build"
 
 module Verku
   class Exporter
@@ -19,7 +20,7 @@ module Verku
       def initialize(root_dir)
         @root_dir = Pathname.new(root_dir)
         @source = root_dir.join("text")
-        @build = Verku.Build.new
+        @build = Verku::Build.new
       end
 
       # Return directory's basename.
