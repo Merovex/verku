@@ -26,62 +26,77 @@ Gem::Specification.new do |spec|
   spec.summary = "Verku is a Ruby & LaTeX based production toolchain for self-publishers."
   spec.test_files = ["test/helper.rb", "test/test_bookmaker.rb"]
 
-  if spec.respond_to? :specification_version then
-    spec.specification_version = 4
+  spec.add_development_dependency "bundler",   "~> 1.12"
+  spec.add_development_dependency "rake",      "~> 10.0"
 
-    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      spec.add_development_dependency(%q<shoulda>, ["~> 0"])
-      spec.add_development_dependency(%q<rdoc>, ["~> 3.12"])
-      spec.add_development_dependency(%q<bundler>, ["~> 1.0"])
-      spec.add_development_dependency(%q<simplecov>, ["~> 0"])
-      spec.add_runtime_dependency(%q<activesupport>, ["~> 0"])
-      spec.add_development_dependency(%q<aruba>, ["~> 0"])
-      spec.add_development_dependency(%q<cucumber>, ["~> 0"])
-      spec.add_runtime_dependency(%q<rubyzip>, ["~> 0"])
-      spec.add_runtime_dependency(%q<zip-zip>, ["~> 0"])
-      spec.add_runtime_dependency(%q<eeepub>, ["~> 0"])
-      spec.add_runtime_dependency(%q<kramdown>, ["~> 0"])
-      spec.add_runtime_dependency(%q<thor>, ["~> 0"])
-      spec.add_runtime_dependency(%q<nokogiri>, ["~> 0"])
-      spec.add_runtime_dependency(%q<notifier>, ["~> 0"])
-      spec.add_runtime_dependency(%q<awesome_print>, ["~> 0"])
-      spec.add_runtime_dependency(%q<safe_yaml>, ["~> 0"])
-    else
-      spec.add_dependency(%q<shoulda>, ["~> 0"])
-      spec.add_dependency(%q<rdoc>, ["~> 3.12"])
-      spec.add_dependency(%q<bundler>, ["~> 1.0"])
+  spec.add_runtime_dependency "kramdown",      "~> 0"
+  spec.add_runtime_dependency "activesupport", "~> 0"
+  spec.add_runtime_dependency "rubyzip",       "~> 0"
+  spec.add_runtime_dependency "zip-zip",       "~> 0"
+  spec.add_runtime_dependency "eeepub",        "~> 0"
+  spec.add_runtime_dependency "kramdown",      "~> 0"
+  spec.add_runtime_dependency "thor",          "~> 0"
+  spec.add_runtime_dependency "nokogiri",      "~> 0"
+  spec.add_runtime_dependency "notifier",      "~> 0"
+  spec.add_runtime_dependency "awesome_print", "~> 0"
+  spec.add_runtime_dependency "safe_yaml",     "~> 0"
 
-      spec.add_dependency(%q<simplecov>, ["~> 0"])
-      spec.add_dependency(%q<activesupport>, ["~> 0"])
-      spec.add_dependency(%q<aruba>, ["~> 0"])
-      spec.add_dependency(%q<cucumber>, ["~> 0"])
-      spec.add_dependency(%q<rubyzip>, ["~> 0"])
-      spec.add_dependency(%q<zip-zip>, ["~> 0"])
-      spec.add_dependency(%q<eeepub>, ["~> 0"])
-      spec.add_dependency(%q<kramdown>, ["~> 0"])
-      spec.add_dependency(%q<thor>, ["~> 0"])
-      spec.add_dependency(%q<nokogiri>, ["~> 0"])
-      spec.add_dependency(%q<notifier>, ["~> 0"])
-      spec.add_dependency(%q<awesome_print>, ["~> 0"])
-      spec.add_dependency(%q<safe_yaml>, ["~> 0"])
-    end
-  else
-    spec.add_dependency(%q<shoulda>, ["~> 0"])
-    spec.add_dependency(%q<rdoc>, ["~> 3.12"])
-    spec.add_dependency(%q<bundler>, ["~> 1.0"])
-    spec.add_dependency(%q<simplecov>, ["~> 0"])
-    spec.add_dependency(%q<activesupport>, ["~> 0"])
-    spec.add_dependency(%q<aruba>, ["~> 0"])
-    spec.add_dependency(%q<cucumber>, ["~> 0"])
-    spec.add_dependency(%q<rubyzip>, ["~> 0"])
-    spec.add_dependency(%q<zip-zip>, ["~> 0"])
-    spec.add_dependency(%q<eeepub>, ["~> 0"])
-    spec.add_dependency(%q<kramdown>, ["~> 0"])
-    spec.add_dependency(%q<thor>, ["~> 0"])
-    spec.add_dependency(%q<nokogiri>, ["~> 0"])
-    spec.add_dependency(%q<notifier>, ["~> 0"])
-    spec.add_dependency(%q<awesome_print>, ["~> 0"])
-    spec.add_dependency(%q<safe_yaml>, ["~> 0"])
-  end
+  # if spec.respond_to? :specification_version then
+  #   spec.specification_version = 4
+
+  #   if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+  #     spec.add_development_dependency(%q<shoulda>, ["~> 0"])
+  #     spec.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+  #     spec.add_development_dependency(%q<bundler>, ["~> 1.0"])
+  #     spec.add_development_dependency(%q<simplecov>, ["~> 0"])
+  
+  #     spec.add_development_dependency(%q<aruba>, ["~> 0"])
+  #     spec.add_development_dependency(%q<cucumber>, ["~> 0"])
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  #   else
+  #     spec.add_dependency(%q<shoulda>, ["~> 0"])
+  #     spec.add_dependency(%q<rdoc>, ["~> 3.12"])
+  #     spec.add_dependency(%q<bundler>, ["~> 1.0"])
+
+  #     spec.add_dependency(%q<simplecov>, ["~> 0"])
+  #     spec.add_dependency(%q<activesupport>, ["~> 0"])
+  #     spec.add_dependency(%q<aruba>, ["~> 0"])
+  #     spec.add_dependency(%q<cucumber>, ["~> 0"])
+  #     spec.add_dependency(%q<rubyzip>, ["~> 0"])
+  #     spec.add_dependency(%q<zip-zip>, ["~> 0"])
+  #     spec.add_dependency(%q<eeepub>, ["~> 0"])
+  #     spec.add_dependency(%q<kramdown>, ["~> 0"])
+  #     spec.add_dependency(%q<thor>, ["~> 0"])
+  #     spec.add_dependency(%q<nokogiri>, ["~> 0"])
+  #     spec.add_dependency(%q<notifier>, ["~> 0"])
+  #     spec.add_dependency(%q<awesome_print>, ["~> 0"])
+  #     spec.add_dependency(%q<safe_yaml>, ["~> 0"])
+  #   end
+  # else
+  #   spec.add_dependency(%q<shoulda>, ["~> 0"])
+  #   spec.add_dependency(%q<rdoc>, ["~> 3.12"])
+  #   spec.add_dependency(%q<bundler>, ["~> 1.0"])
+  #   spec.add_dependency(%q<simplecov>, ["~> 0"])
+  #   spec.add_dependency(%q<activesupport>, ["~> 0"])
+  #   spec.add_dependency(%q<aruba>, ["~> 0"])
+  #   spec.add_dependency(%q<cucumber>, ["~> 0"])
+  #   spec.add_dependency(%q<rubyzip>, ["~> 0"])
+  #   spec.add_dependency(%q<zip-zip>, ["~> 0"])
+  #   spec.add_dependency(%q<eeepub>, ["~> 0"])
+  #   spec.add_dependency(%q<kramdown>, ["~> 0"])
+  #   spec.add_dependency(%q<thor>, ["~> 0"])
+  #   spec.add_dependency(%q<nokogiri>, ["~> 0"])
+  #   spec.add_dependency(%q<notifier>, ["~> 0"])
+  #   spec.add_dependency(%q<awesome_print>, ["~> 0"])
+  #   spec.add_dependency(%q<safe_yaml>, ["~> 0"])
+  # end
 end
 
