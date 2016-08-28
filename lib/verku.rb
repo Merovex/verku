@@ -16,6 +16,7 @@ require "thor"
 require "thor/group"
 require "yaml"
 require "cgi"
+require 'psych'
 require "safe_yaml"
 
 module Verku

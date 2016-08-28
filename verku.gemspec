@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency     "kramdown",      "~> 0"
   spec.add_runtime_dependency     "psych",         "~> 1.0"
+  spec.add_runtime_dependency     "syck",          "~> 1.0"
   spec.add_runtime_dependency     "activesupport", "~> 5.0", ">= 5.0.0"
   spec.add_runtime_dependency     "rubyzip",       "~> 1.0", ">= 1.0.0"
   spec.add_runtime_dependency     "zip-zip",       "~> 0"
