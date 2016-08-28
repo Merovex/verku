@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    verku (0.12.4)
-      activesupport (>= 5.0.0)
+    verku (0.12.6)
+      activesupport (~> 5.0, >= 5.0.0)
       awesome_print (~> 0)
       eeepub (~> 0)
       kramdown (~> 0)
-      nokogiri (>= 1.6.0)
+      nokogiri (~> 1.6, >= 1.6.0)
       notifier (~> 0)
       rubyzip (~> 1.0, >= 1.0.0)
       safe_yaml (~> 0)
