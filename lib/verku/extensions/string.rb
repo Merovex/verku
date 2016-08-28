@@ -9,7 +9,8 @@ class String
     str
   end
   def to_latex(headers=nil)
-    headers = %w{part chapter section subsection subsubsection paragraph subparagraph} if headers.nil?
+    headers = %w{part chapter section subsection subsubsection paragraph} if headers.nil?
+    headers = headers[0..5]
   	require 'kramdown'
   	s = Kramdown::Document.new(self.dup, :latex_headers => headers).to_latex
     s << "\\pbreak{}"
