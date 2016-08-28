@@ -30,13 +30,15 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake",      "~> 10.0"
 
   spec.add_runtime_dependency "kramdown",      "~> 0"
-  spec.add_runtime_dependency "activesupport", ">= 5.0.0"
+  # spec.add_runtime_dependency "activesupport", ">= 5.0.0"
+  add_runtime_dependency 'activesupport', '~> 5.0', '>= 5.0.0'
   # spec.add_runtime_dependency "rubyzip",       ">= 1.0.0"
   spec.add_runtime_dependency 'rubyzip',       '~> 1.0', '>= 1.0.0'
   spec.add_runtime_dependency "zip-zip",       "~> 0"
   spec.add_runtime_dependency "eeepub",        "~> 0"
   spec.add_runtime_dependency "thor",          "~> 0"
-  spec.add_runtime_dependency "nokogiri",      ">= 1.6.0"
+  # spec.add_runtime_dependency "nokogiri",      ">= 1.6.0"
+  add_runtime_dependency 'nokogiri', '~> 1.6', '>= 1.6.0'
   spec.add_runtime_dependency "notifier",      "~> 0"
   spec.add_runtime_dependency "awesome_print", "~> 0"
   spec.add_runtime_dependency "safe_yaml",     "~> 0"
