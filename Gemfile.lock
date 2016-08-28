@@ -1,18 +1,17 @@
 PATH
   remote: .
   specs:
-    verku (0.12.10)
-      activesupport (~> 5.0, >= 5.0.0)
-      awesome_print (~> 0)
-      eeepub (~> 0)
-      kramdown (~> 0)
-      nokogiri (~> 1.6, >= 1.6.0)
-      notifier (~> 0)
-      psych (~> 1.0)
-      rubyzip (~> 1.0, >= 1.0.0)
-      safe_yaml (>= 1.0.4)
-      thor (~> 0)
-      zip-zip (~> 0)
+    verku (0.12.11)
+      activesupport
+      awesome_print
+      eeepub
+      kramdown
+      nokogiri
+      notifier
+      rubyzip
+      safe_yaml
+      thor
+      zip-zip
 
 GEM
   remote: http://rubygems.org/
@@ -22,14 +21,14 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    awesome_print (0.4.0)
+    awesome_print (1.7.0)
     builder (3.2.2)
     concurrent-ruby (1.0.2)
     eeepub (0.8.1)
       builder
       rubyzip
     i18n (0.7.0)
-    kramdown (0.14.2)
+    kramdown (1.12.0)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     nokogiri (1.6.8)
@@ -37,7 +36,6 @@ GEM
       pkg-config (~> 1.1.7)
     notifier (0.5.2)
     pkg-config (1.1.7)
-    psych (1.3.4)
     rake (11.2.2)
     rubyzip (1.2.0)
     safe_yaml (1.0.4)
