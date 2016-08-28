@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name = "verku"
   spec.version = Verku::VERSION
 
-  spec.required_rubygems_version = Gem::Requirement.new("~> 0") if spec.respond_to? :required_rubygems_version=
+  # spec.required_rubygems_version = Gem::Requirement.new("~> 0") if spec.respond_to? :required_rubygems_version=
   spec.require_paths             = ["lib"]
   spec.authors                   = ["Merovex"]
   spec.description               = "Verku provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the LaTeX document preparation system."
