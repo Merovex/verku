@@ -1,6 +1,5 @@
 require 'open3'
 require "English"
-# require "verku/build"
 
 module Verku
   class Exporter
@@ -40,6 +39,9 @@ module Verku
       end
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }
+      end
+      def ui
+        @ui ||= Thor::Base.shell.new
       end
       def read_content(file)
         content = File.read(file)
