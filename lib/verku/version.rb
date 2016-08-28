@@ -1,5 +1,5 @@
 module Verku
-	VERSION = '0.12.7'
+	VERSION = '0.12.8'
   # module Version
   #   MAJOR = 0
   #   MINOR = 9
