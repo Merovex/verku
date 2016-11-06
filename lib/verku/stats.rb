@@ -13,39 +13,30 @@ module Verku
 
     def initialize(root_dir)
       @root_dir = root_dir
-      @files = Dir["#{root_dir}/text/**/[0-9]*.tex"]
-      @target = 0
+      @files = Dir["#{root_dir}/text/**/[0-9]*.{md,markdown,mkd}"]
       @words = 0
       @progress = (File.exist?(log)) ? JSON.parse(File.open(log,'r').read).clone : {}
     end
 
     def log
-      "#{root_dir}/.wordcount"
+      "#{root_dir}/.kalkulado"
     end
 
     def target
-      Verku.config(@root_dir)['wordcount']
+      Verku.config(@root_dir)['wordcount'] || 1000
     end
     def now
       Date.today.to_s
     end
     def words
-      if @words == 0
+      if @words == 0        
+        File.open(log,'w').write( JSON.generate(Hash.new) ) unless File.exist?(log)
+
         most_recent = @files.max_by {|f| File.mtime(f)}
         if !@progress[now].nil? and File.mtime(log) > File.mtime(most_recent)
           @progress[now]
         else
-          detex = "/usr/texbin/detex"
-
-          # file = Tempfile.new('foo.tex')
-          # file.write(text)
-          # file.close
-          # wc = 
-
-          # @progress[now] = `detex #{file.path}| wc -w`.to_i
           @progress[now] = text.split(/\s/).keep_if { |word| word.length > 0 }.count
-          file.unlink
-          # Do previous day's progress...if nil.
           @progress[Date.yesterday.to_s] = @progress[now] if @progress.keys.count == 1
         end
       end

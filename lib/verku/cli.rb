@@ -53,15 +53,14 @@ module Verku
     def stats
       inside_ebook!
       stats = Verku::Stats.new(root_dir)
-      raise stats.inspect
 
       say [
         # "Chapters: #{stats.chapters}",
-        "Goal:   #{sprintf("%7d", stats.target)}",
-        "Words:  #{sprintf("%7d", stats.words)}",
-        "        -------",
-        "Left:   #{sprintf("%7d", stats.remaining)}",
-        "\nProgress: #{sprintf("%5d", stats.today)}"
+        "Goal:     #{sprintf("%7d", stats.target)}",
+        "Words:    #{sprintf("%7d", stats.words)}",
+        "          -------",
+        "Remain:   #{sprintf("%7d", stats.remaining)}",
+        "Progress: #{sprintf("%7d", stats.today)}"
       ].join("\n")
     end
 
