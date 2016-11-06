@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    verku (0.14.2)
+    verku (0.15.0)
       activesupport (~> 5.0, >= 5.0.0)
       awesome_print (~> 0)
       eeepub (~> 0)
@@ -55,4 +55,4 @@ DEPENDENCIES
   verku!
 
 BUNDLED WITH
-   1.12.5
+   1.13.6
