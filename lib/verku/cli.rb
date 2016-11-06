@@ -53,6 +53,7 @@ module Verku
     def stats
       inside_ebook!
       stats = Verku::Stats.new(root_dir)
+      raise stats.inspect
 
       say [
         # "Chapters: #{stats.chapters}",

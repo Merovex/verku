@@ -14,6 +14,7 @@ module Verku
     def initialize(root_dir)
       @root_dir = root_dir
       @files = Dir["#{root_dir}/text/**/[0-9]*.tex"]
+      @target = 0
       @words = 0
       @progress = (File.exist?(log)) ? JSON.parse(File.open(log,'r').read).clone : {}
     end
@@ -36,10 +37,13 @@ module Verku
         else
           detex = "/usr/texbin/detex"
 
-          file = Tempfile.new('foo.tex')
-          file.write(text)
-          file.close
-          @progress[now] = `detex #{file.path}| wc -w`.to_i
+          # file = Tempfile.new('foo.tex')
+          # file.write(text)
+          # file.close
+          # wc = 
+
+          # @progress[now] = `detex #{file.path}| wc -w`.to_i
+          @progress[now] = text.split(/\s/).keep_if { |word| word.length > 0 }.count
           file.unlink
           # Do previous day's progress...if nil.
           @progress[Date.yesterday.to_s] = @progress[now] if @progress.keys.count == 1
@@ -50,7 +54,7 @@ module Verku
         n = lasttime
         w = @progress[lasttime]
         n.upto(Date.yesterday.to_s) do |k|
-          # puts "Upto #{k}: @progress[#{k}] = #{w}"
+          puts "Upto #{k}: @progress[#{k}] = #{w}"
           @progress[k] = w
         end
       end
@@ -78,37 +82,5 @@ module Verku
     def remaining
       target - words
     end
-
-    # def html
-    #   @html ||= Nokogiri::HTML(content)
-    # end
-
-    # def words
-    #   @words ||= text.split(" ").size
-    # end
-
-    # def chapters
-    #   @chapters ||= html.css(".chapter").size
-    # end
-
-    # def images
-    #   @images ||= html.css("img").size
-    # end
-
-    # def footnotes
-    #   @footnotes ||= html.css("p.footnote").size
-    # end
-
-    # def links
-    #   @links ||= html.css("[href^='http']").size
-    # end
-
-    # def code_blocks
-    #   @code_blocks ||= html.css("pre").size
-    # end
-
-    # def content
-    #   @content ||= Parser::HTML.new(root_dir).content
-    # end
   end
 end
