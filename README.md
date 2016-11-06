@@ -1,7 +1,7 @@
 Verku
 =========
 
-Verku provides authors a free, ruby-based production toolchain for self-published paper and electronic books using the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator (due to licensing issues).
+Verku provides authors a free, ruby-based production toolchain for self-published paper and electronic books using Markdown and the [LaTeX](http://www.latex-project.org/) document preparation system. The code base borrows heavily from [Kitabu](https://github.com/fnando/kitabu), while replacing [Prince](http://princexml.com) as the PDF generator. Use of Prince as recommended in Kitabu appears to me to violate the Prince license, and Prince itself is too expensive.
 
 What Does Verku Provide?
 ----------------------------
@@ -46,7 +46,7 @@ To create a new Verku project, execute the following on the command line:
 
     $ verku new mybook
 
-This command creates a directory <tt>mybook</tt> with the following structure (may be slightly different in production):
+This command creates a directory <tt>mybook</tt> with the following structure:
 
     mybook
     ├── _verku.yml
@@ -65,27 +65,17 @@ This command creates a directory <tt>mybook</tt> with the following structure (m
     │       ├── syntax.css
     │       └── user.css   
     ├── builds
-    └── docs
+    ├── docs
+        └── research other supporting documentation
+    └── text
         └── 01_Chapter
             └──01_Welcome.tex
 
 The <tt>_verku.yml</tt> file holds the project's metadata. Update the relevant fields.
 
-Now it's time to write your e-book. All your book content will be placed on the text directory. Verku requires you to separate your book into chapters. A chapter is nothing but a directory that holds lots of text files. The e-book will be generated using every folder/file alphabetically. So be sure to use a sequential numbering as the name. Here's a sample:
+Now it's time to write your e-book. All your book content will be placed on the text directory. Verku requires you to separate your book into chapters. A chapter is nothing but a directory that holds lots of text files. The e-book will be generated using every folder/file alphabetically. So be sure to use a sequential numbering as the name.
 
-  * text
-    * 01_Introduction
-      * 01_introduction.tex
-    * 02_What_is_Ruby_on_Rails
-      * 01_MVC.tex
-      * 02_DRY.tex
-      * 03_Convention_Over_Configuration.tex
-    * 03_Installing_Ruby_on_Rails
-      * 01_Installing.tex
-      * 02_Mac_OS_X_instructions.tex
-      * 03_Windows_instructions.tex
-      * 04_Ubuntu_Linux_instructions.tex
-
+Chapter breaks rely on the use of Markdown headings, not directory/file structure.
 
 When you're ready to view your progress, the commands below will compile the book into the <tt>output/</tt> directory in the appropriate format:
 
