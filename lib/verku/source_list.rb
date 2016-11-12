@@ -10,7 +10,7 @@ module Verku
 
     # List of recognized extensions.
     #
-    EXTENSIONS = %w[md markdown text]
+    EXTENSIONS = %w[markdown mkdown mkdn mkd md text]
 
     attr_reader :root_dir
     attr_reader :source
@@ -39,6 +39,7 @@ module Verku
       if File.file?(entry)
         [entry]
       else
+        # markdown,mkdown,mkdn,mkd,md
         Dir["#{entry}/**/*.{#{EXTENSIONS.join(",")}}"].sort
       end
     end

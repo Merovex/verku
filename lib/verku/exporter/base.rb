@@ -49,9 +49,7 @@ module Verku
         begin
           # YAML_FRONT_MATTER_REGEXP = /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
           if content =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
-            # content = "\n#{$'}\n"
             content = $POSTMATCH
-            # data = SafeYAML.load($1)
             data = YAML.load($1, :safe => true)
           end
           return [content, data]
