@@ -21,6 +21,11 @@ module Verku
       # @source = root_dir
     end
 
+
+    def pandoc_files()
+      Dir.glob("#{@source}/**/*.{#{EXTENSIONS.join(",")}}")
+    end
+
     #
     #
     def each_chapter(&block)

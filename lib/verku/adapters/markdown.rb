@@ -2,7 +2,8 @@ module Kitabu
   class Markdown
     # Supported Markdown libraries
     #
-    MARKDOWN_LIBRARIES = %w[Kramdown]
+    # MARKDOWN_LIBRARIES = %w[Kramdown]
+    MARKDOWN_LIBRARIES = %w[Pandoc]
 
     # Retrieve preferred Markdown processor.
     # You'll need one of the following libraries:
@@ -23,11 +24,13 @@ module Kitabu
 
     def self.to_latex(content)
       case engine.name
-      when "Redcarpet"
-        # render = Redcarpet::Render::HTML.new(:hard_wrap => true, :xhtml => true)
-        # Redcarpet::Markdown.new(render).render(content)
-      else
-        engine.new(content).to_latex
+        when "PandocRuby"
+          PandocRuby.markdown(content).to_latex
+        when "Redcarpet"
+          render = Redcarpet::Render::HTML.new(:hard_wrap => true, :xhtml => true)
+          Redcarpet::Markdown.new(render).render(content)
+        else
+          engine.new(content).to_latex
       end
     end
     # Convert Markdown to HTML.
@@ -36,6 +39,8 @@ module Kitabu
       when "Redcarpet"
         render = Redcarpet::Render::HTML.new(:hard_wrap => true, :xhtml => true)
         Redcarpet::Markdown.new(render).render(content)
+      when "PandocRuby"
+        PandocRuby.markdown(content).to_html
       else
         engine.new(content).to_html
       end

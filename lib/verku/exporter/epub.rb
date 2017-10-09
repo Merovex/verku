@@ -65,7 +65,7 @@ module Verku
       def write_coverpage!
         contents = render_template(root_dir.join("_templates/epub/cover.html"), config)
         puts "Writing cover page. #{cover_path}"
-        # 
+        #
         # raise File.dirname(cover_path).inspect
         FileUtils.mkdir_p(File.dirname(cover_path))
         File.open(cover_path,"w") do |file|
@@ -159,10 +159,12 @@ module Verku
         root_dir.join("_templates/epub/page.erb")
       end
       def html_path
-        root_dir.join("builds/#{name}.html")
+        # root_dir.join("builds/#{name}.html")
+        output_name("html")
       end
       def epub_path
-        root_dir.join("builds/#{name}.epub")
+        # root_dir.join("builds/#{name}.epub")
+        output_name("epub")
       end
       def tmp_dir
         root_dir.join("builds/tmp")

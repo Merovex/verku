@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
     "README.md"
   ]
   spec.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  
+
   spec.rubyforge_project = "verku"
   spec.rubygems_version = "2.2.2"
   spec.summary = "Verku is a Ruby & LaTeX based production toolchain for self-publishers."
@@ -31,11 +31,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake",          "~> 10.0"
 
   spec.add_runtime_dependency     "kramdown",      "~> 0"
-  spec.add_runtime_dependency     "psych",         "~> 1.0"
+  # spec.add_runtime_dependency     "psych",         "~> 1.0"
   spec.add_runtime_dependency     "activesupport", "~> 5.0",    ">= 5.0.0"
   spec.add_runtime_dependency     "rubyzip",       "~> 1.0",    ">= 1.0.0"
   spec.add_runtime_dependency     "zip-zip",       "~> 0"
   spec.add_runtime_dependency     "eeepub",        "~> 0"
+  spec.add_runtime_dependency     'pandoc-ruby'
   # spec.add_runtime_dependency     "thor",          ">= 0.19.1"
   spec.add_runtime_dependency     'thor',          "~> 0.19",   ">= 0.19.1"
   spec.add_runtime_dependency     "nokogiri",      "~> 1.6",    ">= 1.6.0"
@@ -51,7 +52,7 @@ Gem::Specification.new do |spec|
   #     spec.add_development_dependency(%q<rdoc>, ["~> 3.12"])
   #     spec.add_development_dependency(%q<bundler>, ["~> 1.0"])
   #     spec.add_development_dependency(%q<simplecov>, ["~> 0"])
-  
+
   #     spec.add_development_dependency(%q<aruba>, ["~> 0"])
   #     spec.add_development_dependency(%q<cucumber>, ["~> 0"])
   #   else
@@ -92,4 +93,3 @@ Gem::Specification.new do |spec|
   #   spec.add_dependency(%q<safe_yaml>, ["~> 0"])
   # end
 end
-

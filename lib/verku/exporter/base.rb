@@ -4,10 +4,10 @@ require "English"
 module Verku
   class Exporter
     class Base
-      
+
       attr_accessor :root_dir # The e-book directory.
       attr_accessor :source   # Where the text files are stored.
-      
+
       def handle_error(error)
         ui.say "#{error.class}: #{error.message}", :red
         ui.say error.backtrace.join("\n"), :white
@@ -26,6 +26,21 @@ module Verku
       def name
         File.basename(root_dir)
       end
+      def git_branch
+        branch = if (File.exist?(root_dir.join(".git/HEAD")))
+           File.read( root_dir.join(".git/HEAD") ).sub("ref: refs/heads/","").sub(/\n/,'')
+        else
+          "none"
+        end
+        return branch
+      end
+      def base_name(ext='')
+        oname = "#{name}-#{git_branch}"
+        # oname += "-#{config["published_at"]}" unless config["published_at"].nil?
+      end
+      def output_name(ext='txt')
+        root_dir.join("builds/#{base_name}.#{ext}")
+      end
 
       # Return the configuration file.
       def config
@@ -34,8 +49,11 @@ module Verku
       # def build_data
       #   Verku.build(root_dir)
       # end
+
       def source_list
-        @source_list ||= SourceList.new(root_dir)
+        # @source_list ||= SourceList.new(root_dir)
+        @source_list ||= SourceList.new(root_dir).pandoc_files
+        raise @source_list.inspect
       end
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }

@@ -39,7 +39,7 @@ module Verku
           return "<div class='chapter'>\n\t#{chapter}\n</div>"
         end
         def html_file
-          root_dir.join("builds/#{name}.html")
+          output_name("html")
         end
     end
   end

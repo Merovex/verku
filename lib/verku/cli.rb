@@ -5,7 +5,7 @@ module Verku
   class Cli < Thor
     FORMATS = %w[pdf draft proof html epub mobi txt]
     check_unknown_options!
-    
+
     def self.exit_on_failure?
       true
     end
@@ -15,16 +15,16 @@ module Verku
       end
       super
     end
-    
+
     desc "create", "Start new work"
     map %w(create new) => :create
     def create(path)
-      puts "Verku -- A Million Monkeys Writing Your Masterpiece."
+      say "Verku -- A Million Monkeys Writing Your Masterpiece."
       generator = Generator.new
       generator.destination_root = path.squish.gsub(' ','-')
       generator.invoke_all
     end
-    
+
     desc "compile [OPTIONS]", "Export e-book"
     map %w(compile export build) => :export
     method_option :only, :type => :string, :desc => "Can be one of: #{FORMATS.join(", ")}"
@@ -36,19 +36,19 @@ module Verku
       end
       Verku::Exporter.run(root_dir, options)
     end
-    
+
     desc "pdf", "Export PDF only"
     def pdf
       inside_ebook!
       Verku::Exporter.run(root_dir, {:only => 'pdf'})
     end
-    
+
     desc "version", "Prints the Verku's version information"
     map %w(-v --version) => :version
     def version
       say "Verku version #{Verku::VERSION}"
     end
-    
+
     desc "stats", "Display some stats about your e-book"
     def stats
       inside_ebook!

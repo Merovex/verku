@@ -11,6 +11,7 @@ require "open3"
 require "optparse"
 require "ostruct"
 require "tempfile"
+require "pandoc-ruby"
 require "pathname"
 require "thor"
 require "thor/group"
@@ -42,7 +43,7 @@ module Verku
   # require "verku/structure"
   require "verku/toc"
   require 'verku/version'
-    
+
   Encoding.default_internal = "utf-8"
   Encoding.default_external = "utf-8"
 
@@ -53,6 +54,7 @@ module Verku
     raise "Invalid Verku directory; couldn't found #{path} file." unless File.file?(path)
     content = File.read(path)
     erb = ERB.new(content).result
+    SafeYAML::OPTIONS[:default_mode] = true
     YAML.load(erb, :safe => true)
     #YAML.load(erb)#.with_indifferent_access
   end
