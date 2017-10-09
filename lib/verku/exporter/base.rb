@@ -8,6 +8,8 @@ module Verku
       attr_accessor :root_dir # The e-book directory.
       attr_accessor :source   # Where the text files are stored.
 
+      EXTENSIONS = %w[markdown mkdown mkdn mkd md text]
+
       def handle_error(error)
         ui.say "#{error.class}: #{error.message}", :red
         ui.say error.backtrace.join("\n"), :white
@@ -52,8 +54,7 @@ module Verku
 
       def source_list
         # @source_list ||= SourceList.new(root_dir)
-        @source_list ||= SourceList.new(root_dir).pandoc_files
-        raise @source_list.inspect
+        @source_list ||= Dir.glob("#{@root_dir.join('text')}/**/*.{#{EXTENSIONS.join(",")}}")
       end
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }

@@ -43,23 +43,11 @@ module Verku
           return "#{data[0]}".to_latex(h)
         end
         def content
-          content = String.new
-          source_list.each_chapter do |files|
-            content << render_chapter(files)
-          end
+          content = PandocRuby.markdown(source_list).to_latex
+          content.gsub!('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
           return content
         end
-        def render_chapter(files)
-          chapter = String.new
-          String.new.tap do
-            files.each do |file|
-              chapter << render_file(file) << "\n\n"
-            end
-          end
-          return chapter
-        end
         def tex_file
-          # root_dir.join("builds/#{name}.tex")
           output_name("tex")
         end
     end

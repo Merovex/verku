@@ -23,7 +23,7 @@ module Verku
 
 
     def pandoc_files()
-      Dir.glob("#{@source}/**/*.{#{EXTENSIONS.join(",")}}")
+      Dir.glob("#{@root_dir.join('text')}/**/*.{#{EXTENSIONS.join(",")}}")
     end
 
     #
