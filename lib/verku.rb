@@ -54,7 +54,6 @@ module Verku
     erb = ERB.new(content).result
     SafeYAML::OPTIONS[:default_mode] = true
     YAML.load(erb, :safe => true)
-    #YAML.load(erb)#.with_indifferent_access
   end
   def self.logger
      @logger ||= Logger.new(File.open("/tmp/verku.log", "a"))

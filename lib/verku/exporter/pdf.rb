@@ -34,9 +34,7 @@ module Verku
       private
         def content
           source_list.map do |file|
-            PandocRuby.markdown(read_content(file)[0], :chapters)
-                      .to_latex
-                      .gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
+            PandocRuby.markdown(read_content(file)[0], :chapters).to_latex.fix_scenebreaks
           end.join("\n\n")
         end
     end
