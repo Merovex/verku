@@ -35,12 +35,11 @@ module Verku
   require "verku/exporter/mobi"
 
   require "verku/generator"
-  require "verku/adapters/markdown"
+  # require "verku/adapters/markdown"
   # require "verku/parser"
-  require "verku/source_list"
+  # require "verku/source_list"
   require "verku/stats"
   require "verku/stream"
-  # require "verku/structure"
   require "verku/toc"
   require 'verku/version'
 

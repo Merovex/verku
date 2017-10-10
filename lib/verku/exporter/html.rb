@@ -17,7 +17,7 @@ module Verku
         def content
           source_list.map do |file|
             "<div class='section'>#{PandocRuby.markdown(read_content(file)[0]).to_html}</div>"
-          end.join('\n\n')
+          end.join("\n\n")
         end
     end
   end

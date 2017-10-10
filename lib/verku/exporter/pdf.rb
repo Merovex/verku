@@ -34,10 +34,10 @@ module Verku
       private
         def content
           source_list.map do |file|
-            PandocRuby.markdown(read_content(file)[0])
+            PandocRuby.markdown(read_content(file)[0], :chapters)
                       .to_latex
                       .gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
-          end.join('\n\n')
+          end.join("\n\n")
         end
         def tex_file
           output_name("tex")
