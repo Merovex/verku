@@ -1,11 +1,10 @@
 PATH
   remote: .
   specs:
-    verku (0.15.0)
+    verku (0.16.0)
       activesupport (~> 5.0, >= 5.0.0)
       awesome_print (~> 0)
       eeepub (~> 0)
-      kramdown (~> 0)
       nokogiri (~> 1.6, >= 1.6.0)
       notifier (~> 0)
       pandoc-ruby
@@ -29,7 +28,6 @@ GEM
       builder
       rubyzip
     i18n (0.8.6)
-    kramdown (0.14.2)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     nokogiri (1.8.1)
@@ -55,4 +53,4 @@ DEPENDENCIES
   verku!
 
 BUNDLED WITH
-   1.14.6
+   1.15.4
