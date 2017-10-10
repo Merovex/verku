@@ -68,6 +68,9 @@ module Verku
       def epub_file
         output_name("epub")
       end
+      def tex_file
+        output_name("tex")
+      end
       def read_content(file)
         content = File.read(file)
         data = {}

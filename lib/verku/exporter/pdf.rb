@@ -17,7 +17,7 @@ module Verku
         if config['status'] == 'final'
           puts "   - Pass 3 - Indexing"
           spawn_command ["makeindex #{name}.idx"]
-          # spawn_command ["makeglossaries #{name}.glo"]
+          spawn_command ["makeglossaries #{name}.glo"] if File.exist?("#{name}.glo")
           spawn_command ["xelatex", tex_file.to_s,]
           spawn_command ["rm *ilg *ind "]
         end
@@ -38,9 +38,6 @@ module Verku
                       .to_latex
                       .gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
           end.join("\n\n")
-        end
-        def tex_file
-          output_name("tex")
         end
     end
   end
