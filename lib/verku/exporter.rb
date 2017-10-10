@@ -36,8 +36,8 @@ module Verku
       export_txt  = [nil, "txt"].include?(options[:only])
 
       exported = []
-      exported << PDF.export!(root_dir)  if export_pdf && Dependency.xelatex?# && Dependency.prince?
-      exported << HTML.export!(root_dir) if export_html 
+      exported << PDF.export!(root_dir)  if export_pdf && Dependency.xelatex?
+      exported << HTML.export!(root_dir) if export_html
       epub_done = Epub.export!(root_dir) if export_epub
       exported << epub_done
       exported << Mobi.export!(root_dir) if export_mobi && epub_done && Dependency.kindlegen?
