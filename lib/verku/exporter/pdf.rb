@@ -32,20 +32,12 @@ module Verku
       end
 
       private
-        def render_file(file)
-          data = read_content(file)
-          h    = nil
-
-          if config["headers"].is_a? Array
-            h = config["headers"][0..5]
-          end
-
-          return "#{data[0]}".to_latex(h)
-        end
         def content
-          content = PandocRuby.markdown(source_list).to_latex
-          content.gsub!('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
-          return content
+          source_list.map do |file|
+            PandocRuby.markdown(read_content(file)[0])
+                      .to_latex
+                      .gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
+          end.join('\n\n')
         end
         def tex_file
           output_name("tex")

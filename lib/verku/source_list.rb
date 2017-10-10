@@ -21,11 +21,6 @@ module Verku
       # @source = root_dir
     end
 
-
-    def pandoc_files()
-      Dir.glob("#{@root_dir.join('text')}/**/*.{#{EXTENSIONS.join(",")}}")
-    end
-
     #
     #
     def each_chapter(&block)
@@ -50,7 +45,6 @@ module Verku
     end
 
     # Return a list of all recognized files.
-    #
     def entries
       Dir.entries(source).sort.each_with_object([]) do |entry, buffer|
         buffer << source.join(entry) if valid_entry?(entry)
@@ -59,7 +53,6 @@ module Verku
 
     # Check if path is a valid entry.
     # Files/directories that start with a dot or underscore will be skipped.
-    #
     def valid_entry?(entry)
       entry !~ /^(\.|_)/ && (valid_directory?(entry) || valid_file?(entry))
     end

@@ -21,7 +21,6 @@ module Verku
       def initialize(root_dir)
         @root_dir = Pathname.new(root_dir)
         @source = root_dir.join("text")
-        # @build = Build.new
       end
 
       # Return directory's basename.
@@ -38,7 +37,6 @@ module Verku
       end
       def base_name(ext='')
         oname = "#{name}-#{git_branch}"
-        # oname += "-#{config["published_at"]}" unless config["published_at"].nil?
       end
       def output_name(ext='txt')
         root_dir.join("builds/#{base_name}.#{ext}")
@@ -48,9 +46,11 @@ module Verku
       def config
         Verku.config(root_dir)
       end
-      # def build_data
-      #   Verku.build(root_dir)
-      # end
+      def build_data
+        source_list.each do |file|
+          data = read_content(file)[1]
+        end
+      end
 
       def source_list
         # @source_list ||= SourceList.new(root_dir)
@@ -61,6 +61,12 @@ module Verku
       end
       def ui
         @ui ||= Thor::Base.shell.new
+      end
+      def html_file
+        output_name("html")
+      end
+      def epub_file
+        output_name("epub")
       end
       def read_content(file)
         content = File.read(file)

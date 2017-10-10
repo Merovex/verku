@@ -9,10 +9,6 @@ module Verku
         p $!, $@
         false
       end
-      def epub_file
-        # root_dir.join("builds/#{name}.epub")
-        output_name("epub")
-      end
     end
   end
 end

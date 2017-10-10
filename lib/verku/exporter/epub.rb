@@ -3,12 +3,12 @@ module Verku
   class Exporter
     class Epub < Base
       def sections
-        @sections ||= html.css("div.chapter").each_with_index.map do |chapter, index|
+        @sections ||= html.css("div.section").each_with_index.map do |section, index|
           OpenStruct.new({
             :index    => index,
             :filename => "section_#{index}.html",
             :filepath => tmp_dir.join("section_#{index}.html").to_s,
-            :html     => Nokogiri::HTML(chapter.inner_html)
+            :html     => Nokogiri::HTML(section.inner_html)
           })
         end
       end
@@ -37,7 +37,7 @@ module Verku
         epub.files    cover_page + thanks_page + sections.map(&:filepath) + back_page + copyright_page + assets
         epub.nav      navigation
 
-        epub.save(epub_path)
+        epub.save(epub_file)
         true
       rescue Exception
         p $!, $@
@@ -65,8 +65,6 @@ module Verku
       def write_coverpage!
         contents = render_template(root_dir.join("_templates/epub/cover.html"), config)
         puts "Writing cover page. #{cover_path}"
-        #
-        # raise File.dirname(cover_path).inspect
         FileUtils.mkdir_p(File.dirname(cover_path))
         File.open(cover_path,"w") do |file|
           file << contents
@@ -74,7 +72,6 @@ module Verku
       end
       def write_copyright!
         contents = render_template(root_dir.join("_templates/html/copyright.erb"), config)
-        # File.open('help.html','w').write(contents)
         FileUtils.mkdir_p(File.dirname(copyright_path))
         File.open(copyright_path,"w") do |file|
           file << contents
@@ -82,7 +79,6 @@ module Verku
       end
       def write_thankspage!
         contents = render_template(root_dir.join("_templates/html/thanks.erb"), config)
-        # File.open('help.html','w').write(contents)
         FileUtils.mkdir_p(File.dirname(thanks_path))
         File.open(thanks_path,"w") do |file|
           file << contents
@@ -157,14 +153,6 @@ module Verku
       end
       def template_path
         root_dir.join("_templates/epub/page.erb")
-      end
-      def html_path
-        # root_dir.join("builds/#{name}.html")
-        output_name("html")
-      end
-      def epub_path
-        # root_dir.join("builds/#{name}.epub")
-        output_name("epub")
       end
       def tmp_dir
         root_dir.join("builds/tmp")
