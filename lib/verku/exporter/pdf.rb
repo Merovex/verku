@@ -1,4 +1,4 @@
-require 'kramdown'
+# require 'kramdown'
 require "awesome_print"
 
 module Verku
@@ -34,7 +34,8 @@ module Verku
       private
         def content
           source_list.map do |file|
-            PandocRuby.markdown(read_content(file)[0], :chapters).to_latex.fix_scenebreaks
+            # --top-level-division=chapter
+            PandocRuby.markdown(read_content(file)[0], "top-level-division" => 'chapter').to_latex.fix_scenebreaks
           end.join("\n\n")
         end
     end
