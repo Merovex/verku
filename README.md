@@ -63,7 +63,7 @@ This command creates a directory <tt>mybook</tt> with the following structure:
     │       ├── layout.css
     │       ├── layout.erb
     │       ├── syntax.css
-    │       └── user.css   
+    │       └── user.css
     ├── builds
     ├── docs
         └── research other supporting documentation
@@ -113,7 +113,7 @@ To create valid Mobi for Kindle, you need an appropriate cover image. **Verku** 
 
 ## Maintainer
 
-* Ben Wilson [http://dausha.net](http://dausha.net)
+* Ben Wilson [http://merovex.com](http://merovex.com)
 
 ## License
 
