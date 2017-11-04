@@ -109,7 +109,7 @@
 \setmainfont{<%= fonts['serif'] %>}
 \setsansfont{<%= fonts['sans'] %>}
 \setmonofont{<%= fonts['mono'] %>}
-\newfontinstance\scshape[Letters=SmallCaps, Numbers=Uppercase]{<%= fonts['small_caps'] || fonts['mono'] %>}
+\newfontfamily\scshape[Letters=SmallCaps, Numbers=Uppercase]{<%= fonts['small_caps'] || fonts['mono'] %>}
 \DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
 \ifdefined\disableligature
   \DisableLigatures[f]{encoding = *, family = * }
