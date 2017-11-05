@@ -34,8 +34,11 @@ module Verku
       private
         def content
           source_list.map do |file|
-            # --top-level-division=chapter
-            PandocRuby.markdown(read_content(file)[0], "top-level-division" => 'chapter').to_latex.fix_scenebreaks
+            Kramdown::Document.new(
+              read_content(file)[0],
+              :latex_headers => %w{chapter section subsection subsubsection paragraph subparagraph}
+            ).to_latex
+            # PandocRuby.markdown(read_content(file)[0], "top-level-division" => 'chapter').to_latex.fix_scenebreaks
           end.join("\n\n")
         end
     end
