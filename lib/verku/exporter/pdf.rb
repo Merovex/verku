@@ -1,4 +1,4 @@
-# require 'kramdown'
+require 'kramdown'
 require "awesome_print"
 
 module Verku

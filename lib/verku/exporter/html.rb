@@ -1,3 +1,4 @@
+require 'kramdown'
 module Verku
   class Exporter
     class HTML < Base
