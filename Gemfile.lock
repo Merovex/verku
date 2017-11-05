@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    verku (0.16.7)
+    verku (0.16.8)
       activesupport (~> 5.0, >= 5.0.0)
       awesome_print (~> 0)
       eeepub (~> 0)
