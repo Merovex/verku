@@ -1,4 +1,4 @@
-class Fixnum
+class Integer
   def day
     self * (60 * 60 * 24) # seconds * hours * minutes
   end
@@ -29,7 +29,7 @@ module Verku
       Date.today.to_s
     end
     def words
-      if @words == 0        
+      if @words == 0
         File.open(log,'w').write( JSON.generate(Hash.new) ) unless File.exist?(log)
 
         most_recent = @files.max_by {|f| File.mtime(f)}
@@ -64,7 +64,7 @@ module Verku
       @progress[lasttime]
     end
     def today
-      @words - @progress[lasttime] 
+      @words - @progress[lasttime]
     end
     def text
       @text = nil
