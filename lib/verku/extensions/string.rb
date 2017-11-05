@@ -10,7 +10,8 @@ class String
   end
   def fix_scenebreaks
     str = ActiveSupport::Multibyte::Chars.new(self.dup)
-    str.gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
+    str.gsub(/\\begin{center}.*?\\rule{3in}{0.4pt}.*?\\end{center}/m,'\pfbreak')
+    # str.gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
   end
   def sectionize
     str = ActiveSupport::Multibyte::Chars.new(self.dup)

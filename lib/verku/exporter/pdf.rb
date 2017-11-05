@@ -37,7 +37,7 @@ module Verku
             Kramdown::Document.new(
               read_content(file)[0],
               :latex_headers => %w{chapter section subsection subsubsection paragraph subparagraph}
-            ).to_latex
+            ).to_latex.fix_scenebreaks
             # PandocRuby.markdown(read_content(file)[0], "top-level-division" => 'chapter').to_latex.fix_scenebreaks
           end.join("\n\n")
         end
