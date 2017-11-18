@@ -56,7 +56,7 @@ module Verku
         # @source_list ||= SourceList.new(root_dir)
         @source_list ||= Dir.glob("#{@root_dir.join('text')}/**/*.{#{EXTENSIONS.join(",")}}")
                          .sort
-        ap @source_list
+        # ap @source_list
         return @source_list
       end
       def render_template(file, locals = {})
