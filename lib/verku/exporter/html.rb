@@ -17,13 +17,9 @@ module Verku
       private
         def content
           source_list.map do |file|
-            # d = File.read_content(file)
-            # raise d.inspect
             Kramdown::Document.new(
-              read_content(file)[0],
-              :latex_headers => %w{chapter section subsection subsubsection paragraph subparagraph}
+              read_content(file)[0]
             ).to_html
-            # PandocRuby.markdown(read_content(file)[0]).to_html.sectionize
           end.join("\n\n")
         end
     end

@@ -1,7 +1,5 @@
-# require "verku/version"
 require "active_support/all"
 require 'fileutils'
-#require "awesome_print"
 require "eeepub"
 require "erb"
 require "logger"
@@ -11,7 +9,6 @@ require "open3"
 require "optparse"
 require "ostruct"
 require "tempfile"
-# require "pandoc-ruby"
 require "kramdown"
 require "pathname"
 require "thor"
@@ -24,7 +21,6 @@ require "safe_yaml"
 module Verku
   ROOT = Pathname.new(File.dirname(__FILE__) + "/..")
 
-  # require "verku/build"
   require "verku/extensions/string"
   require "verku/cli"
   require "verku/dependency"
@@ -36,7 +32,6 @@ module Verku
   require "verku/exporter/mobi"
 
   require "verku/generator"
-  # require "verku/source_list"
   require "verku/stats"
   require "verku/stream"
   require "verku/toc"

@@ -10,13 +10,18 @@ class String
   end
   def fix_scenebreaks
     str = ActiveSupport::Multibyte::Chars.new(self.dup)
-    str.gsub(/\\begin{center}.*?\\rule{3in}{0.4pt}.*?\\end{center}/m,'\pfbreak')
-    # str.gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak')
+    str
+      .gsub(/\\begin{center}.*?\\rule{3in}{0.4pt}.*?\\end{center}/m,'\pfbreak')
+      .gsub('\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}','\pfbreak') # For PandocRuby
   end
   def sectionize
     str = ActiveSupport::Multibyte::Chars.new(self.dup)
     "<div class='section'>#{str}</div>"
   end
+  # Filter words:
+  # See look hear know realize wonder decide notice feel remember think
+  # That...Really & Verry
+  #
   # def to_latex(headers=nil)
   #   headers = %w{chapter section subsection subsubsection paragraph subparagraph} if headers.nil?
   # 	require 'kramdown'

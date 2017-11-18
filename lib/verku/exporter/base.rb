@@ -29,14 +29,14 @@ module Verku
       end
       def git_branch
         branch = if (File.exist?(root_dir.join(".git/HEAD")))
-           File.read( root_dir.join(".git/HEAD") ).sub("ref: refs/heads/","").sub(/\n/,'')
+           "-" + File.read( root_dir.join(".git/HEAD") ).sub("ref: refs/heads/","").sub(/\n/,'')
         else
-          "none"
+          ""
         end
         return branch
       end
       def base_name(ext='')
-        oname = "#{name}-#{git_branch}"
+        oname = "#{name}#{git_branch}"
       end
       def output_name(ext='txt')
         root_dir.join("builds/#{base_name}.#{ext}")
@@ -55,6 +55,9 @@ module Verku
       def source_list
         # @source_list ||= SourceList.new(root_dir)
         @source_list ||= Dir.glob("#{@root_dir.join('text')}/**/*.{#{EXTENSIONS.join(",")}}")
+                         .sort
+        ap @source_list
+        return @source_list
       end
       def render_template(file, locals = {})
         ERB.new(File.read(file)).result OpenStruct.new(locals).instance_eval{ binding }
